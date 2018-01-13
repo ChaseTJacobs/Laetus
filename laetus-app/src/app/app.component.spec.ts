@@ -1,3 +1,4 @@
+// This file is for testing. We can ignore it for now
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
