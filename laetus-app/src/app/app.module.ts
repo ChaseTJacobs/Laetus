@@ -33,6 +33,10 @@ import { HomeComponent } from './components/home/home.component';
         component: RegisterComponent
       },
       {
+        path: 'module-test',
+        component: ModuleDisplayComponent
+      },
+      {
         path: '**',
         component: HomeComponent
       }
