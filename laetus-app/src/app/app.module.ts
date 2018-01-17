@@ -9,12 +9,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { ModuleDisplayComponent } from './components/module-display/module-display.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { LandingComponent } from './components/landing/landing.component';
 
  // Any angular object MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
   declarations: [ // Components go here
-    AppComponent, HeaderComponent, ModuleDisplayComponent, RegisterComponent, HomeComponent
+    AppComponent, HeaderComponent, ModuleDisplayComponent, RegisterComponent, HomeComponent, LandingComponent
   ],
   imports: [      // Modules go here
     BrowserModule,
