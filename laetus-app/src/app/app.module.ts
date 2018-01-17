@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 // Components
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { ContactService } from './services/contact.service';
   ],
   imports: [      // Modules go here
     BrowserModule,
+    HttpModule,
     AlertModule.forRoot(),
     RouterModule.forRoot([
       {
