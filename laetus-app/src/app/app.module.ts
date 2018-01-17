@@ -30,6 +30,10 @@ import { LandingComponent } from './components/landing/landing.component';
         component: HomeComponent
       },
       {
+        path: 'landing',
+        component: LandingComponent
+      },
+      {
         path: 'register',
         component: RegisterComponent
       },

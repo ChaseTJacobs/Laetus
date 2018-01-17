@@ -1,0 +1,30 @@
+.bg-navbar-color {
+	background-color: #343434;
+}
+
+.bg-navbar-color .navbar-nav > .active > a,
+.bg-navbar-color .navbar-nav > .active > a:hover,
+.bg-navbar-color .navbar-nav > .active > a:focus {
+	background-color: #2FCF99;
+}
+
+.nav-item {
+	min-width: 100px;
+}
+
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 80px;
+  }
+  
+.nav-pills .nav-link {
+	padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 0;
+}
+  
+.logoFormat {
+	height: 45px;
+	width: 45px;
+}
