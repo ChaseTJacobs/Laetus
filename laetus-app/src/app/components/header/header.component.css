@@ -28,3 +28,8 @@
 	height: 45px;
 	width: 45px;
 }
+
+.header-text {
+	font-size: 26px;
+	vertical-align: middle;
+}

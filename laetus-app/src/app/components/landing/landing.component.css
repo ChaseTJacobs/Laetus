@@ -38,13 +38,3 @@
 	height: 50px;
   filter: invert(100%);
 }
-
-.small-text{
-  font-size: 14px;
-  font-weight: lighter;
-}
-
-.medium-text{
-  font-size: 20px;
-  letter-spacing: 1px;
-}
