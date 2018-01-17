@@ -23,7 +23,7 @@ export class ContactService {
         return this.contacts;
     }
     
-    addContact(name = string, email: string, phone: string) {
+    addContact(name: string, email: string, phone: string) {
         this.contacts.push({name: name, email: email, phone: phone});
     }
     
