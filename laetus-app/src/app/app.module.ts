@@ -15,12 +15,13 @@ import { LandingComponent } from './components/landing/landing.component';
 
 // Services
 import { ContactService } from './services/contact.service';
+import { LoginComponent } from './components/login/login.component';
 
  // Any angular object(component??) MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
   declarations: [ // Components go here
-    AppComponent, HeaderComponent, ModuleDisplayComponent, RegisterComponent, HomeComponent, LandingComponent
+    AppComponent, HeaderComponent, ModuleDisplayComponent, RegisterComponent, HomeComponent, LandingComponent, LoginComponent
   ],
   imports: [      // Modules go here
     BrowserModule,
@@ -42,6 +43,10 @@ import { ContactService } from './services/contact.service';
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
       },
       {
         path: 'module-test',
