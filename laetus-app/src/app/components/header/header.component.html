@@ -1,16 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-navbar-color">
-  <a class="navbar-brand" [routerLink]="['home']"><img class="logoFormat" src="assets/logo.png"> <span class="header-text">WAYFINDER</span></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-dark bg-navbar-color">
+  <a class="logoHolder navbar-brand" [routerLink]="['home']"><img class="logoFormat" src="assets/logo.png"> <span class="header-text">WAYFINDER</span></a>
+  <button (click)="toggleCollapse()"class="navbar-toggler hidden-sm-up" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto nav-pills">
-      <li class="nav-item">
-        <a class="nav-link" href="/home"> <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <ul class="navbar-nav nav-pills">
+  <div class="collapse navbar-collapse" [class.show]="show">
+    <ul class="navbar-nav ml-auto nav-pills">
       <li class="nav-item"  [routerLinkActive]="['active']">
         <a class="nav-link testin" [routerLink]="['home']">Home</a>
       </li>
