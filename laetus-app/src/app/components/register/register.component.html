@@ -1,3 +1,103 @@
-<h1>
-  This is the Register page!
-</h1>
+<div class="register">
+  <h1>
+    This is the Register page!
+  </h1>
+
+
+  <div class="register-container">
+    <div *ngIf="!firstname; else forminfo">
+      <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+        <div class="form-container">
+          <fieldset class="container" id="userInfo">
+            <legend>This is the Register Form</legend>
+
+            <div class="form-group">
+                <input class="form-control" placeholder="First Name" type="text" formControlName="firstname">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['firstname'].valid && rForm.controls['firstname'].touched">
+              * This is a required field
+          </span></div>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['lastname'].valid && rForm.controls['lastname'].touched">
+              * This is a required field
+            </span></div>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" placeholder="Password" type="password" formControlName="password">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
+              * Password must be more than 5 characters long
+            </span></div>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" placeholder="Email" type="email" formControlName="email">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
+              * This is a required field
+            </span></div>
+            </div>
+
+            <input type="checkbox" name="validate" formControlName="validate" value="1"/>Validate
+            <br/>
+
+            <input type="submit" class="btn btn-teal" value="Submit Form" [disabled]="!rForm.valid">
+
+          </fieldset>
+
+          <fieldset class="container" id="paymentInfo">
+            <legend>This is the payment form</legend>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Credit Card Number" type="number" formControlName="cardNumber">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['cardNumber'].valid && rForm.controls['cardNumber'].touched">
+              * This is a required field
+          </span></div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Expiration Date" type="date" formControlName="exp">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['exp'].valid && rForm.controls['exp'].touched">
+              * This is a required
+            </span></div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="CVS Number(?)" type="number" formControlName="cvs">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['cvs'].valid && rForm.controls['cvs'].touched">
+              * Password must be more than 5 characters long
+            </span></div>
+            </div><br/>
+
+            <!--<div class="form-group">-->
+              <!--<input class="form-control" placeholder="Email" type="email" formControlName="email">-->
+              <!--<div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">-->
+              <!--* This is a required field-->
+            <!--</span></div>-->
+            <!--</div><br/>-->
+
+            <input type="submit" class="btn btn-info" value="Submit Form" [disabled]="!rForm.valid">
+
+          </fieldset>
+
+        </div>
+
+      </form>
+    </div>
+
+    <ng-template #forminfo>
+      <div class="form-container">
+        <div class="row columns">
+          <h1> {{firstname}}</h1><br/>
+          <h3> {{lastname}}</h3><br/>
+          <h3> {{password}}</h3><br/>
+          <h3> {{email}}</h3><br/>
+        </div>
+      </div>
+
+    </ng-template>
+
+  </div>
+
+</div>
