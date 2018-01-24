@@ -19,14 +19,20 @@
   }
   
 .nav-pills .nav-link {
-	padding-top: 30px;
-    padding-bottom: 30px;
+	padding-top: 28px;
+    padding-bottom: 28px;
     border-radius: 0;
 }
   
 .logoFormat {
 	height: 45px;
 	width: 45px;
+}
+
+.logoHolder {
+    padding-top: 18px;
+    padding-bottom: 17px;
+    border-radius: 0;
 }
 
 .header-text {
