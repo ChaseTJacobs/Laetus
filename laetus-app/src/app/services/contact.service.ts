@@ -21,7 +21,7 @@ export class ContactService {
     }
     
     getAllContacts() {
-        return this.http.get( 'http://localhost:3000/'); // <-- get() returns an Observable.
+        return this.http.get( 'http://localhost:3001/'); // <-- get() returns an Observable.
     }
     
     /*
