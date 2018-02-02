@@ -7,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+takenQuiz: bool = false;
+moduleList: {
+  number: string,
+  completed: bool,
+  link: string
+  }[] = [
+      {number: "1", completed: false, link: "first"},
+      {number: "2", completed: false, link: "first"},
+      {number: "3", completed: false, link: "first"},
+      {number: "4", completed: false, link: "first"},
+      {number: "5", completed: false, link: "first"},
+      {number: "6", completed: false, link: "first"},
+      {number: "7", completed: false, link: "first"},
+      {number: "8", completed: false, link: "first"},
+      {number: "9", completed: false, link: "first"},
+      {number: "10", completed: false, link: "first"},
+      {number: "11", completed: false, link: "first"},
+      {number: "12", completed: false, link: "first"},
+    ];
+
+  constructor() { 
+
+  }
 
   ngOnInit() {
+    
   }
 
 }

@@ -1,37 +1,72 @@
 <div class="background-pic">
     <div class="container-fluid">
-        <div class="row width-84">
-            <div class="col-sm-4">
-                <div class="teal-background">
+        <div class="row width-90">
+            <div class="col-sm-4 mt-3">
+                <div class="teal-background-dark">
                     <div><img class="icon-format-large" src="../../../assets/user-icon.png"/></div>
                     <span class="header-text">Next Steps</span>
-                    <div>
-                        Content
+                    <div class="teal-background-light">
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Module 2 Certain Topic
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Module 2 Certain Topic
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Module 2 Certain Topic
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="teal-background">
+            <div class="col-sm-4 mt-3">
+                <div class="teal-background-dark">
                     <div><img class="icon-format-large" src="../../../assets/user-icon.png"/></div>
                     <span class="header-text">Networking Metrics</span>
-                    <div>
-                        Content
+                    <div class="teal-background-light">
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>23 New Connections
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>6 Interviews
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>3 Job Offers
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="teal-background">
+            <div class="col-sm-4 mt-3 mb-3">
+                <div class="teal-background-dark">
                     <div><img class="icon-format-large" src="../../../assets/user-icon.png"/></div>
                     <span class="header-text">Calander Reminders</span>
-                    <div>
-                        Content
+                    <div class="teal-background-light">
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 9 Interview
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 23 Career Fair
+                        </div>
+                        <div>
+                            <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 30 A Third Thing
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">Modules</div>
-            <div class="col-sm-6">My Tools</div>
+        <div class="row mt-5">
+            <div class="col-sm-12 col-md-6 dark-background p-3">
+              <div><h2>Modules</h2></div>
+              <div *ngIf="!takenQuiz">
+                Please take the quiz to access your modules!
+                <div class="intro-button mt-3 mb-4">TAKE QUIZ</div>
+              </div>
+              <div *ngIf="takenQuiz">
+                <span class="module-button" *ngFor="let module of moduleList">{{module.number}}</span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 dark-background p-3">
+                <div><h2>My Tools</h2></div>
+            </div>
         </div>
     </div>
 </div>

@@ -7,19 +7,30 @@
 	background-size: 100% 100%;  
 }
 
-.width-84 {
-    padding-left: 8%;
-    padding-right: 8%;
+.width-90 {
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
-.teal-background {
-    background-color: rgba(49, 231, 169, 0.5);
-    border: 3px none rgba(49, 231, 169, 0.5);
+.teal-background-dark {
+    background-color: rgba(49, 231, 169, 0.75);
+    border: 3px none rgba(49, 231, 169, 0.75);
     border-radius: 15px;
     color: white;
     opacity: 1.0;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.teal-background-light {
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 3px none rgba(255, 255, 255, 0.35);
+    border-radius: 15px;
+    color: white;
+    opacity: 1.0;
+    text-align: left;
+    padding-left: 10px;
 }
 
 .icon-format-large {
@@ -28,7 +39,42 @@
     filter: invert(100%);
 }
 
+.icon-format-small {
+  width: 30px;
+  height: 30px;
+  filter: invert(100%);
+}
+
 .header-text {
     font-size: 30px;
     font-weight: bold;
+}
+
+.dark-background {
+  background-color: #343434;
+  color: white;
+}
+
+.module-button {
+  color: white;
+  font-size: 30px;
+  background-color: #2FCF99;
+  border: 3px none #2FCF99;
+  border-radius: 10px;
+  display:inline-block;
+  padding: 5px;
+  margin: 8px;
+  height: 60px;
+  width: 60px;
+}
+
+.intro-button {
+	color: white;
+	background-color: #2FCF99;
+	border: 3px solid #2FCF99;
+    border-radius: 10px;
+    line-height: 43px;
+    min-height: 50px;
+    margin-left: 20%;
+    margin-right: 20%;
 }
