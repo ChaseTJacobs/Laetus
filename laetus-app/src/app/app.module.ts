@@ -18,6 +18,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ContactService } from './services/contact.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterFormComponent } from './components/register/register-form/register-form.component';
+import { AuthguardService } from './services/authguard.service';
  // Any angular object(component??) MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
@@ -53,7 +54,8 @@ import { RegisterFormComponent } from './components/register/register-form/regis
       },
       {
         path: 'module-test',
-        component: ModuleDisplayComponent
+        component: ModuleDisplayComponent,
+        canActivate: [AuthguardService]
       },
       {
         path: '**',
@@ -61,7 +63,7 @@ import { RegisterFormComponent } from './components/register/register-form/regis
       }
     ])
   ],
-  providers: [ContactService],  // Services go here
+  providers: [ContactService, AuthguardService],  // Services go here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

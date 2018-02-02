@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-takenQuiz: bool = false;
+takenQuiz: boolean = false;
 moduleList: {
   number: string,
-  completed: bool,
+  completed: boolean,
   link: string
   }[] = [
       {number: "1", completed: false, link: "first"},
