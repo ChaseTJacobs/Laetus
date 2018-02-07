@@ -33,6 +33,7 @@ app.post('/login', jsonParser, function (req, res) {
 		  //accountService.login(req.body, authService.generateToken)
 		  
 		  // For POC:
+			/*
 			var header = {
 				"alg": "HS256",
 				"typ": "JWT"
@@ -41,8 +42,8 @@ app.post('/login', jsonParser, function (req, res) {
 			var encodedHeader = base64url(stringifiedHeader);
 
 			var data = {
-				"id": 1337,
-				"username": "john.doe"
+				"id": 7777,
+				"username": req.body.email
 			};
 			var stringifiedData = crypto.enc.Utf8.parse(JSON.stringify(data));
 			var encodedData = base64url(stringifiedData);
@@ -53,11 +54,18 @@ app.post('/login', jsonParser, function (req, res) {
 			signature = base64url(signature);
 			var signedToken = token + "." + signature;
 			
-			res.set('Authorization': signedToken);
+			console.log("\t JWT header: "+JSON.stringify(header));
+			console.log("\t JWT data:   "+JSON.stringify(data));
+			console.log("\t JWT token:  "+token);
+			console.log("\t JWT signed token:\n\t "+signedToken);
+			*/
+			
+			signedToken = "blahblahblah.blahblahblah.blahblahblah";
+			res.set('Authorization', signedToken);
+			
 			res.send("Congratulations, you just logged in!");
 	  }
-  }
-});
+  });
 
 
 
