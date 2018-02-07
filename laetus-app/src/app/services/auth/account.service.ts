@@ -5,7 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 
 @Injectable()
-export class AccountServiceService {
+export class AccountService {
 
   //loggin flag
   isLoggedIn = false;
