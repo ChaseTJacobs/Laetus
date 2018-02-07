@@ -43,9 +43,6 @@ import { StatsToolComponent } from './components/stats-tool/stats-tool.component
 import { ContactService } from './services/contact.service';
 import { AuthguardService } from './services/auth/authguard.service';
 import { AccountService } from './services/auth/account.service';
-<<<<<<< HEAD
-
-=======
 import { CalendarService } from './services/calendar/calendar.service';
 import { HttpService } from './services/http/http.service';
 import { ModuleService } from './services/module/module.service';
@@ -84,7 +81,6 @@ const routingObj: Routes = [
     component: HomeComponent
   }
   ];
->>>>>>> 3b9fc52014e067ce343dc552b125312f69c0026d
  // Any angular object(component??) MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
