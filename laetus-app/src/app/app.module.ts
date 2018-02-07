@@ -18,7 +18,46 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ContactService } from './services/contact.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterFormComponent } from './components/register/register-form/register-form.component';
-import { AuthguardService } from './services/authguard.service';
+import { AuthguardService } from './services/auth/authguard.service';
+import { AccountService } from './services/auth/account.service';
+import { CalendarService } from './services/calendar/calendar.service';
+import { HttpService } from './services/http/http.service';
+import { ModuleService } from './services/module/module.service';
+import { NrmService } from './services/nrm/nrm.service';
+import { StatService } from './services/stat/stat.service';
+
+
+const routingObj: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'module-test',
+    component: ModuleDisplayComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: '**',
+    component: HomeComponent
+  }
+  ];
  // Any angular object(component??) MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
@@ -31,39 +70,9 @@ import { AuthguardService } from './services/authguard.service';
     ReactiveFormsModule,
     FormsModule,
     AlertModule.forRoot(),
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'landing',
-        component: LandingComponent
-      },
-      {
-        path: 'register',
-        component: RegisterComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'module-test',
-        component: ModuleDisplayComponent,
-        canActivate: [AuthguardService]
-      },
-      {
-        path: '**',
-        component: HomeComponent
-      }
-    ])
+    RouterModule.forRoot(routingObj)
   ],
-  providers: [ContactService, AuthguardService],  // Services go here
+  providers: [ContactService, AuthguardService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

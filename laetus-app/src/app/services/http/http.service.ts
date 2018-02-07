@@ -10,8 +10,12 @@ export class HttpService {
     sig: null
   }
   
-  login() {
-    return this.http.get('http://localhost:3001/');
+  getRequest(endpoint: string) {
+    return this.http.post('http://localhost:3002/' + endpoint);
+  }
+  
+  setJWT() {
+    
   }
 
   logout(): void {
