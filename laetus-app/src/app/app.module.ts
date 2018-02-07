@@ -41,7 +41,9 @@ import { StatsToolComponent } from './components/stats-tool/stats-tool.component
 
 // Services
 import { ContactService } from './services/contact.service';
-import { AuthguardService } from './services/authguard.service';
+import { AuthguardService } from './services/auth/authguard.service';
+import { AccountService } from './services/auth/account.service';
+
  // Any angular object(component??) MUST be put into this
  // file in order to work in the rest of the app
 @NgModule({
