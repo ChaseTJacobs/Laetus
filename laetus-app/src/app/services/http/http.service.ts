@@ -11,7 +11,7 @@ export class HttpService {
   }
   
   getRequest(endpoint: string) {
-    return this.http.post('http://localhost:3002/' + endpoint);
+    return this.http.get('http://localhost:3002/' + endpoint);
   }
   
   setJWT() {

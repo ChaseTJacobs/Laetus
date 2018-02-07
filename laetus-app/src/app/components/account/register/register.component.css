@@ -1,6 +1,6 @@
 .register{
   align-content: center;
-  background-image: url("../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -8,6 +8,3 @@
   overflow: hidden;
   min-width: 1000px;
 }
-
-
-
