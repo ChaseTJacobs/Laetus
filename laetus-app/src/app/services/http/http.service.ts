@@ -10,12 +10,15 @@ export class HttpService {
     sig: null
   }
   
-  getRequest(endpoint: string) {
-    return this.http.get('http://localhost:3002/' + endpoint);
+  private sToken: string = "";
+  
+  getRequest(endpoint: string, param: any) {
+    console.log(param);
+    return this.http.post('http://localhost:3002/' + endpoint, param);
   }
   
-  setJWT() {
-    
+  setJWT(token: string) {
+    this.sToken = token;
   }
 
   logout(): void {
