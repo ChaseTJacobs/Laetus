@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register-form',
@@ -31,7 +31,7 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit() {
     this.rForm.get('validate').valueChanges.subscribe(
       (validate) => {
-        if (validate == '1'){
+        if (validate === '1') {
           this.rForm.get('firstname').setValidators([Validators.required, Validators.minLength(3)]);
         }
       }
