@@ -6,12 +6,13 @@ import { Response } from '@angular/http';
 @Injectable()
 export class AccountService implements OnInit {
 
-  login(form) {
-    this.httpService.getRequest('login').subscribe(
+  login(email: string, pass: string) {
+    let param = { username: email, password: pass };
+    let sToken;
+    this.httpService.getRequest('login', param).subscribe(
       (response: Response) => {
-        const res = response.json();
-        // this.httpService.setJWT(res);
-        console.log(res);
+        sToken = JSON.parse(JSON.stringify(response.headers));
+        this.httpService.setJWT(sToken.authorization[0]);
       },
       (error) => console.log(error)
     );
