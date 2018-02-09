@@ -7,7 +7,7 @@ import { Response } from '@angular/http';
 export class AccountService implements OnInit {
 
   login(email: string, pass: string) {
-    let param = { username: email, password: pass };
+    let param = { email: email, pass: pass };
     let sToken;
     this.httpService.getRequest('login', param).subscribe(
       (response: Response) => {
