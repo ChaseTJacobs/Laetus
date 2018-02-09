@@ -5,9 +5,9 @@
       <fieldset class="container" id="userInfo">
         <legend>Login to Wayfinder</legend>
 
-        <input class="form-control" type="text" placeholder="email">
-        <input class="form-control" type="password" placeholder="password">
-        <input type="submit" class="btn btn-teal" (click)="login(rForm)" value="Login">
+        <input class="form-control" type="text" placeholder="email" formControlName="username">
+        <input class="form-control" type="password" placeholder="password" formControlName="password">
+        <input type="submit" class="btn btn-teal" (click)="login(loginForm)" value="Login">
         <p> Forgot password?</p>
       </fieldset>
     </div>
