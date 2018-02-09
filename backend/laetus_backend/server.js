@@ -82,6 +82,17 @@ app.get('/getContactList', jsonParser, function (req, res) {
 });
 
 
+// getContactInfo – return info on one contact
+// getContactActivities – Return all activities on one contact
+// editContactInfo
+// addActivity
+// editActivity
+// removeActivity
+// createInfoScript
+// deleteInfoScript
+// deleteContact
+// Calendar
+// getAllActivities – For each contact return getContactActivities
 
 
 
