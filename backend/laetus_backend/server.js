@@ -37,13 +37,14 @@ app.post('/login', jsonParser, function (req, res) {
 	  else {
 		  accountService.login( req.body, function(token, err) {
 			  res.set('Authorization', token);
+			  res.set('Access-Control-Expose-Headers', 'Authorization');
 			  res.send("Login Successful!!!");
 		  });
 	  }
   }
 );
 
-
+/*
 // CREATE ACCOUNT
 // EXPECTS: body: {acct_info : {email:"", password:""}, stripe_token? : <???> }
 // RETURNS: same as LOG IN...?
@@ -64,7 +65,7 @@ app.post('/createAccount', jsonParser, function (req, res) {
 		accountService.createAccount(req.body, (result) => res.send(result));
 	}
 });
-
+*/
 
 // GET CONTACT LIST
 // EXPECTS:
