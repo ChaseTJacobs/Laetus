@@ -8,8 +8,8 @@ DROP PROCEDURE IF EXISTS addUser;
 DELIMITER //
 CREATE PROCEDURE addUser(IN pEmail VARCHAR(64), uPass VARCHAR(64), pUserInfo VARCHAR(64000))
 BEGIN
-   INSERT INTO user_table(email, user_hash, user_info) VALUES(pEmail, uPass, pUserInfo); 
--- TODO: SELECT (user_id, email) FROM user_table WHERE email = pEmail AND user_hash = uPass;
+   INSERT INTO user_table(email, password, user_info) VALUES(pEmail, uPass, pUserInfo); 
+   SELECT user_id, email FROM user_table WHERE email = pEmail AND password = uPass;
 END //
 DELIMITER ;
 
@@ -20,8 +20,8 @@ DROP PROCEDURE IF EXISTS isUserInDatabase;
 DELIMITER //
 CREATE PROCEDURE isUserInDatabase(IN pEmail VARCHAR(64))
 BEGIN
-    SELECT * FROM user_table WHERE email = pEmail;
--- TODO: SELECT (user_id, email) FROM user_table WHERE email = pEmail AND user_hash = uPass;
+   SELECT * FROM user_table WHERE email = pEmail;
+-- SELECT user_id, email FROM user_table WHERE email = pEmail AND password = uPass;
 END //
 DELIMITER ;
 
@@ -33,7 +33,7 @@ DROP PROCEDURE IF EXISTS getUserInfo;
 DELIMITER //
 CREATE PROCEDURE getUserInfo(IN pEmail VARCHAR(64), uPass VARCHAR(256))
 BEGIN
-    SELECT user_info FROM user_table WHERE email = pEmail AND user_hash = uPass;
+    SELECT user_info FROM user_table WHERE email = pEmail AND password = uPass;
 END //
 DELIMITER ;
 
@@ -44,6 +44,6 @@ DROP PROCEDURE IF EXISTS updateUserInfo_procedure;
 DELIMITER //
 CREATE PROCEDURE updateUserInfo_procedure(IN pEmail VARCHAR(64), uPass VARCHAR(64), pUserInfo VARCHAR(64000))
 BEGIN
-	UPDATE user_table SET user_info = pUserInfo WHERE email = pEmail AND user_hash = uPass;
+	UPDATE user_table SET user_info = pUserInfo WHERE email = pEmail AND password = uPass;
 END//
 DELIMITER ;

@@ -1,10 +1,8 @@
 var express = 			require('express');
-var bodyParser = 		require('body-parser')
-var authService = 	require('./authService')
-var accountService = require('./accountService')
-
-var crypto = require('crypto'); // for POC
-var env = require('./environment'); // for POC
+var bodyParser = 		require('body-parser');
+var authService = 	require('./authService');
+var accountService = require('./accountService');
+var contactService = require('./contactService');
 
 var app = express();
 var jsonParser = bodyParser.json({"type":"application/json"});
@@ -12,7 +10,7 @@ var port = 3002;
 
 
 
-// CORS
+// CORS (needed for local testing... that's all. Right?)
 app.use(function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -22,56 +20,33 @@ app.use(function(req, res, next){
 
 
 
-/* Endpoints */
+/*-----------------------------------------------------
+ Endpoints
+ -----------------------------------------------------*/
+
+// LOG IN
+// EXPECTS: body: {email:"", password:""}
+// RETURNS: header: Authorization: "<token>", body: { what else??? }
 app.post('/login', jsonParser, function (req, res) {
 	  console.log("\t endpoint: login()");
-	  if (!req.body){
+	  if (!req.body) {
 		  console.log("\t error in request body")
+		  // TODO: when/why !req.body == false? Do we need to send responses
 		  return res.sendStatus(400);
 	  }
 	  else {
-		  //accountService.login(req.body, authService.generateToken)
-		  
-		  // For POC:
-			/*
-			var header = {
-				"alg": "HS256",
-				"typ": "JWT"
-			};
-			var stringifiedHeader = crypto.enc.Utf8.parse(JSON.stringify(header));
-			var encodedHeader = base64url(stringifiedHeader);
-
-			var data = {
-				"id": 7777,
-				"username": req.body.email
-			};
-			var stringifiedData = crypto.enc.Utf8.parse(JSON.stringify(data));
-			var encodedData = base64url(stringifiedData);
-			var token = encodedHeader + "." + encodedData;
-			
-			var secret = env.auth_secret;
-			var signature = crypto.HmacSHA256(token, secret);
-			signature = base64url(signature);
-			var signedToken = token + "." + signature;
-			
-			console.log("\t JWT header: "+JSON.stringify(header));
-			console.log("\t JWT data:   "+JSON.stringify(data));
-			console.log("\t JWT token:  "+token);
-			console.log("\t JWT signed token:\n\t "+signedToken);
-			*/
-			
-			signedToken = "blahblahblah.blahblahblah.blahblahblah";
-			res.set('Authorization', signedToken);
-			
-			res.send("Congratulations, you just logged in!");
+		  accountService.login( req.body, function(token, err) {
+			  res.set('Authorization', token);
+			  res.send("Login Successful!!!");
+		  });
 	  }
-  });
+  }
+);
 
 
-
-
-
-
+// CREATE ACCOUNT
+// EXPECTS: body: {acct_info : {email:"", password:""}, stripe_token? : <???> }
+// RETURNS: same as LOG IN...?
 app.post('/createAccount', jsonParser, function (req, res) {
   
   console.log("\t endpoint: createAccount()");
@@ -91,16 +66,26 @@ app.post('/createAccount', jsonParser, function (req, res) {
 });
 
 
-app.post('/getUserInfo', jsonParser, function (req, res) {
-	console.log("\t endpoint: getUserInfo()");
+// GET CONTACT LIST
+// EXPECTS:
+// RETURNS:
+app.get('/getContactList', jsonParser, function (req, res) {
+	console.log("\t endpoint: getContactList()");
 	if (!req.body){
 		console.log("\t error in request body")
 		return res.sendStatus(400);
 	}
 	else{		
-		accountService.getUserInfo(req.body, (result) => res.send(result));
+		contactService.getContactList(req.get('Authorization'), (result) => res.send(result));
 	}
 });
+
+
+
+
+
+
+
 
 app.listen(port, () => console.log('Data Server listening on port #'+port+'...'))
 

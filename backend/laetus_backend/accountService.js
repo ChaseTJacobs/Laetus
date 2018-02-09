@@ -9,7 +9,15 @@ var authService = 	require('./authService');
 	4) respond to client
 */
 exports.login = function(reqBody, callback){
+	console.log("\t\t IN acctSvc.login: ");
+	console.log("\t\t req email: "+reqBody.email);//JSON.stringify(reqBody.email));
+	console.log("\t\t req pass:  "+reqBody.pass);//JSON.stringify(reqBody.pass));
 	
+	// TODO: ideally, DB query will return user_ID
+	user_email = reqBody.email;
+	
+	
+	authService.generateToken(user_email, 77, callback);
 }
 
 
@@ -20,17 +28,20 @@ exports.login = function(reqBody, callback){
 	4) respond to client
 */
 exports.createAccount = function(reqBody, callback){
+	console.log("\t\t IN acctSvc.createAccount: ");
 	/* 1 - TODO */
 	/* 2 - TODO */
 	/* 3 */
 	db.query("CALL addUser(?,?,?)", 
-				[reqBody.username, reqBody.password, reqBody.userInfo], 
+				[reqBody.email, reqBody.pass, reqBody.userInfo], 
 				function(err, queryResult){
 					/* 4 */
 					if(err)
 						callback("createAccount unsuccessful :( ");
-					else
-						callback("createAccount successful!!! :D ");
+					else {
+						console.log("\t\t \'ADDUSER\' query result: "+JSON.stringify(queryResult));
+						callback(queryResult);
+					}
 				});
 }
 
@@ -43,7 +54,8 @@ exports.createAccount = function(reqBody, callback){
 exports.getUserInfo = function(reqBody, callback){
 	/* 1 - TODO */
 	/* 2 */
-	console.log("\t in getUserInfo()");
+	console.log("\t\t IN acctSvc.getUserInfo: ");
+	
 	db.query("CALL getUserInfo(?,?)", 
 				[reqBody.username, reqBody.password], 
 				function(err, queryResult){
