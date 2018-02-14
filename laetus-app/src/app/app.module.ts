@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ModuleDisplayComponent } from './components/module-display/module-display.component';
-import { RegisterComponent } from './components/account/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/account/login/login.component';
@@ -65,7 +64,7 @@ const routingObj: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterBodyComponent
   },
   {
     path: 'login',
@@ -85,7 +84,7 @@ const routingObj: Routes = [
  // file in order to work in the rest of the app
 @NgModule({
   declarations: [ // Components go here
-    AppComponent, HeaderComponent, ModuleDisplayComponent, RegisterComponent, HomeComponent, LandingComponent,
+    AppComponent, HeaderComponent, ModuleDisplayComponent, HomeComponent, LandingComponent,
     LoginComponent, RegisterFormComponent, AccountSettingsComponent, ForgotPassComponent,
     RegisterBodyComponent, RegisterPaymentComponent, CalendarBodyComponent, CalendarDayComponent, CalendarDisplayComponent,
     ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,

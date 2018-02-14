@@ -1,80 +1,49 @@
 <div class="register-container">
-  <div *ngIf="!firstname; else forminfo">
-    <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+  <div>
+    <form [formGroup]="rForm" (ngSubmit)="registerUser(rForm.value)">
       <div class="form-container">
         <fieldset class="container" id="userInfo">
           <legend>Register For Joyful Networking</legend>
 
-          <div class="col-auto">
-            <label class="sr-only" for="inlineFormInputGroup">First Name</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">First Name</div>
-              </div>
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="First Name">
-              <div><span class="badge mb-3 alert-danger float-left"
-                         *ngIf="!rForm.controls['firstname'].valid && rForm.controls['firstname'].touched">
-              * This is a required field
-          </span></div>
-            </div>
-          </div>
 
-          <div class="col-auto">
-            <label class="sr-only" for="firstNameInput">First Name</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img class="inline-png" src="assets/mail-icon.png"/> </div>
-              </div>
-              <input class="form-control" id="firstNameInput" placeholder="First Name" type="text"
-                     formControlName="firstname">
-              <!--<div><span class="badge mb-3 alert-danger float-left"-->
-                         <!--*ngIf="!rForm.controls['firstname'].valid && rForm.controls['firstname'].touched">-->
-              <!--* This is a required field-->
-          <!--</span></div>-->
-            </div>
+          <div class="form-group">
+            <input class="form-control" id="firstNameInput" placeholder="First Name" type="text" formControlName="firstname">
           </div>
 
           <div class="form-group">
             <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
-            <div><span class="badge mb-3 alert-danger float-left"
-                       *ngIf="!rForm.controls['lastname'].valid && rForm.controls['lastname'].touched">
+            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['lastname'].valid && rForm.controls['lastname'].touched">
               * This is a required field
             </span></div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="emailInput">Email</label>
+            <!-- <div class="input-group mb-2"> -->
+              <!-- <div class="input-group-prepend">
+                <div class="input-group-text"><img class="inline-png" src="assets/mail-icon.png" /> </div>
+              </div> -->
+              <input class="form-control" id="emailInput" placeholder="Email" type="email" formControlName="email">
+              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
+              * This is a required field
+            </span></div>
+            <!-- </div> -->
           </div>
 
           <div class="form-group">
             <input class="form-control" placeholder="Password" type="password" formControlName="password">
 
-            <div><span class="badge mb-3 alert-danger float-left"
-                       *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
+            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
               * Password must be more than 5 characters long
             </span></div>
             <input class="form-control" placeholder="Confirm Password" type="password" formControlName="confirmPass">
-            <div><span class="badge mb-3 alert-danger float-left"
-                       *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched && rForm.controls['password'].value != rForm.controls['confirmPass'].value">
+            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched && rForm.controls['password'].value != rForm.controls['confirmPass'].value">
               * Passwords do not match. Please make sure you can actually spell.
             </span></div>
           </div>
-
-          <div class="form-group">
-            <label class="sr-only" for="emailInput">Email</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img class="inline-png" src="assets/mail-icon.png"/> </div>
-              </div>
-            <input class="form-control" id="emailInput" placeholder="Email" type="email" formControlName="email">
-            <div><span class="badge mb-3 alert-danger float-left"
-                       *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
-              * This is a required field
-            </span></div>
-            </div>
-          </div>
-
           <!--<input class="float-left" type="checkbox" name="validate" formControlName="validate" value="1">Validate-->
           <br/>
 
-          <input type="submit" class="btn btn-teal" (click)="addPost(rForm)" value="Submit Form"
-                 [disabled]="!rForm.valid">
+          <input type="submit" class="btn btn-teal" value="Submit Form">
 
         </fieldset>
         <!--<form action="" method="POST">-->
@@ -94,17 +63,5 @@
 
     </form>
   </div>
-
-  <!--<ng-template #forminfo>-->
-  <!--<div class="form-container">-->
-  <!--<div class="row columns">-->
-  <!--<h1> {{firstname}}</h1><br/>-->
-  <!--<h3> {{lastname}}</h3><br/>-->
-  <!--<h3> {{password}}</h3><br/>-->
-  <!--<h3> {{email}}</h3><br/>-->
-  <!--</div>-->
-  <!--</div>-->
-
-  <!--</ng-template>-->
 
 </div>

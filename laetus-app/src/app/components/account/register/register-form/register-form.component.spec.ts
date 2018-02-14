@@ -5,7 +5,7 @@ import { RegisterFormComponent } from './register-form.component';
 describe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
-
+ 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterFormComponent ]
