@@ -47,6 +47,8 @@ import { HttpService } from './services/http/http.service';
 import { ModuleService } from './services/module/module.service';
 import { NrmService } from './services/nrm/nrm.service';
 import { StatService } from './services/stat/stat.service';
+import { HeadInComponent } from './components/header/head-in/head-in.component';
+import { HeadOutComponent } from './components/header/head-out/head-out.component';
 
 
 const routingObj: Routes = [
@@ -90,7 +92,7 @@ const routingObj: Routes = [
     ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,
     ModuleViewComponent, NrmBodyComponent, NrmContactActivitiesComponent, NrmContactInfoComponent,
     NrmContactListComponent, NrmContactStatsComponent, NrmCreateActivityComponent, QuizBodyComponent, QuizQuestionComponent,
-    QuizResultsComponent, StatsToolComponent
+    QuizResultsComponent, StatsToolComponent, HeadInComponent, HeadOutComponent
   ],
   imports: [      // Modules go here
     BrowserModule,

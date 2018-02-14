@@ -8,21 +8,11 @@
 	background-color: #2FCF99;
 }
 
-.nav-item {
-	min-width: 100px;
-}
-
 .navbar {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 80px;
   }
-  
-.nav-pills .nav-link {
-	padding-top: 28px;
-    padding-bottom: 28px;
-    border-radius: 0;
-}
   
 .logoFormat {
 	height: 45px;
