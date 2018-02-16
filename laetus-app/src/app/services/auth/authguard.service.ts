@@ -8,17 +8,26 @@ import { AccountService } from './account.service';
 
 @Injectable()
 export class AuthguardService implements CanActivate {
-constructor(private router: Router) { }
+constructor(private router: Router, private accountService: AccountService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {  
     let url: string = state.url;
-    console.log('Authguard CanActivate called');
-    return true;
-    //return this.checkLogin(url);
+    return this.checkLogin(url);
   }
-/*
+
   checkLogin(url: string): boolean {
-    if (this.accountService.isLoggedIn) { return true; }
+    if (this.accountService.isLoggedIn()) {
+      if(url == '/login') {
+        this.router.navigate(['/home']);
+      }
+      if(url == '/landing') {
+        this.router.navigate(['/home']);
+      }
+      if(url == '/register') {
+        this.router.navigate(['/home']);
+      }
+      return true; 
+    }
 
     // Store the attempted URL for redirecting
     this.accountService.redirectUrl = url;
@@ -27,6 +36,5 @@ constructor(private router: Router) { }
     this.router.navigate(['/login']);
     return false;
   }
-  */
   
 }

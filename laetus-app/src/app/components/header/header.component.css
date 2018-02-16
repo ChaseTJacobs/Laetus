@@ -29,3 +29,13 @@
 	font-size: 26px;
 	vertical-align: middle;
 }
+
+.nav-pills .nav-link {
+	padding-top: 28px;
+    padding-bottom: 28px;
+    border-radius: 0;
+}
+
+.nav-item {
+	min-width: 100px;
+}

@@ -5,8 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [AccountService]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -23,10 +22,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   loginRequest(form) {
-    this.accountService.login(form.username, form.password);
+    this.accountService.login(form.username, form.password).subscribe(data => {
+      console.log(data);
+    })
     return;
   }
 

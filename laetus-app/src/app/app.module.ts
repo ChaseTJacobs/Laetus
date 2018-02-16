@@ -55,11 +55,16 @@ import { HeadOutComponent } from './components/header/head-out/head-out.componen
 const routingObj: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LandingComponent
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'quiz',
+    component: QuizBodyComponent
   },
   {
     path: 'landing',
@@ -74,13 +79,37 @@ const routingObj: Routes = [
     component: LoginComponent
   },
   {
-    path: 'module-test',
-    component: ModuleDisplayComponent,
+    path: 'module',
+    component: ModuleBodyComponent,
     canActivate: [AuthguardService]
   },
   {
+    path: 'nrm',
+    component: NrmBodyComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'calendar',
+    component: CalendarBodyComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'statistics',
+    component: StatsToolComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'account-settings',
+    component: AccountSettingsComponent,
+    canActivate: [AuthguardService]
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPassComponent
+  },
+  {
     path: '**',
-    component: HomeComponent
+    component: LandingComponent
   }
   ];
  // Any angular object(component??) MUST be put into this
@@ -103,7 +132,7 @@ const routingObj: Routes = [
     AlertModule.forRoot(),
     RouterModule.forRoot(routingObj)
   ],
-  providers: [ContactService, AuthguardService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
+  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

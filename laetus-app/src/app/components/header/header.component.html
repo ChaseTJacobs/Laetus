@@ -5,7 +5,36 @@
   </button>
 
   <div class="collapse navbar-collapse" [class.show]="show">
-    <app-head-in *ngIf="httpService.getJWT()"></app-head-in>
-    <app-head-out *ngIf="!httpService.getJWT()"></app-head-out>
+    <ul class="navbar-nav ml-auto nav-pills" *ngIf="!isLoggedIn">
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['home']" (click)="closeTab()">Home</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['login']" (click)="closeTab()">Login</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['register']" (click)="closeTab()">Register</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto nav-pills" *ngIf="isLoggedIn">
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['home']" (click)="closeTab()">Home</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['module']" (click)="closeTab()">Modules</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['nrm']" (click)="closeTab()">Tools</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['calendar']" (click)="closeTab()">Calendar</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['statistics']" (click)="closeTab()">Statistics</a>
+      </li>
+      <li class="nav-item"  [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['account-settings']" (click)="closeTab()">Account</a>
+      </li>
+    </ul>
   </div>
 </nav>
