@@ -53,6 +53,18 @@ export class AccountService implements OnInit {
 
   constructor(private httpService: HttpService, private router: Router) { }
 
+  register(user) {
+    let param = { username: user.email, password: user.password, firstName: user.fname, lastName: user.lname };
+    console.log('User Registered Successfully');
+    console.log(user);
+    // this.httpService.getRequest('createAccount', param).subscribe(
+    //   (response: Response) => {
+    //     console.log('User Registered Successfully!');
+    //   },
+    //   (error) => console.log('ERROR')
+    // );
+  }
+
   ngOnInit() {
 
   }
