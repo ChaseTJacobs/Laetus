@@ -118,7 +118,7 @@ const routingObj: Routes = [
     ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,
     ModuleViewComponent, NrmBodyComponent, NrmContactActivitiesComponent, NrmContactInfoComponent,
     NrmContactListComponent, NrmContactStatsComponent, NrmCreateActivityComponent, QuizBodyComponent, QuizQuestionComponent,
-    QuizResultsComponent, StatsToolComponent, HeadInComponent, HeadOutComponent
+    QuizResultsComponent, StatsToolComponent
   ],
   imports: [      // Modules go here
     BrowserModule,
