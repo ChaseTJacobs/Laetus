@@ -1,27 +1,8 @@
 .register-container{
-  margin-left: 35vw;
   background-color: rgba(255, 255, 255, .7);
-  border-radius: 5px;
-  width: 30%;
-  min-width: 300px;
-  display: block;
-  align-content: center;
-  padding: 15px;
-
-}
-
-.input-group-text{
-  background-color: #263238;
-  color: #b0bec5;
-  border: 3px solid #263238;
 }
 
 .btn-teal{
   background-color: #2FCF99;
   width: 100%;
-}
-
-.inline-png{
-  height: 23px;
-  filter: invert(80%);
 }

@@ -6,8 +6,7 @@ import { AccountService } from '../../../../services/auth/account.service';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.css'],
-  providers: [AccountService]
+  styleUrls: ['./register-form.component.css']
 })
 export class RegisterFormComponent implements OnInit {
 
@@ -24,7 +23,7 @@ export class RegisterFormComponent implements OnInit {
     const regex = new RegExp('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$', 'igm');
     this.rForm = fb.group({
       'firstname': [null, Validators.required],
-      'lastname': [null, Validators.required],
+      'lastname': [null],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
       'email': [null, Validators.compose([Validators.pattern(regex), Validators.required])],
       'confirmPass': [null, Validators.required],
@@ -45,12 +44,21 @@ export class RegisterFormComponent implements OnInit {
     this.acctSvc.register(user);
   }
 
+  invalidInput(control) {
+    if (control !== 'undefined') {
+      return !this.rForm.controls[control].valid && this.rForm.controls[control].dirty;
+    } else {
+      return;
+    }
+  }
+
   matchPass() {
-      if (this.rForm.controls['password'].valid && this.rForm.controls['password'].touched
-        && this.rForm.controls['confirmPass'].touched && this.rForm.controls['password'].value !== this.rForm.controls['confirmPass'].value) {
-        return true;
-      } else {
-        return false;
+    if (this.rForm.controls['password'].valid && this.rForm.controls['password'].dirty
+      && this.rForm.controls['confirmPass'].dirty && this.rForm.controls['password'].value !== this.rForm.controls['confirmPass'].value) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

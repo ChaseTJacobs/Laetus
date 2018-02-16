@@ -1,27 +1,44 @@
-<div class="register-container">
+<div class="register-container rounded">
   <div>
     <form [formGroup]="rForm" (ngSubmit)="registerUser(rForm.value)">
-      <div class="form-container">
-        <fieldset class="container" id="userInfo">
-          <legend>Register For Joyful Networking</legend>
+      <div class="pt-3 pb-2">
+        <fieldset id="userInfo">
+          <legend class="font-weight-bold">Register For Wayfinder</legend>
 
 
-          <div class="form-group">
-            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['firstname'].valid && rForm.controls['firstname'].touched}" id="firstNameInput" placeholder="First Name" type="text" formControlName="firstname">
-            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['lastname'].valid && rForm.controls['lastname'].touched}" placeholder="Last Name" type="text" formControlName="lastname">
+          <div class="pr-3 pl-3 mb-3">
 
-            <!-- <label class="sr-only" for="emailInput">Email</label> -->
-            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['email'].valid && rForm.controls['email'].touched}" id="emailInput" placeholder="Email" type="email" formControlName="email">
+            <div class="form-group text-left font-weight-bold">
+              <label class="pl-1" for="firstname">First Name</label>
+              <input class="form-control" [ngClass]="{'is-invalid': invalidInput('firstname')}" id="firstname" placeholder="First Name" type="text" formControlName="firstname">
+              <div class="invalid-feedback" ng-show="invalidInput('firstname')">
+                *Please enter your first name
+              </div>
+            </div>
 
+            <div class="form-group text-left font-weight-bold">
+              <label class="pl-1" for="lastname">Last Name</label>
+              <input class="form-control" [ngClass]="{'is-invalid': invalidInput('lastname')}" id="lastname" placeholder="Last Name" type="text" formControlName="lastname">
+            </div>
 
+            <div class="form-group text-left font-weight-bold">
+              <label class="pl-1" for="emailInput">Email</label>
+              <input class="form-control" [ngClass]="{'is-invalid': invalidInput('email')}" id="emailInput" placeholder="Email" type="email" formControlName="email">
+              <div class="invalid-feedback" ng-show="invalidInput('email')">
+                *Please provide a valid email
+              </div>
+            </div>
 
-            <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" placeholder="Password" type="password" formControlName="password">
-            <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" placeholder="Confirm Password" type="password" formControlName="confirmPass">
+            <div class="form-group text-left font-weight-bold">
+              <label class="pl-1" for="password">Password</label>
+              <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" id="password" placeholder="Password" type="password" formControlName="password">
+              <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" placeholder="Confirm Password" type="password" formControlName="confirmPass">
+              <div class="invalid-feedback" ng-show="matchPass()">
+                *Passwords must match!
+              </div>
+            </div>
+            <input type="submit" class="btn btn-teal pr-5 pl-5" value="Submit Form">
           </div>
-          <br/>
-
-          <input type="submit" class="btn btn-teal" value="Submit Form">
-
         </fieldset>
         <!--<form action="" method="POST">-->
         <!--<script-->
