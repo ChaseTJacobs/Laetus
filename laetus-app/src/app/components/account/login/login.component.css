@@ -1,13 +1,16 @@
-.login-container{
-  margin-left: 30vw;
+.background-container{
+  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  align-content: center;
+}
+
+.login-container {
   background-color: rgba(255, 255, 255, .7);
   border-radius: 5px;
-  width: 40%;
-  min-width: 300px;
-  display: block;
-  align-content: center;
-  padding: 15px;
-
 }
 
 .input-group-text{
@@ -18,6 +21,11 @@
 
 .btn-teal{
   background-color: #2FCF99;
+  width: 100%;
+}
+
+.btn-teal:hover{
+  background-color: white;
   width: 100%;
 }
 

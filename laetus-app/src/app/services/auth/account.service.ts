@@ -29,6 +29,8 @@ export class AccountService implements OnInit {
         }
         */
         this.sToken = JSON.parse(JSON.stringify(response.headers));
+        console.log('response from account.service');
+        console.log(response);
         this.loggedInUserToken.next(this.sToken);
         if(this.redirectUrl == null || this.redirectUrl == undefined){
           this.redirectUrl = '/home';
@@ -37,7 +39,7 @@ export class AccountService implements OnInit {
       },
       (error) => console.log(error)
     );
-    return resStatus;
+    return 150;
   }
   
   logout() {
