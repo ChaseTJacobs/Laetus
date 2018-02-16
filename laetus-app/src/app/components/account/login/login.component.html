@@ -9,6 +9,7 @@
         <input class="form-control" type="password" placeholder="password" formControlName="password">
         <input type="submit" class="btn btn-teal" (click)="loginRequest(loginForm.value)" value="Login">
         <a> Forgot password?</a>
+        <div>{{errorMessage}}</div>
       </fieldset>
     </div>
   </form>
