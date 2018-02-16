@@ -15,8 +15,19 @@ export class AccountService implements OnInit {
 
   login(email: string, pass: string) {
     let param = { email: email, pass: pass };
+    let resStatus = null;
     this.httpService.getRequest('login', param).subscribe(
       (response: Response) => {
+        /*
+        if(response.status == 250){
+          this.sToken = JSON.parse(JSON.stringify(response.headers));
+          this.loggedInUserToken.next(this.sToken);
+          if(this.redirectUrl == null || this.redirectUrl == undefined){
+            this.redirectUrl = '/home';
+          }
+          this.router.navigate([this.redirectUrl]);
+        }
+        */
         this.sToken = JSON.parse(JSON.stringify(response.headers));
         this.loggedInUserToken.next(this.sToken);
         if(this.redirectUrl == null || this.redirectUrl == undefined){
@@ -26,7 +37,7 @@ export class AccountService implements OnInit {
       },
       (error) => console.log(error)
     );
-    return this.loggedInUserToken;
+    return resStatus;
   }
   
   logout() {

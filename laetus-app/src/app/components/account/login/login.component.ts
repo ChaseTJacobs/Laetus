@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   post: any;
   username: string;
   password: string;
+  resStatus: any;
+  errorMessage: string;
 
   constructor(private accountService: AccountService, private fb: FormBuilder) {
     this.loginForm = fb.group({
@@ -26,9 +28,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginRequest(form) {
-    this.accountService.login(form.username, form.password).subscribe(data => {
-      console.log(data);
-    })
+    this.resStatus = this.accountService.login(form.username, form.password);
+    if(this.resStatus == 150){
+      
+    } else if(this.resStatus == 250) {
+      this.errorMessage = 'Invalid Credentials';
+    } else {
+      this.errorMessage = 'Database Error. Please try again later.';
+    }
     return;
   }
 
