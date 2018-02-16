@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../../../services/auth/account.service';
 
 
@@ -21,11 +21,12 @@ export class RegisterFormComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private acctSvc: AccountService) {
+    const regex = new RegExp('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$', 'igm');
     this.rForm = fb.group({
       'firstname': [null, Validators.required],
       'lastname': [null, Validators.required],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      'email': [null, Validators.required],
+      'email': [null, Validators.compose([Validators.pattern(regex), Validators.required])],
       'confirmPass': [null, Validators.required],
     });
   }
@@ -43,5 +44,22 @@ export class RegisterFormComponent implements OnInit {
   registerUser(user) {
     this.acctSvc.register(user);
   }
+
+  matchPass() {
+      if (this.rForm.controls['password'].valid && this.rForm.controls['password'].touched
+        && this.rForm.controls['confirmPass'].touched && this.rForm.controls['password'].value !== this.rForm.controls['confirmPass'].value) {
+        return true;
+      } else {
+        return false;
+  }
+
+
+
+
+
+
+
+
+
 
 }

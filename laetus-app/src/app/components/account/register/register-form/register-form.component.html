@@ -7,40 +7,17 @@
 
 
           <div class="form-group">
-            <input class="form-control" id="firstNameInput" placeholder="First Name" type="text" formControlName="firstname">
-          </div>
+            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['firstname'].valid && rForm.controls['firstname'].touched}" id="firstNameInput" placeholder="First Name" type="text" formControlName="firstname">
+            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['lastname'].valid && rForm.controls['lastname'].touched}" placeholder="Last Name" type="text" formControlName="lastname">
 
-          <div class="form-group">
-            <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
-            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['lastname'].valid && rForm.controls['lastname'].touched">
-              * This is a required field
-            </span></div>
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="emailInput">Email</label>
-            <!-- <div class="input-group mb-2"> -->
-              <!-- <div class="input-group-prepend">
-                <div class="input-group-text"><img class="inline-png" src="assets/mail-icon.png" /> </div>
-              </div> -->
-              <input class="form-control" id="emailInput" placeholder="Email" type="email" formControlName="email">
-              <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">
-              * This is a required field
-            </span></div>
-            <!-- </div> -->
-          </div>
+            <!-- <label class="sr-only" for="emailInput">Email</label> -->
+            <input class="form-control" [ngClass]="{'is-invalid': !rForm.controls['email'].valid && rForm.controls['email'].touched}" id="emailInput" placeholder="Email" type="email" formControlName="email">
 
-          <div class="form-group">
-            <input class="form-control" placeholder="Password" type="password" formControlName="password">
 
-            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">
-              * Password must be more than 5 characters long
-            </span></div>
-            <input class="form-control" placeholder="Confirm Password" type="password" formControlName="confirmPass">
-            <div><span class="badge mb-3 alert-danger float-left" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched && rForm.controls['password'].value != rForm.controls['confirmPass'].value">
-              * Passwords do not match. Please make sure you can actually spell.
-            </span></div>
+
+            <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" placeholder="Password" type="password" formControlName="password">
+            <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" placeholder="Confirm Password" type="password" formControlName="confirmPass">
           </div>
-          <!--<input class="float-left" type="checkbox" name="validate" formControlName="validate" value="1">Validate-->
           <br/>
 
           <input type="submit" class="btn btn-teal" value="Submit Form">
