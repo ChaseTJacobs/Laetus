@@ -5,6 +5,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { StorageServiceModule} from 'angular-webstorage-service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -126,7 +127,8 @@ const routingObj: Routes = [
     ReactiveFormsModule,
     FormsModule,
     AlertModule.forRoot(),
-    RouterModule.forRoot(routingObj)
+    RouterModule.forRoot(routingObj),
+    StorageServiceModule
   ],
   providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
   bootstrap: [AppComponent]
