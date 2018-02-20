@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AccountService implements OnInit {
 
   private loggedInUserToken = new BehaviorSubject<any>(null);
+  private loggedInStatus = new BehaviorSubject<any>(null);
   private sToken = null;
   public redirectUrl = null;
 
@@ -18,8 +19,9 @@ export class AccountService implements OnInit {
     let resStatus = null;
     this.httpService.getRequest('login', param).subscribe(
       (response: Response) => {
-        /*
-        if(response.status == 250){
+        let body = response.json();
+        resStatus = body.status;
+        if(body.status == 150){     
           this.sToken = JSON.parse(JSON.stringify(response.headers));
           this.loggedInUserToken.next(this.sToken);
           if(this.redirectUrl == null || this.redirectUrl == undefined){
@@ -27,19 +29,10 @@ export class AccountService implements OnInit {
           }
           this.router.navigate([this.redirectUrl]);
         }
-        */
-        this.sToken = JSON.parse(JSON.stringify(response.headers));
-        console.log('response from account.service');
-        console.log(response);
-        this.loggedInUserToken.next(this.sToken);
-        if(this.redirectUrl == null || this.redirectUrl == undefined){
-          this.redirectUrl = '/home';
-        }
-        this.router.navigate([this.redirectUrl]);
+        this.loggedInStatus.next(resStatus);
       },
       (error) => console.log(error)
     );
-    return 150;
   }
   
   logout() {
@@ -63,19 +56,32 @@ export class AccountService implements OnInit {
   getUser(): Observable<any> {
     return this.loggedInUserToken.asObservable();
   }
+  
+  getStatus(): Observable<any> {
+    return this.loggedInStatus.asObservable();
+  }
 
   constructor(private httpService: HttpService, private router: Router) { }
 
   register(user) {
-    let param = { username: user.email, password: user.password, firstName: user.fname, lastName: user.lname };
-    console.log('User Registered Successfully');
-    console.log(user);
-    // this.httpService.getRequest('createAccount', param).subscribe(
-    //   (response: Response) => {
-    //     console.log('User Registered Successfully!');
-    //   },
-    //   (error) => console.log('ERROR')
-    // );
+    let param = { 
+      email: user.email, 
+      pass: user.password, 
+      userInfo: {
+        firstName: user.firstname, 
+        lastName: user.lastname
+      }
+    };
+    console.log(param);
+    this.httpService.getRequest('createAccount', param).subscribe(
+      (response: Response) => {
+        let res = response.json();
+        this.sToken = JSON.parse(JSON.stringify(response.headers));
+        this.loggedInUserToken.next(this.sToken);
+        this.router.navigate(['/home']);
+      },
+        (error) => console.log('ERROR')
+    );
   }
 
   ngOnInit() {

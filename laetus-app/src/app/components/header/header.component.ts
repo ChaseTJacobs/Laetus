@@ -10,7 +10,7 @@ import { AccountService} from '../../services/auth/account.service';
 })
 export class HeaderComponent implements OnInit {
   show:boolean = false;
-  private isLoggedIn:boolean = false;
+  isLoggedIn:boolean = false;
   loginSub:Subscription;
 
   toggleCollapse() {
