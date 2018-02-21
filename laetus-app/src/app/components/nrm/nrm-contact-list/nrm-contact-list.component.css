@@ -1,0 +1,57 @@
+.contact-list {
+  
+}
+
+.list-name {
+  background-color: #2FCF99;
+  border: 0px solid #2FCF99;
+  border-radius: 9px 9px 0px 0px;
+  color: white;
+  min-height: 50px;
+  line-height: 48px;
+  font-size: 30px;
+  width:100%;
+}
+
+.tableList {
+  width: 100%;
+}
+
+.tableList tr:nth-child(even){
+  background-color: black;
+}
+
+.tableList tr:nth-child(odd){
+  background-color: #343434;
+}
+
+.tableList tr:hover {
+  background-color: dimgrey;
+  cursor: pointer;
+}
+
+.icon-small {
+  height: 50px;
+  width: 50px;
+}
+
+.arrow-icon {
+  height: 30px;
+  width: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  filter: invert(100%);
+}
+
+.cont-name {
+  color: white;
+  text-align: left;
+  font-size: 20px;
+}
+
+.cont-company {
+  color: white;
+  text-align: left;
+  font-size: 10px;
+  line-height: 8px;
+}
