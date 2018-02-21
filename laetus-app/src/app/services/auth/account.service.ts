@@ -5,13 +5,13 @@ import { Response } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
+import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 
 const STORAGE_KEY = '8127';
 
 @Injectable()
 export class AccountService implements OnInit {
- 
+
   private loggedInUserToken = new BehaviorSubject<any>(null);
   private loggedInStatus = new BehaviorSubject<any>(null);
   private sToken = null;
@@ -20,6 +20,7 @@ export class AccountService implements OnInit {
   login(email: string, pass: string) {
     let param = { email: email, pass: pass };
     let resStatus = null;
+    console.log(param);
     this.httpService.getRequest('login', param).subscribe(
       (response: Response) => {
         let body = response.json();
@@ -98,7 +99,7 @@ export class AccountService implements OnInit {
     );
   }
   
-  constructor(private httpService: HttpService, private router: Router, @Inject(SESSION_STORAGE) private storage: StorageService) { }
+  constructor(private httpService: HttpService, private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService) { }
 
   ngOnInit() {
 
