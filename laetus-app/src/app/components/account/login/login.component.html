@@ -9,7 +9,7 @@
               <fieldset class="container" id="userInfo">
                 <legend>Login to Wayfinder</legend>
 
-                <input class="form-control mt-2" type="text" placeholder="email" formControlName="username">
+                <input class="form-control mt-2" type="text" autocomplete="on" placeholder="email" formControlName="username">
                 <input class="form-control mt-2" type="password" placeholder="password" formControlName="password">
                 <input type="submit" class="btn btn-teal mt-2" (click)="loginRequest(loginForm.value)" value="Login">
                 <a><span class="mt-2">Forgot password?</span></a>

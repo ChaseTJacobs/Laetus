@@ -17,15 +17,16 @@ export class RegisterFormComponent implements OnInit {
   email: string;
   password: string;
   confirmPass: string;
+  regex = new RegExp('^(([^<>()\\[\\]\\.,;:\s@"]+(\\.[^<>()\\[\\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$', 'igm');
+  // const regex = new RegExp('^\\w+([\.-]?\\w+)*@\\w+([\.-]?\\w+)*(\.\\w{2,3})+$', 'igm');
 
 
   constructor(private fb: FormBuilder, private acctSvc: AccountService) {
-    const regex = new RegExp('^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$', 'igm');
     this.rForm = fb.group({
       'firstname': [null, Validators.required],
       'lastname': [null],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      'email': [null, Validators.compose([Validators.pattern(regex), Validators.required])],
+      'email': [null, Validators.compose([Validators.pattern(this.regex), Validators.required])],
       'confirmPass': [null, Validators.required],
     });
   }
@@ -45,6 +46,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   invalidInput(control) {
+    // console.log(this.rForm.controls[control].errors);
     if (control !== 'undefined') {
       return !this.rForm.controls[control].valid && this.rForm.controls[control].dirty;
     } else {
