@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
       console.log('data from header: ');
       console.log(data);
       if(data != null) {
-        if(data.authorization[0] == accountService.getToken().authorization[0]) {
+        if(data == accountService.getToken()) {
           this.isLoggedIn = true;
         } else {
           this.isLoggedIn = false;

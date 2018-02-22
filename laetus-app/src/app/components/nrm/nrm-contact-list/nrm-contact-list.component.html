@@ -1,3 +1,17 @@
-<p>
-  nrm-contact-list works!
-</p>
+<div class="contact-list">
+  <div class="list-name">Contacts</div>
+  <table class="tableList">
+    <tr *ngFor="let contact of contactList">
+      <td class="align-content-center">
+        <div class="row mx-0">
+          <div class="col-3 px-0"><img class="icon-small" src="../../../../assets/green_user_icon.png"></div>
+          <div class="col-7 px-0">
+            <div class="cont-name">{{contact.name}}</div>
+            <div class="cont-company">{{contact.company}}</div>
+          </div>
+          <div class="col-2 px-0"><img class="arrow-icon" src="../../../../assets/right-arrow.png"></div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
