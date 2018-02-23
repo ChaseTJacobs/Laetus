@@ -13,12 +13,23 @@
   width:100%;
 }
 
+.search-box {
+  background-color: #2FCF99;
+  color: white;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #2FCF99;
+  border-radius: 6px;
+}
+
 .tableList {
   width: 100%;
 }
 
 .tableList tr:nth-child(even){
-  background-color: black;
+  background-color: #1a1a1a;
 }
 
 .tableList tr:nth-child(odd){

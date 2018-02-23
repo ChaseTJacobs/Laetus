@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NrmContactListComponent implements OnInit {
 
+  searchInput: string;
   private contactList = [
     {
       id: 'id1',

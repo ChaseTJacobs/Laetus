@@ -1,7 +1,8 @@
 <div class="contact-list">
   <div class="list-name">Contacts</div>
+  <div class="search-box px-3 py-1"><input class="search-input px-1" type="text" [(ngModel)]="searchInput" placeholder="Search"></div>
   <table class="tableList">
-    <tr *ngFor="let contact of contactList">
+    <tr *ngFor="let contact of contactList | filter: searchInput">
       <td class="align-content-center">
         <div class="row mx-0">
           <div class="col-3 px-0"><img class="icon-small" src="../../../../assets/green_user_icon.png"></div>

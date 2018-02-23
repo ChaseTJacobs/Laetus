@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { FilterPipe } from './services/nrm/search.filter.pipe';
 
 // Components
 import { AppComponent } from './app.component';
@@ -119,7 +120,7 @@ const routingObj: Routes = [
     ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,
     ModuleViewComponent, NrmBodyComponent, NrmContactActivitiesComponent, NrmContactInfoComponent,
     NrmContactListComponent, NrmContactStatsComponent, NrmCreateActivityComponent, QuizBodyComponent, QuizQuestionComponent,
-    QuizResultsComponent, StatsToolComponent
+    QuizResultsComponent, StatsToolComponent, FilterPipe
   ],
   imports: [      // Modules go here
     BrowserModule,
