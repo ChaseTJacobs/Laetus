@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NrmService } from '../../../services/nrm/nrm.service';
 
 @Component({
   selector: 'app-nrm-contact-info',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nrm-contact-info.component.css']
 })
 export class NrmContactInfoComponent implements OnInit {
+  
+  private showInfo:boolean = true;
+  
+  toggleInfo() {
+    this.showInfo = !this.showInfo;
+  }
 
-  constructor() { }
+  constructor(private nrmService: NrmService) { }
 
   ngOnInit() {
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NrmService } from '../../../services/nrm/nrm.service';
 
 @Component({
   selector: 'app-nrm-contact-list',
@@ -40,7 +41,7 @@ export class NrmContactListComponent implements OnInit {
       company: 'Joyful Networking LLC'
     }
   ];
-  constructor() { }
+  constructor(private nrmService: NrmService) { }
 
   ngOnInit() {
   }

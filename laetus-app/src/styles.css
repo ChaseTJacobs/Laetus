@@ -13,3 +13,7 @@
 .large-text {
 	font-size: 26px;
 }
+
+.invert-color {
+  filter: invert(100%);
+}

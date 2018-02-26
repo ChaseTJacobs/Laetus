@@ -1,0 +1,52 @@
+.info-back-dark {
+  color:white;
+  background-color: #333333;
+  border: 3px solid #333333;
+  border-radius: 8px;
+}
+
+.info-back {
+  color:white;
+  background-color: #4d4d4d;
+  border: 3px solid #4d4d4d;
+  border-radius: 8px;
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.collapse-icon {
+  height: 28px;
+  width: 28px;
+}
+
+.collapse-icon-down {
+  transform: rotate(90deg);
+}
+
+.header-info {
+  font-size: 30px;
+}
+
+.edit-button {
+  background-color: #2FCF99;
+  min-height: 15px;
+  min-width: 60px;
+  border: 3px solid #2FCF99;
+  border-radius: 5px;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}
+
+.icon-info-small {
+  height: 18px;
+  width: 18px;
+}
