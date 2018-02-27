@@ -1,10 +1,16 @@
 <div class="nrm-body">
   <div class="container-fluid">
-    <div class="row mt-4">
-      <div class="pl-0 col-sm-6 col-md-4 col-xl-3">
+    <div class="row">
+      <div class="pl-0 col-sm-12 col-md-4 col-xl-3 mt-4">
         <app-nrm-contact-list></app-nrm-contact-list>
       </div>
-      <div class="col-sm 6 col-md-8 col-xl-9">Normal stuff</div>
+      <div class="col-sm-12 col-md-8 col-xl-9 mt-4">
+        <div *ngIf="nrmService.contactInfo.id != null">
+          <app-nrm-contact-info></app-nrm-contact-info>
+          <app-nrm-contact-activities></app-nrm-contact-activities>
+          <app-nrm-contact-stats></app-nrm-contact-stats>
+        </div>
+      </div>
     </div>
   </div>
 </div>

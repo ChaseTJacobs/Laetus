@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NrmService } from '../../../services/nrm/nrm.service';
 
 @Component({
   selector: 'app-nrm-body',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NrmBodyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private nrmService: NrmService) { }
 
   ngOnInit() {
   }
