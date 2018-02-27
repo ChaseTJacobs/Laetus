@@ -49,6 +49,7 @@ import { HttpService } from './services/http/http.service';
 import { ModuleService } from './services/module/module.service';
 import { NrmService } from './services/nrm/nrm.service';
 import { StatService } from './services/stat/stat.service';
+import { PaymentService } from './services/payment/payment.service';
 
 const routingObj: Routes = [
   {
@@ -131,7 +132,7 @@ const routingObj: Routes = [
     RouterModule.forRoot(routingObj),
     StorageServiceModule
   ],
-  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
+  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService, PaymentService],  // Services go here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

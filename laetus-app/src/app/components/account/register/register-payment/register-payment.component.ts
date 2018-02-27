@@ -1,4 +1,7 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PaymentService } from '../../../../services/payment/payment.service';
+import { AccountService } from '../../../../services/auth/account.service';
 
 @Component({
   selector: 'app-register-payment',
@@ -6,15 +9,31 @@ import { Component, OnInit, NgZone } from '@angular/core';
   styleUrls: ['./register-payment.component.css']
 })
 export class RegisterPaymentComponent implements OnInit {
+
+  payForm: FormGroup;
   cardNumber: string;
   expiryMonth: string;
   expiryYear: string;
   cvc: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
 
    message: string;
 
 
-  constructor(private _zone: NgZone) {
+  constructor(private fb: FormBuilder, private acctSvc: AccountService, public paySvc: PaymentService) {
+    this.payForm = fb.group({
+      'cardNumber': [null, Validators.required],
+      'expiryMonth': [null, Validators.required],
+      'expiryYear': [null, Validators.required],
+      'cvc': [null, Validators.required],
+      'address': [null, Validators.required],
+      'city': [null, Validators.required],
+      'state': [null, Validators.required],
+      'zip': [null, Validators.required]
+    });
   }
 
   ngOnInit() {
@@ -29,16 +48,17 @@ export class RegisterPaymentComponent implements OnInit {
         exp_year: this.expiryYear,
         cvc: this.cvc
       }, (status: number, response: any) => {
-
-        // Wrapping inside the Angular zone
-        this._zone.run(() => {
-          if (status === 200) {
-            this.message = `Success! Card token ${response.card.id}.`;
+        console.log(response);
+          if (response.error) {
+            console.log(response.error);
+            alert(response.error);
+            // this.message = `Success! Card token ${response.token}.`;
           } else {
-            this.message = response.error.message;
+          console.log(response.id);
+          alert(response.token);
+            // this.message = response.error.message;
           }
         });
-      });
   }
 
 }

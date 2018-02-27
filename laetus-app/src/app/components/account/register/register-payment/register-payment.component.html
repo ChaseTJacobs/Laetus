@@ -2,14 +2,14 @@
   <div class="py-3">
     <legend class="font-weight-bold">Payment Information</legend>
 
-    <form action="" method="POST" id="payment-form" (submit)="getToken()">
+    <form [formGroup]="payForm" (ngSubmit)="getToken()">
       <div class="px-3 mb-3">
         <span class="payment-message">{{message}}</span>
         <div class="form-group text-left font-weight-bold">
           <div class="form-row">
             <label>
       <span>Card Number</span></label>
-            <input class="form-control text-left" [(ngModel)]="cardNumber" placeholder="Card Number" name="card-number" type="text" data-stripe="number">
+            <input class="form-control text-left" formControlName="cardNumber" placeholder="Card Number" name="card-number" type="text" data-stripe="number">
           </div>
         </div>
 
@@ -17,9 +17,9 @@
           <label>Expiration (MM/YY)</label>
           <div class="row align-items-center px-2">
             <div class="col-1"></div>
-            <input class="form-control col-sm-4" [(ngModel)]="expiryMonth" name="expiry-month" type="text" data-stripe="exp_month">
+            <input class="form-control col-sm-4" formControlName="expiryMonth" name="expiry-month" type="text" data-stripe="exp_month">
             <span class="col-sm-2 text-center"> / </span>
-            <input class="form-control col-sm-4" [(ngModel)]="expiryYear" name="expiry-year" type="text" data-stripe="exp_year">
+            <input class="form-control col-sm-4" formControlName="expiryYear" name="expiry-year" type="text" data-stripe="exp_year">
             <div class="col-1"></div>
           </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-row">
           <label>
       <span>CVC</span>
-      <input class="form-control" [(ngModel)]="cvc" name="cvc" type="text" data-stripe="cvc">
+      <input class="form-control" formControlName="cvc" name="cvc" type="text" data-stripe="cvc">
     </label>
         </div>
 
