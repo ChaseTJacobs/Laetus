@@ -1,5 +1,5 @@
 .background-pic {
-    background-image: url("../../../assets/blacknwhite_stock3_optimized.jpg");
+  /* background-image: url("../../../assets/blacknwhite_stock3_optimized.jpg"); */
 	width: 100%;
 	height: calc(100vh - 80px);
 	background-repeat: no-repeat;
@@ -13,7 +13,8 @@
 }
 
 .teal-background-dark {
-    background-color: rgba(49, 231, 169, 0.75);
+  background-color: #343434;
+    /* background-color: rgba(49, 231, 169, 0.75); */
     border: 3px none rgba(49, 231, 169, 0.75);
     border-radius: 15px;
     color: white;

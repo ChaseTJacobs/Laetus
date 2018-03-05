@@ -1,7 +1,7 @@
 <div class="info-back-dark px-2 pb-2">
   <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showInfo != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataInfo" (click)="toggleInfo()">
   <span class="header-info">Contact Info</span>
-  <span class="mt-2 float-right edit-button">Edit</span>
+  <button class="mt-2 float-right edit-button" (click)="openModal()">Edit</button>
   <div id="dataInfo" class="collapse show info-back">
     <div class="row">
       <div class="col-sm-6">

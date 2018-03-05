@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { FilterPipe } from './services/nrm/search.filter.pipe';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 // Components
 import { AppComponent } from './app.component';
@@ -40,6 +42,7 @@ import { QuizBodyComponent } from './components/quiz/quiz-body/quiz-body.compone
 import { QuizQuestionComponent } from './components/quiz/quiz-question/quiz-question.component';
 import { QuizResultsComponent } from './components/quiz/quiz-results/quiz-results.component';
 import { StatsToolComponent } from './components/stats-tool/stats-tool.component';
+import { NgbdModalContent } from './components/modal-template/modal/modal.component';
 
 // Services
 import { ContactService } from './services/contact.service';
@@ -50,6 +53,8 @@ import { HttpService } from './services/http/http.service';
 import { ModuleService } from './services/module/module.service';
 import { NrmService } from './services/nrm/nrm.service';
 import { StatService } from './services/stat/stat.service';
+import { PaymentService } from './services/payment/payment.service';
+import { ModalComponent } from './components/modal-template/modal/modal.component';
 
 const routingObj: Routes = [
   {
@@ -121,7 +126,7 @@ const routingObj: Routes = [
     ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,
     ModuleViewComponent, NrmBodyComponent, NrmContactActivitiesComponent, NrmContactInfoComponent,
     NrmContactListComponent, NrmContactStatsComponent, NrmCreateActivityComponent, QuizBodyComponent, QuizQuestionComponent,
-    QuizResultsComponent, StatsToolComponent, FilterPipe
+    QuizResultsComponent, StatsToolComponent, FilterPipe, ModalComponent, NgbdModalContent,
   ],
   imports: [      // Modules go here
     BrowserModule,
@@ -130,9 +135,14 @@ const routingObj: Routes = [
     FormsModule,
     AlertModule.forRoot(),
     RouterModule.forRoot(routingObj),
+    NgbModule.forRoot(),
     StorageServiceModule
   ],
-  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService, DatePipe],  // Services go here
-  bootstrap: [AppComponent]
+
+  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService, PaymentService, ModalComponent, DatePipe],  // Services go here
+  bootstrap: [AppComponent],
+  entryComponents: [
+        NgbdModalContent,
+    ],
 })
 export class AppModule { }

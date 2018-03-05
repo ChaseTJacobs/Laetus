@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../../../services/auth/account.service';
+import { PaymentService } from '../../../../services/payment/payment.service';
 
 
 @Component({
@@ -17,11 +18,13 @@ export class RegisterFormComponent implements OnInit {
   email: string;
   password: string;
   confirmPass: string;
+
+
   regex = new RegExp('^(([^<>()\\[\\]\\.,;:\s@"]+(\\.[^<>()\\[\\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$', 'igm');
   // const regex = new RegExp('^\\w+([\.-]?\\w+)*@\\w+([\.-]?\\w+)*(\.\\w{2,3})+$', 'igm');
 
 
-  constructor(private fb: FormBuilder, private acctSvc: AccountService) {
+  constructor(private fb: FormBuilder, private acctSvc: AccountService, public paySvc: PaymentService) {
     this.rForm = fb.group({
       'firstname': [null, Validators.required],
       'lastname': [null],
@@ -41,8 +44,13 @@ export class RegisterFormComponent implements OnInit {
     // );
   }
 
-  registerUser(user) {
-    this.acctSvc.register(user);
+  submitUserInfo(user) {
+    this.firstname = user.firstname;
+    this.lastname = user.lastname;
+    this.email = user.email;
+    this.password = user.password;
+
+    this.paySvc.setShowPaymentForm(true);
   }
 
   invalidInput(control) {
@@ -63,7 +71,9 @@ export class RegisterFormComponent implements OnInit {
     }
   }
 
-
+  registerUser(user) {
+    this.acctSvc.register(user);
+  }
 
 
 

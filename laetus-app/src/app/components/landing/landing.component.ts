@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalComponent} from '../modal-template/modal/modal.component';
 
 @Component({
   selector: 'app-landing',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: ModalComponent) { }
 
   ngOnInit() {
     console.log("Landing Init");
+  }
+
+  open() {
+    const modalRef = this.modalService.open({edit: false, title: 'contact'});
   }
 
 }
