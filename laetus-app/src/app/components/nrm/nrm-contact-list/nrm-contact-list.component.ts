@@ -9,39 +9,99 @@ import { NrmService } from '../../../services/nrm/nrm.service';
 export class NrmContactListComponent implements OnInit {
 
   searchInput: string;
+  searchParam = [
+    'name',
+    'company'
+  ];
+  
+  private options;
+  private optionSelected;
+  
+  createContact() {
+    console.log("Contact Created");
+  }
+  
+  onOptionsSelected(event) {
+    this.optionSelected = event;
+    this.sortList();
+  }
+  
+  sortList() {
+    if (this.optionSelected == null || this.optionSelected == undefined || this.optionSelected == "") {
+
+    } else {
+      this.contactList.sort((a: any, b: any) => {
+        if (a[this.optionSelected] < b[this.optionSelected]) {
+          return -1;
+        } else if (a[this.optionSelected] > b[this.optionSelected]) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+    }
+  }
+  
   private contactList = [
     {
       id: 'id1',
-      name: 'James Crook',
+      fName: 'James',
+      lName: 'Crook',
       company: 'Joyful Job Search LLC'
     },
     {
       id: 'id3',
-      name: 'Games Hook',
+      fName: 'Games',
+      lName: 'Hook',
       company: 'Toyful Bob Dirtch'
     },
     {
       id: 'id4',
-      name: 'Fames Prook',
+      fName: 'Fames',
+      lName: 'Prook',
       company: 'Ployful Knob Birch'
     },
     {
       id: 'id5',
-      name: 'Tames Rook',
+      fName: 'Tames',
+      lName: 'Rook',
       company: 'Coyful Cob Kurch'
     },
     {
       id: 'id6',
-      name: 'Names Took',
+      fName: 'Names',
+      lName: 'Took',
       company: 'Soyful Sob Jertch'
     },
     {
       id: 'id2',
-      name: 'Chase Jacobs',
+      fName: 'Chase',
+      lName: 'Jacobs',
       company: 'Joyful Networking LLC'
     }
   ];
-  constructor(private nrmService: NrmService) { }
+  constructor(private nrmService: NrmService) {
+    this.options = [
+      {
+        show: 'First Name',
+        name: 'fName'
+      },
+      {
+        show: 'Last Name',
+        name: 'lName'
+      },
+      {
+        show: 'Company',
+        name: 'company'
+      },
+      {
+        show: 'Date Created',
+        name: ''
+      }
+    ];
+    this.optionSelected = 'fName';
+    this.sortList();
+  }
 
   ngOnInit() {
   }

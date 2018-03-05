@@ -1,5 +1,5 @@
 <div class="info-back-dark px-2 pb-2">
-  <button type="button" class="float-left" data-toggle="collapse" data-target="#dataInfo" (click)="toggleInfo()"><img class="collapse-icon invert-color mt-2" [ngStyle]="{'transform':showInfo != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png"></button>
+  <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showInfo != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataInfo" (click)="toggleInfo()">
   <span class="header-info">Contact Info</span>
   <span class="mt-2 float-right edit-button">Edit</span>
   <div id="dataInfo" class="collapse show info-back">

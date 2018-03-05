@@ -1,27 +1,33 @@
 .contact-list {
-  
+  background-color: #343434;
+  border: 0px solid #343434;
+  border-radius: 0px 9px 9px 0px;
+  height: calc(100vh - 104px);
+  color:white;
 }
 
 .list-name {
-  background-color: #2FCF99;
-  border: 0px solid #2FCF99;
-  border-radius: 9px 9px 0px 0px;
-  color: white;
   min-height: 50px;
   line-height: 48px;
   font-size: 30px;
-  width:100%;
-}
-
-.search-box {
-  background-color: #2FCF99;
-  color: white;
 }
 
 .search-input {
   width: 100%;
-  border: 1px solid #2FCF99;
+  border: 3px solid #2FCF99;
   border-radius: 6px;
+}
+
+.testWidth {
+  width: 100%;
+}
+
+.collapsing {
+  width: 100%;
+}
+
+.sortByText {
+  line-height: 25px;
 }
 
 .tableList {
@@ -42,6 +48,15 @@
 }
 
 .icon-small {
+  height: 35px;
+  width: 35px;
+}
+
+.icon-small:hover {
+  cursor: pointer;
+}
+
+.icon-medium {
   height: 50px;
   width: 50px;
 }

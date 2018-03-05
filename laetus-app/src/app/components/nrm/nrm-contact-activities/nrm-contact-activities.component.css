@@ -1,0 +1,69 @@
+.activity-back-dark {
+  color:white;
+  background-color: #333333;
+  border: 3px solid #333333;
+  border-radius: 8px;
+}
+
+.activity-back {
+  color:white;
+  text-align: left;
+  background-color: #4d4d4d;
+  border: 3px solid #4d4d4d;
+  border-radius: 8px;
+}
+
+.activity-back:hover {
+  cursor: pointer;
+  border: 3px solid #2FCF99;
+  border-radius: 8px;
+}
+
+.activity-info-back {
+  color:white;
+  background-color: #1a1a1a;
+  border: 3px solid #1a1a1a;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.activity-button:hover {
+  cursor: pointer;
+}
+
+.collapse-icon {
+  height: 28px;
+  width: 28px;
+}
+
+.activity-icon {
+  height: 35px;
+  width: 35px;
+}
+
+.header-info {
+  font-size: 30px;
+}
+
+.activity-search {
+  width: 100%;
+  max-width: 180px;
+  border: 1px solid #2FCF99;
+  border-radius: 6px;
+}
+
+.action-activities {
+  min-height: 40px;
+}
+
+.edit-button {
+  background-color: #2FCF99;
+  min-height: 15px;
+  min-width: 60px;
+  border: 3px solid #2FCF99;
+  border-radius: 5px;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}

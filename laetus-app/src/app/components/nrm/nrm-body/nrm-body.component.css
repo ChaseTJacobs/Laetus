@@ -1,8 +1,8 @@
 .nrm-body{
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
-  background-repeat: no-repeat;
+  background-image: url("../../../../assets/repeating-image.jpg");
+  background-repeat:repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 500px 500px;
   height: calc(100vh - 80px);
   width: 100%;
 }

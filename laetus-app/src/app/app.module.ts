@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { FilterPipe } from './services/nrm/search.filter.pipe';
+import { DatePipe } from '@angular/common';
 
 // Components
 import { AppComponent } from './app.component';
@@ -131,7 +132,7 @@ const routingObj: Routes = [
     RouterModule.forRoot(routingObj),
     StorageServiceModule
   ],
-  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService],  // Services go here
+  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService, DatePipe],  // Services go here
   bootstrap: [AppComponent]
 })
 export class AppModule { }

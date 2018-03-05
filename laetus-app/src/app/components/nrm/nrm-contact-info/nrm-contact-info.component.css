@@ -12,22 +12,9 @@
   border-radius: 8px;
 }
 
-button {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
 .collapse-icon {
   height: 28px;
   width: 28px;
-}
-
-.collapse-icon-down {
-  transform: rotate(90deg);
 }
 
 .header-info {

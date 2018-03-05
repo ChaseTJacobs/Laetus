@@ -34,6 +34,7 @@ export class NrmService {
   };
 
   selectContact(selected) {
+    console.log(selected);
     if (selected.id === this.contactInfo.id) {
       return;
     } else {
@@ -65,7 +66,6 @@ export class NrmService {
         }]
       };
     }
-    console.log(this.contactInfo);
   }
 
   constructor() {
