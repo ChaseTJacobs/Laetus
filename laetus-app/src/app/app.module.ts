@@ -120,13 +120,39 @@ const routingObj: Routes = [
  // file in order to work in the rest of the app
 @NgModule({
   declarations: [ // Components go here
-    AppComponent, HeaderComponent, ModuleDisplayComponent, HomeComponent, LandingComponent,
-    LoginComponent, RegisterFormComponent, AccountSettingsComponent, ForgotPassComponent,
-    RegisterBodyComponent, RegisterPaymentComponent, CalendarBodyComponent, CalendarDayComponent, CalendarDisplayComponent,
-    ModuleBodyComponent, ModuleListComponent, ModuleOverviewComponent, ModuleGoalsComponent, ModuleSidebarComponent,
-    ModuleViewComponent, NrmBodyComponent, NrmContactActivitiesComponent, NrmContactInfoComponent,
-    NrmContactListComponent, NrmContactStatsComponent, NrmCreateActivityComponent, QuizBodyComponent, QuizQuestionComponent,
-    QuizResultsComponent, StatsToolComponent, FilterPipe, ModalComponent, NgbdModalContent,
+    AppComponent,
+    HeaderComponent,
+    ModuleDisplayComponent,
+    HomeComponent,
+    LandingComponent,
+    LoginComponent,
+    RegisterFormComponent,
+    AccountSettingsComponent,
+    ForgotPassComponent,
+    RegisterBodyComponent,
+    RegisterPaymentComponent,
+    CalendarBodyComponent,
+    CalendarDayComponent,
+    CalendarDisplayComponent,
+    ModuleBodyComponent,
+    ModuleListComponent,
+    ModuleOverviewComponent,
+    ModuleGoalsComponent,
+    ModuleSidebarComponent,
+    ModuleViewComponent,
+    NrmBodyComponent,
+    NrmContactActivitiesComponent,
+    NrmContactInfoComponent,
+    NrmContactListComponent,
+    NrmContactStatsComponent,
+    NrmCreateActivityComponent,
+    QuizBodyComponent,
+    QuizQuestionComponent,
+    QuizResultsComponent,
+    StatsToolComponent,
+    FilterPipe,
+    ModalComponent,
+    NgbdModalContent,
   ],
   imports: [      // Modules go here
     BrowserModule,
@@ -139,8 +165,23 @@ const routingObj: Routes = [
     StorageServiceModule
   ],
 
-  providers: [ContactService, AuthguardService, AccountService, CalendarService, HttpService, ModuleService, NrmService, StatService, PaymentService, ModalComponent, DatePipe],  // Services go here
-  bootstrap: [AppComponent],
+  providers: [ // Services go here
+    ContactService,
+    AuthguardService,
+    AccountService,
+    CalendarService,
+    HttpService,
+    ModuleService,
+    NrmService,
+    StatService,
+    PaymentService,
+    ModalComponent,
+    DatePipe
+  ],
+
+  bootstrap: [
+    AppComponent
+  ],
   entryComponents: [
         NgbdModalContent,
     ],
