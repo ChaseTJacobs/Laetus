@@ -1,0 +1,38 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <p>Hello, {{name}}!</p>
+    <div class="row" *ngIf="title === 'contact'">
+      <form [formGroup]="contactInfo" (ngSubmit)="createContact(contactInfo.value)">
+        <input class="form-control col-lg-12" type="text" placeholder="Contact First Name" formControlName="fName">
+        <input class="form-control col-lg-12" type="text" placeholder="Contact Last Name" formControlName="lName">
+        <input class="form-control col-lg-12" type="text" placeholder="Organization" formControlName="org">
+        <input class="form-control col-lg-12" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
+        <input class="form-control col-lg-12" type="text" placeholder="Contact Phone Number" formControlName="phone">
+        <textarea class="form-control col-lg-12" type="text" placeholder="Contact Notes" formControlName="notes"></textarea>
+
+        <button type="button" class="btn btn-outline-primary">Create Contact</button>
+      </form>
+    </div>
+    <div class="row" *ngIf="title === 'activity'">
+      <p>This will show if it is an activity modal</p>
+      <form [formGroup]="activityInfo" (ngSubmit)="createActivity(activityInfo.value)">
+        <input class="form-control col-lg-12" type="text" placeholder="Contact First Name" formControlName="aName">
+        <input class="form-control col-lg-12" type="text" placeholder="Organization" formControlName="org">
+        <input class="form-control col-lg-12" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
+        <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="aNotes"></textarea>
+
+        <button type="button" class="btn btn-outline-primary">Create Contact</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>
