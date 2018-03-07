@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { Subject } from 'rxjs/Subject';
 
@@ -7,7 +7,8 @@ import { Subject } from 'rxjs/Subject';
 export class HttpService {
 
   getRequest(endpoint: string, param: any) {
-    return this.http.post('https://www.joyfulnetworking.com/' + endpoint, param);
+    const headers = new Headers({'Authorization': 'insert JWT here!!!'})
+	 return this.http.post('https://www.joyfulnetworking.com/' + endpoint, param, {headers: headers});
   }
  
   constructor(private http: Http) { 
