@@ -1,30 +1,45 @@
-<div class="activity-back-dark">
-  <div class="mb-3">
-    <img class="collapse-icon invert-color mt-2 ml-2 float-left" [ngStyle]="{'transform':showActivity != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataActivity" (click)="toggleActivity()">
+<div class="activity-back-dark px-2 pb-2">
+  <div class="">
+    <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showActivity != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataActivity" (click)="toggleActivity()">
     <span class="header-info mr-5">Activities</span>
   </div>
   <div id="dataActivity" class="collapse show">
     <div class="action-activities">
-      <span class="float-left ml-4 activity-button" (click)="addActivity()"><img src="../../../../assets/Icons/add_icon.png" class="activity-icon mr-2"> Add Activity</span>
-      <input class="activity-search float-right mr-4" [(ngModel)]="searchInput" type="text" placeholder="Search">
+      <table class="table-width">
+        <tr>
+          <td align="left">
+            <span class="ml-2 activity-button" (click)="addActivity()"><img src="../../../../assets/Icons/add_icon.png" class="activity-icon mr-2"> Add Activity</span>
+          </td>
+          <td align="right">
+            <input class="activity-search mr-2" [(ngModel)]="searchInput" type="text" placeholder="Search">
+          </td>
+        </tr>
+      </table>
     </div>
-    
-    <div *ngFor="let activity of currentActivities | filter: searchInput : searchParam; let i = index;">
-      <div class="activity-back mx-3 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#' + i">
-        <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-        <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
-        <span class="float-right mr-2 mt-1">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
-      </div>
-      <div class="collapse" [attr.id]="i">
-        <div class="activity-info-back row mx-3">
-          <div class="col-sm-8 px-0 ml-5 text-left">
-            {{activity.description}}
-          </div>
-          <div class="col-sm-3 px-0">
-            <table>
+    <div class="scrollable">
+      <div *ngFor="let activity of currentActivities | filter: searchInput : searchParam; let i = index;">
+        <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#' + i">
+          <table class="table-width">
+            <tr>
+              <td>
+                <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
+                <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
+              </td>
+              <td align="right">
+                <span class="mr-2">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="collapse" [attr.id]="i">
+          <div class="activity-info-back mx-2">
+            <table class="table-width">
               <tr>
+                <td class="text-left" rowspan="2">{{activity.description}}</td>
                 <td class="text-right">Time: </td>
-                <td class="text-left">{{activity.aDate | date:'h:ma'}}</td>
+                <td class="text-left">
+                  {{activity.aDate | date:'h:ma'}}
+                </td>
               </tr>
               <tr>
                 <td valign="top" class="text-right">Location: </td>
@@ -37,22 +52,30 @@
     </div>
     
     <span class="header-info">Past Activities</span>
-    <div *ngFor="let activity of pastActivities | filter: searchInput : searchParam; let i = index;">
-      <div class="activity-back mx-3 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#p' + i">
-        <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-        <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
-        <span class="float-right mr-2 mt-1">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
-      </div>
-      <div class="collapse" [attr.id]="'p' + i">
-        <div class="activity-info-back row mx-3">
-          <div class="col-sm-8 px-0 ml-5 text-left">
-            {{activity.description}}
-          </div>
-          <div class="col-sm-3 px-0">
-            <table>
+    <div class="scrollable">
+      <div *ngFor="let activity of pastActivities | filter: searchInput : searchParam; let i = index;">
+        <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#p' + i">
+          <table class="table-width">
+            <tr>
+              <td>
+                <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
+                <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
+              </td>
+              <td align="right">
+                <span class="mr-2">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="collapse" [attr.id]="'p' + i">
+          <div class="activity-info-back mx-2">
+            <table class="table-width">
               <tr>
+                <td class="text-left" rowspan="2">{{activity.description}}</td>  
                 <td class="text-right">Time: </td>
-                <td class="text-left">{{activity.aDate | date:'h:ma'}}</td>
+                <td class="text-left">
+                  {{activity.aDate | date:'h:ma'}}
+                </td>
               </tr>
               <tr>
                 <td valign="top" class="text-right">Location: </td>

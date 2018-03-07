@@ -7,6 +7,10 @@ import { NrmService } from '../../../services/nrm/nrm.service';
   styleUrls: ['./nrm-contact-list.component.css']
 })
 export class NrmContactListComponent implements OnInit {
+  
+  testCreateContact(){
+    this.nrmService.createContact();
+  }
 
   searchInput: string;
   searchParam = [
@@ -19,6 +23,7 @@ export class NrmContactListComponent implements OnInit {
   
   createContact() {
     console.log("Contact Created");
+    this.testCreateContact();
   }
   
   onOptionsSelected(event) {
