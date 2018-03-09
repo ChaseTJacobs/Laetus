@@ -17,7 +17,7 @@ export class NrmContactListComponent implements OnInit {
   searchInput: string;
   searchParam = [
     'name',
-    'company'
+    'organization'
   ];
   
   private options;
@@ -34,7 +34,7 @@ export class NrmContactListComponent implements OnInit {
   }
   
   sortList() {
-    if (this.optionSelected == null || this.contactList === undefined || this.contactList == []) {
+    if (this.optionSelected == null || this.contactList == null|| this.contactList === undefined || this.contactList == []) {
 
     } else {
       this.contactList.sort((a: any, b: any) => {
@@ -51,8 +51,8 @@ export class NrmContactListComponent implements OnInit {
   
   getContactList() {
     this.contactList$ = this.nrmService.getContactList$().subscribe(data => {
-      if(data)
       this.contactList = data;
+      this.sortList();
     })
     this.nrmService.getContactList();
   }
@@ -63,22 +63,22 @@ export class NrmContactListComponent implements OnInit {
     this.options = [
       {
         show: 'First Name',
-        name: 'fName'
+        name: 'firstname'
       },
       {
         show: 'Last Name',
-        name: 'lName'
+        name: 'lastname'
       },
       {
         show: 'Company',
-        name: 'company'
+        name: 'organization'
       },
       {
         show: 'Date Created',
         name: ''
       }
     ];
-    this.optionSelected = 'fName';
+    this.optionSelected = 'firstname';
     this.sortList();
   }
 

@@ -13,9 +13,9 @@ export class NrmService {
 
   contactInfo = {
     id: null,
-    fName: null,
-    lName: null,
-    company: null,
+    firstname: null,
+    lastname: null,
+    organization: null,
     position: null,
     email: null,
     phone: null,
@@ -27,7 +27,6 @@ export class NrmService {
   };
 
   selectContact(selected) {
-    console.log(selected);
     if (selected.id === this.contactInfo.id) {
       return;
     } else {
@@ -40,24 +39,16 @@ export class NrmService {
         }
       }
       // call backend
-      this.contactInfo = {
-        id: 1,
-        fName: 'Don',
-        lName: 'Miguel',
-        company: 'Fruit Flies Inc',
-        position: 'Secretary',
-        email: 'don.miguel@email.com',
-        phone: '208-666-6666',
-        address: '104 Banana Lane',
-        linkedIn: 'www.linkedin.com/don-miguel',
-        description: 'Don Miguel es mi hombre favorito. This is filler text. We are trying to see how a description would work in these boxes here.',
-        custom:[{
-          icon:'testing',
-          value:'facebook.com/don-miguel'
-        }],
-        activities:[{
-        }]
+      let data = {
+        contactID: selected.id
       };
+      this.httpService.getRequest('getContactInfo', data, this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        this.contactInfo = body.data.userInfo;
+        console.log(body);
+      }
+    )
       this.savedContacts.push(this.contactInfo);
     }
   }
@@ -287,7 +278,7 @@ export class NrmService {
   createContact(){
     let newContact = {
       fName: 'Phart',
-      lName: 'Knocker',
+      lName: 'Blocker',
       company: null,
       position: null,
       email: null,

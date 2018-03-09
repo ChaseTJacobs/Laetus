@@ -10,7 +10,6 @@
           <img class="icon-small" src="../../../../assets/sort-green.png" data-toggle="collapse" data-target="#sortTog">
           <img class="icon-small" (click)="createContact()" src="../../../../assets/Icons/add_icon.png">
         </div>
-      
     </div>
   </div>
   
@@ -37,8 +36,8 @@
         <div class="row mx-0">
           <div class="col-3 px-0"><img class="icon-medium" src="../../../../assets/green_user_icon.png"></div>
           <div class="col-7 px-0">
-            <div class="cont-name" *ngIf="optionSelected != 'lName'">{{contact.firstname}} {{contact.lastname}}</div>
-            <div class="cont-name" *ngIf="optionSelected == 'lName'">{{contact.lastname}}, {{contact.firstname}}</div>
+            <div class="cont-name" *ngIf="optionSelected != 'lastname'">{{contact.firstname}} {{contact.lastname}}</div>
+            <div class="cont-name" *ngIf="optionSelected == 'lastname'">{{contact.lastname}}, {{contact.firstname}}</div>
             <div class="cont-company">{{contact.organization}}</div>
           </div>
           <div class="col-2 px-0"><img class="arrow-icon" src="../../../../assets/right-arrow.png"></div>
