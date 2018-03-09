@@ -61,7 +61,7 @@ export class NrmService {
       this.savedContacts.push(this.contactInfo);
     }
   }
-  
+
   getActivities() {
     this.contactInfo.activities = [
       {
@@ -259,7 +259,7 @@ export class NrmService {
     ];
     return this.contactInfo.activities;
   }
-  
+
   getContactList() {
     this.httpService.tempGetRequest('getContactList', this.accountService.getToken()).subscribe(
       (response: Response) => {
@@ -268,38 +268,49 @@ export class NrmService {
         if(body.status == 112){
           this.contactList$.next(body.data);
         } else if (body.status == 296) {
-          
+
         } else if (body.status == 295) {
-          
+
         } else if (body.status == 299) {
-          
+
         } else {
           return null;
         }
       }
     )
   }
-  
+
   getContactList$(): Observable<any> {
     return this.contactList$;
   }
-  
-  createContact(){
+
+  createContact(contact){
     let newContact = {
-      fName: 'Phart',
-      lName: 'Knocker',
-      company: null,
-      position: null,
-      email: null,
-      phone: null,
-      linkedIn: null,
-      address: null,
-      description: null,
+      fName: contact.fName,
+      lName: contact.lName,
+      company: contact.org,
+      position: contact.position,
+      email: contact.email,
+      phone: contact.phone,
+      linkedIn: contact.url,
+      address: contact.address,
+      description: contact.notes,
       custom: []
     }
     this.httpService.getRequest('createContact', newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
+        if(body.status == 113){
+            this.getContactList();
+        } else if (body.status == 296) {
+
+        } else if (body.status == 295) {
+
+        } else if (body.status == 299) {
+
+        } else {
+          return null;
+        }
       }
     )
   }
