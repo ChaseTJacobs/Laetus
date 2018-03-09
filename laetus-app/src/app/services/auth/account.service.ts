@@ -21,7 +21,7 @@ export class AccountService implements OnInit {
     let param = { email: email, pass: pass };
     let resStatus = null;
     console.log(param);
-    this.httpService.getRequest('login', param).subscribe(
+    this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
         let body = response.json();
         resStatus = body.status;
@@ -87,7 +87,7 @@ export class AccountService implements OnInit {
       }
     };
     console.log(param);
-    this.httpService.getRequest('createAccount', param).subscribe(
+    this.httpService.getRequest('createAccount', param, null).subscribe(
       (response: Response) => {
         let res = response.json();
         this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];

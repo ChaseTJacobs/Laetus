@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../services/http/http.service';
 import { Response } from '@angular/http';
-import { AccountService } '../auth/account.service';
+import { AccountService } from '../auth/account.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class NrmService {
 
+  private contactList$ = new BehaviorSubject<any>(null);
   savedContacts: any[];
 
   contactInfo = {
@@ -257,10 +260,34 @@ export class NrmService {
     return this.contactInfo.activities;
   }
   
+  getContactList() {
+    this.httpService.tempGetRequest('getContactList', this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        console.log(body);
+        if(body.status == 112){
+        
+        } else if (body.status == 296) {
+          
+        } else if (body.status == 295) {
+          
+        } else if (body.status == 299) {
+          
+        } else {
+          return null;
+        }
+      }
+    )
+  }
+  
+  getContactList$(): Observable<any> {
+    return this.contactList$;
+  }
+  
   createContact(){
     let newContact = {
-      fName: 'John',
-      lName: 'Cena',
+      fName: 'Phart',
+      lName: 'Knocker',
       company: null,
       position: null,
       email: null,
