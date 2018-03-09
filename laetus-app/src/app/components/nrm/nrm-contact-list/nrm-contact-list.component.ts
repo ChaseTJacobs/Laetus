@@ -51,7 +51,8 @@ export class NrmContactListComponent implements OnInit {
   
   getContactList() {
     this.contactList$ = this.nrmService.getContactList$().subscribe(data => {
-      console.log(data);
+      if(data)
+      this.contactList = data;
     })
     this.nrmService.getContactList();
   }

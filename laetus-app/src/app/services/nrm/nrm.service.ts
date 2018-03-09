@@ -266,7 +266,7 @@ export class NrmService {
         let body = response.json();
         console.log(body);
         if(body.status == 112){
-        
+          this.contactList$.next(body.data);
         } else if (body.status == 296) {
           
         } else if (body.status == 295) {
@@ -300,7 +300,6 @@ export class NrmService {
     this.httpService.getRequest('createContact', newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
-        console.log(body);
       }
     )
   }

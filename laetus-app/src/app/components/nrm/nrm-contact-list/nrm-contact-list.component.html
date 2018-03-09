@@ -37,9 +37,9 @@
         <div class="row mx-0">
           <div class="col-3 px-0"><img class="icon-medium" src="../../../../assets/green_user_icon.png"></div>
           <div class="col-7 px-0">
-            <div class="cont-name" *ngIf="optionSelected != 'lName'">{{contact.fName}} {{contact.lName}}</div>
-            <div class="cont-name" *ngIf="optionSelected == 'lName'">{{contact.lName}}, {{contact.fName}}</div>
-            <div class="cont-company">{{contact.company}}</div>
+            <div class="cont-name" *ngIf="optionSelected != 'lName'">{{contact.firstname}} {{contact.lastname}}</div>
+            <div class="cont-name" *ngIf="optionSelected == 'lName'">{{contact.lastname}}, {{contact.firstname}}</div>
+            <div class="cont-company">{{contact.organization}}</div>
           </div>
           <div class="col-2 px-0"><img class="arrow-icon" src="../../../../assets/right-arrow.png"></div>
         </div>
