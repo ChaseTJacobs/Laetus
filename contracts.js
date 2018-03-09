@@ -6,8 +6,6 @@
 var logger = 			require('winston');
 
 exports.enforce = function(req, contract, callback){
-	// console.log("Request Body: "+JSON.stringify(req.body));
-	// console.log("    Contract: "+JSON.stringify(contract));
 	
 	var resp_obj = { 
 		'err' : false,
@@ -37,7 +35,7 @@ exports.enforce = function(req, contract, callback){
 				resp_obj.err = true;
 				resp_obj.data.push({'msg':"required field is NULL", example});
 			}
-			else if (typeof req.body[key] != typeof contract[key].type) {
+			else if ( (typeof req.body[key] != typeof contract[key].type) && !(req.body[key] === null) ) {
 				// wrong type!
 				resp_obj.err = true;
 				resp_obj.data.push({'msg':"wrong field type", example});
@@ -95,7 +93,7 @@ exports.forgotPassword =
 	}
 };
 // - getUserInfo (GET)
-
+exports.getUserInfo = {}
 // - updateUserInfo
 exports.updateUserInfo = 
 {
@@ -147,7 +145,11 @@ exports.createContact =
 	},
 	'custom':{
 		'required':false,
-		'type':{'object':"object"}		
+		'type':{'object':"object"},
+	},
+	'created_milli':{
+		'required':false,
+		'type':5//millisecs
 	}
 };
 // - createActivity
@@ -218,7 +220,7 @@ exports.getContactIIScripts =
 	}
 }
 // - getIIScriptQs (GET)
-
+exports.getIIScriptQs = {}
 // - updateContactInfo
 exports.updateContactInfo =
 {
@@ -332,7 +334,7 @@ exports.deleteIIScript =
 	}
 }
 // - getModuleList (GET)
-
+exports.getModuleList = {}
 // - getModuleContent
 exports.getModuleContent = 
 {
@@ -362,9 +364,9 @@ exports.updateMyModules =
 	}
 }
 // - getActivityList (GET)
-
+exports.getActivityList = {}
 // - getAllCounters (GET)
-
+exports.getAllCounters = {}
 // - updateGlobalCounters
 exports.updateGlobalCounters = 
 {
@@ -381,27 +383,11 @@ exports.updateGlobalCounters =
 		'type':5
 	}
 }
-/*
-var test_body = 
-{
-	'email':"testEMaillll",
-	'pass':"testPasswoerd",
-	'userInfo':"poop"
-};
-
-enforceContract(test_body, createAccount, function(err, err_obj) {
-	if (err) {
-		console.log(JSON.stringify(err_obj.data));
-	}
-	else
-		console.log("It's all good!");
-});*/
-
 
 
 /*
 	Syndeo API Response Body Contracts
-	- 
+	- see our docs for more readable description
 */
 // General
 exports.DB_Access_Error = { 'data':"DB error. This is a problem.", 'status':299 };
@@ -418,4 +404,17 @@ exports.Username_Taken = { 'data':"an account already exists in connection with 
 // Contact Service
 exports.GetList_Success = 112;
 exports.NewContact_Success = 113;
+
+exports.GetContInfo_Success = 114;
+exports.Bad_ContactID = { 'data':"requested contact info with bad contactID", 'status':214 }; // getContactInfo
+
+
+
+
+
+
+
+
+
+
 
