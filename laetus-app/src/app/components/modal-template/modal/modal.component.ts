@@ -15,8 +15,8 @@ export class NgbdModalContent {
   @Input() title;
   @Input() message;
   @Input() contact;
-  contactInfo: FormGroup;
-  activityInfo: FormGroup;
+  public contactInfo: FormGroup;
+  public activityInfo: FormGroup;
   fName: string;
   lName: string;
   org: string;
@@ -88,9 +88,30 @@ export class ModalComponent implements OnInit {
     const modal = modalRef.componentInstance;
     modal.edit = params.edit;
     modal.title = params.title;
-    modal.message = params.edit ? 'Edit' : 'Create';
+    if (params.edit) {
+        modal.message = 'Edit';
+        if (params.info !== null) {
+            modal.contact = params.info;
+            // modal.contactInfo.patchValue({
+            //     fName: params.firstname,
+            //     lName: params.lastname,
+            //     org: params.organization,
+            //     url: params.linkedIn,
+            //     email: params.email,
+            //     phone: params.phone,
+            //     notes: params.description,
+            //     position: params.position,
+            //     address: params.address,
+            // });
+    } else {
+        modal.message = 'Create';
+    }
+
     modal.message += params.title === 'contact' ? ' Contact' : ' Activity';
+    console.log(params.info);
   }
+}
+
 
   ngOnInit() {
   }

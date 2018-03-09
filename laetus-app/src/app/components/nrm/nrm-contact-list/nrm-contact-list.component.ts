@@ -10,15 +10,11 @@ import {ModalComponent} from '../../modal-template/modal/modal.component';
 })
 export class NrmContactListComponent implements OnInit {
 
-  // testCreateContact(){
-  //   this.nrmService.createContact();
-  // }
-
   contactList$:Subscription;
   searchInput: string;
   searchParam = [
     'name',
-    'organization'
+    'company'
   ];
 
   private options;
@@ -35,7 +31,7 @@ export class NrmContactListComponent implements OnInit {
   }
 
   sortList() {
-    if (this.optionSelected == null || this.contactList == null|| this.contactList === undefined || this.contactList == []) {
+    if (this.optionSelected == null || this.contactList === undefined || this.contactList == []) {
 
     } else {
       this.contactList.sort((a: any, b: any) => {
@@ -52,8 +48,8 @@ export class NrmContactListComponent implements OnInit {
 
   getContactList() {
     this.contactList$ = this.nrmService.getContactList$().subscribe(data => {
+      if(data)
       this.contactList = data;
-      this.sortList();
     })
     this.nrmService.getContactList();
   }
@@ -64,22 +60,22 @@ export class NrmContactListComponent implements OnInit {
     this.options = [
       {
         show: 'First Name',
-        name: 'firstname'
+        name: 'fName'
       },
       {
         show: 'Last Name',
-        name: 'lastname'
+        name: 'lName'
       },
       {
         show: 'Company',
-        name: 'organization'
+        name: 'company'
       },
       {
         show: 'Date Created',
         name: ''
       }
     ];
-    this.optionSelected = 'firstname';
+    this.optionSelected = 'fName';
     this.sortList();
   }
 
