@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NrmService } from '../../../services/nrm/nrm.service';
 import { Subscription } from 'rxjs/Subscription';
+import {ModalComponent} from '../../modal-template/modal/modal.component';
 
 @Component({
   selector: 'app-nrm-contact-list',
@@ -8,10 +9,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./nrm-contact-list.component.css']
 })
 export class NrmContactListComponent implements OnInit {
-  
-  testCreateContact(){
-    this.nrmService.createContact();
-  }
+
+  // testCreateContact(){
+  //   this.nrmService.createContact();
+  // }
 
   contactList$:Subscription;
   searchInput: string;
@@ -19,20 +20,20 @@ export class NrmContactListComponent implements OnInit {
     'name',
     'organization'
   ];
-  
+
   private options;
   private optionSelected;
-  
+
   createContact() {
     console.log("Contact Created");
-    this.testCreateContact();
+    this.modalService.open({edit: false, title: 'contact'});
   }
-  
+
   onOptionsSelected(event) {
     this.optionSelected = event;
     this.sortList();
   }
-  
+
   sortList() {
     if (this.optionSelected == null || this.contactList == null|| this.contactList === undefined || this.contactList == []) {
 
@@ -48,7 +49,7 @@ export class NrmContactListComponent implements OnInit {
       })
     }
   }
-  
+
   getContactList() {
     this.contactList$ = this.nrmService.getContactList$().subscribe(data => {
       this.contactList = data;
@@ -56,9 +57,9 @@ export class NrmContactListComponent implements OnInit {
     })
     this.nrmService.getContactList();
   }
-  
+
   private contactList: any[];
-  constructor(private nrmService: NrmService) {
+  constructor(private nrmService: NrmService, private modalService: ModalComponent) {
     this.getContactList();
     this.options = [
       {

@@ -14,10 +14,13 @@
         <input class="form-control" type="text" placeholder="Contact Last Name" formControlName="lName">
         <input class="form-control" type="text" placeholder="Organization" formControlName="org">
         <input class="form-control" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
+        <input class="form-control" type="text" placeholder="Contact Email Adress" formControlName="email">
+        <input class="form-control" type="text" placeholder="Contact Position (in Company)" formControlName="position">
+        <input class="form-control" type="text" placeholder="Contact Address" formControlName="address">
         <input class="form-control" type="text" placeholder="Contact Phone Number" formControlName="phone">
         <textarea class="form-control" type="text" placeholder="Contact Notes" formControlName="notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary">Create Contact</button>
+        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)">Create Contact</button>
       </form>
     </div>
   </div>
