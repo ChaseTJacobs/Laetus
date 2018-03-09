@@ -21,11 +21,11 @@ export class AccountService implements OnInit {
     let param = { email: email, pass: pass };
     let resStatus = null;
     console.log(param);
-    this.httpService.getRequest('login', param).subscribe(
+    this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
         let body = response.json();
         resStatus = body.status;
-        if(body.status == 150){     
+        if(body.status == 110){
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
           console.log(this.sToken);
           this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
@@ -87,7 +87,7 @@ export class AccountService implements OnInit {
       }
     };
     console.log(param);
-    this.httpService.getRequest('createAccount', param).subscribe(
+    this.httpService.getRequest('createAccount', param, null).subscribe(
       (response: Response) => {
         let res = response.json();
         this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];

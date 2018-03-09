@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NrmService } from '../../../services/nrm/nrm.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-nrm-contact-list',
@@ -7,7 +8,12 @@ import { NrmService } from '../../../services/nrm/nrm.service';
   styleUrls: ['./nrm-contact-list.component.css']
 })
 export class NrmContactListComponent implements OnInit {
+  
+  testCreateContact(){
+    this.nrmService.createContact();
+  }
 
+  contactList$:Subscription;
   searchInput: string;
   searchParam = [
     'name',
@@ -19,6 +25,7 @@ export class NrmContactListComponent implements OnInit {
   
   createContact() {
     console.log("Contact Created");
+    this.testCreateContact();
   }
   
   onOptionsSelected(event) {
@@ -27,7 +34,7 @@ export class NrmContactListComponent implements OnInit {
   }
   
   sortList() {
-    if (this.optionSelected == null || this.optionSelected == undefined || this.optionSelected == "") {
+    if (this.optionSelected == null || this.contactList === undefined || this.contactList == []) {
 
     } else {
       this.contactList.sort((a: any, b: any) => {
@@ -42,45 +49,16 @@ export class NrmContactListComponent implements OnInit {
     }
   }
   
-  private contactList = [
-    {
-      id: 'id1',
-      fName: 'James',
-      lName: 'Crook',
-      company: 'Joyful Job Search LLC'
-    },
-    {
-      id: 'id3',
-      fName: 'Games',
-      lName: 'Hook',
-      company: 'Toyful Bob Dirtch'
-    },
-    {
-      id: 'id4',
-      fName: 'Fames',
-      lName: 'Prook',
-      company: 'Ployful Knob Birch'
-    },
-    {
-      id: 'id5',
-      fName: 'Tames',
-      lName: 'Rook',
-      company: 'Coyful Cob Kurch'
-    },
-    {
-      id: 'id6',
-      fName: 'Names',
-      lName: 'Took',
-      company: 'Soyful Sob Jertch'
-    },
-    {
-      id: 'id2',
-      fName: 'Chase',
-      lName: 'Jacobs',
-      company: 'Joyful Networking LLC'
-    }
-  ];
+  getContactList() {
+    this.contactList$ = this.nrmService.getContactList$().subscribe(data => {
+      console.log(data);
+    })
+    this.nrmService.getContactList();
+  }
+  
+  private contactList: any[];
   constructor(private nrmService: NrmService) {
+    this.getContactList();
     this.options = [
       {
         show: 'First Name',

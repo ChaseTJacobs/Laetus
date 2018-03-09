@@ -13,6 +13,14 @@
   border-radius: 8px;
 }
 
+.activity-back-active {
+  color:white;
+  text-align: left;
+  background-color: #4d4d4d;
+  border: 3px solid #2FCF99;
+  border-radius: 8px;
+}
+
 .activity-back:hover {
   cursor: pointer;
   border: 3px solid #2FCF99;
@@ -48,7 +56,7 @@
 .activity-search {
   width: 100%;
   max-width: 180px;
-  border: 1px solid #2FCF99;
+  border: 3px solid #2FCF99;
   border-radius: 6px;
 }
 
@@ -66,4 +74,13 @@
 
 .edit-button:hover {
   cursor: pointer;
+}
+
+.scrollable {
+  height:189px;
+  overflow-y: scroll;
+}
+
+.table-width {
+  width: 100%;
 }
