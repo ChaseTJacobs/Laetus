@@ -9,7 +9,7 @@ import {ModalComponent} from '../../modal-template/modal/modal.component';
 })
 export class NrmContactInfoComponent implements OnInit {
 
-  private showInfo:boolean = true;
+  private showInfo: boolean = true;
 
   toggleInfo() {
     this.showInfo = !this.showInfo;
@@ -20,8 +20,8 @@ export class NrmContactInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  openModal() {
-    const modalRef = this.modalService.open('Edit Contact');
+  openModal(contactInfo) {
+    const modalRef = this.modalService.open({edit: true, title: 'contact', info: contactInfo});
   }
 
 }

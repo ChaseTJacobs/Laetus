@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import {ModalComponent} from '../../modal-template/modal/modal.component';
 
 @Component({
   selector: 'app-nrm-contact-activities',
@@ -7,7 +8,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./nrm-contact-activities.component.css']
 })
 export class NrmContactActivitiesComponent implements OnInit {
-  
+
   d = new Date();
   searchInput = '';
   searchParam = [
@@ -17,12 +18,12 @@ export class NrmContactActivitiesComponent implements OnInit {
     'description'
   ];
 
-  private showActivity:boolean = true;
-  
+  private showActivity: boolean = true;
+
   private currentActivities: any[];
-  
-  private pastActivities: any[]
-  
+
+  private pastActivities: any[];
+
   sortByDate() {
     this.pastActivities.sort((a: any, b: any) => {
         if (b.aDate < a.aDate) {
@@ -32,7 +33,7 @@ export class NrmContactActivitiesComponent implements OnInit {
         } else {
           return 0;
         }
-      })
+    });
     this.currentActivities.sort((a: any, b: any) => {
         if (b.aDate < a.aDate) {
           return -1;
@@ -41,17 +42,17 @@ export class NrmContactActivitiesComponent implements OnInit {
         } else {
           return 0;
         }
-      })
+    });
   }
-  
+
   toggleActivity() {
     this.showActivity = !this.showActivity;
   }
-  
+
   addActivity() {
-    console.log('Activity Added!');
+    const modalRef = this.modalService.open({edit: false, title: 'activity'});
   }
-  
+
   getActivities() {
     let activities = [
       {
@@ -103,8 +104,8 @@ export class NrmContactActivitiesComponent implements OnInit {
         description: 'GIT ER DUUUUN'
       },
     ];
-    for(let i = 0; i < activities.length; i++) {
-      if(activities[i].aDate < this.d.getTime()) {
+    for (let i = 0; i < activities.length; i++) {
+      if (activities[i].aDate < this.d.getTime()) {
         this.pastActivities.push(activities[i]);
       } else {
         this.currentActivities.push(activities[i]);
@@ -113,7 +114,7 @@ export class NrmContactActivitiesComponent implements OnInit {
     this.sortByDate();
   }
 
-  constructor(private datePipe: DatePipe) {
+  constructor(private datePipe: DatePipe, private modalService: ModalComponent) {
     this.pastActivities = [];
     this.currentActivities = [];
     this.getActivities();

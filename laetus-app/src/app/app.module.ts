@@ -37,7 +37,6 @@ import { NrmContactActivitiesComponent } from './components/nrm/nrm-contact-acti
 import { NrmContactInfoComponent } from './components/nrm/nrm-contact-info/nrm-contact-info.component';
 import { NrmContactListComponent } from './components/nrm/nrm-contact-list/nrm-contact-list.component';
 import { NrmContactStatsComponent } from './components/nrm/nrm-contact-stats/nrm-contact-stats.component';
-import { NrmCreateActivityComponent } from './components/nrm/nrm-create-activity/nrm-create-activity.component';
 import { QuizBodyComponent } from './components/quiz/quiz-body/quiz-body.component';
 import { QuizQuestionComponent } from './components/quiz/quiz-question/quiz-question.component';
 import { QuizResultsComponent } from './components/quiz/quiz-results/quiz-results.component';
@@ -145,7 +144,6 @@ const routingObj: Routes = [
     NrmContactInfoComponent,
     NrmContactListComponent,
     NrmContactStatsComponent,
-    NrmCreateActivityComponent,
     QuizBodyComponent,
     QuizQuestionComponent,
     QuizResultsComponent,

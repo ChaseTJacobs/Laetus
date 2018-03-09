@@ -51,6 +51,7 @@ export class RegisterFormComponent implements OnInit {
     this.password = user.password;
 
     this.paySvc.setShowPaymentForm(true);
+    this.acctSvc.register(user);
   }
 
   invalidInput(control) {

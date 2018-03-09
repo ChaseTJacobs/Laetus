@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class NgbdModalContent {
   @Input() edit;
   @Input() title;
+  @Input() message;
   contactInfo: FormGroup;
   activityInfo: FormGroup;
   fName: string;
@@ -54,14 +55,6 @@ export class NgbdModalContent {
 @Injectable()
 export class ModalComponent implements OnInit {
 
-  // contactInfo: FormGroup;
-  // fName: string;
-  // lName: string;
-  // org: string;
-  // url: string;
-  // phone: string;
-  // notes: string;
-
   constructor(private modalService: NgbModal) {
 
   }
@@ -71,6 +64,8 @@ export class ModalComponent implements OnInit {
     const modal = modalRef.componentInstance;
     modal.edit = params.edit;
     modal.title = params.title;
+    modal.message = params.edit ? 'Edit' : 'Create';
+    modal.message += params.title === 'contact' ? ' Contact' : ' Activity';
   }
 
   ngOnInit() {

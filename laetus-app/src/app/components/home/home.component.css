@@ -1,43 +1,43 @@
 .background-pic {
   /* background-image: url("../../../assets/blacknwhite_stock3_optimized.jpg"); */
-	width: 100%;
-	height: calc(100vh - 80px);
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: 100% 100%;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
 }
 
 .width-90 {
-    padding-left: 5%;
-    padding-right: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .teal-background-dark {
   background-color: #343434;
-    /* background-color: rgba(49, 231, 169, 0.75); */
-    border: 3px none rgba(49, 231, 169, 0.75);
-    border-radius: 15px;
-    color: white;
-    opacity: 1.0;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
+  /* background-color: rgba(49, 231, 169, 0.75); */
+  border: 3px none rgba(49, 231, 169, 0.75);
+  border-radius: 15px;
+  color: white;
+  opacity: 1.0;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }
 
 .teal-background-light {
-    background-color: rgba(255, 255, 255, 0.35);
-    border: 3px none rgba(255, 255, 255, 0.35);
-    border-radius: 15px;
-    color: white;
-    opacity: 1.0;
-    text-align: left;
-    padding-left: 10px;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 3px none rgba(255, 255, 255, 0.35);
+  border-radius: 15px;
+  color: white;
+  opacity: 1.0;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .icon-format-large {
-	width: 80px;
-	height: 80px;
-    filter: invert(100%);
+  width: 80px;
+  height: 80px;
+  filter: invert(100%);
 }
 
 .icon-format-small {
@@ -47,8 +47,8 @@
 }
 
 .header-text {
-    font-size: 30px;
-    font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .dark-background {
@@ -62,7 +62,7 @@
   background-color: #2FCF99;
   border: 3px none #2FCF99;
   border-radius: 10px;
-  display:inline-block;
+  display: inline-block;
   padding: 5px;
   margin: 8px;
   height: 60px;
@@ -70,12 +70,12 @@
 }
 
 .intro-button {
-	color: white;
-	background-color: #2FCF99;
-	border: 3px solid #2FCF99;
-    border-radius: 10px;
-    line-height: 43px;
-    min-height: 50px;
-    margin-left: 20%;
-    margin-right: 20%;
+  color: white;
+  background-color: #2FCF99;
+  border: 3px solid #2FCF99;
+  border-radius: 10px;
+  line-height: 43px;
+  min-height: 50px;
+  margin-left: 20%;
+  margin-right: 20%;
 }
