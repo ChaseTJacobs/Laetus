@@ -39,9 +39,9 @@ export class NrmContactListComponent implements OnInit {
 
     } else {
       this.contactList.sort((a: any, b: any) => {
-        if (a[this.optionSelected] < b[this.optionSelected]) {
+        if (a[this.optionSelected].toLowerCase() < b[this.optionSelected].toLowerCase()) {
           return -1;
-        } else if (a[this.optionSelected] > b[this.optionSelected]) {
+        } else if (a[this.optionSelected].toLowerCase() > b[this.optionSelected].toLowerCase()) {
           return 1;
         } else {
           return 0;

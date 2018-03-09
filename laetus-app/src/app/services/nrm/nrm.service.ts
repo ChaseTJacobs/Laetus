@@ -43,13 +43,13 @@ export class NrmService {
         contactID: selected.id
       };
       this.httpService.getRequest('getContactInfo', data, this.accountService.getToken()).subscribe(
-      (response: Response) => {
-        let body = response.json();
-        this.contactInfo = body.data.userInfo;
-        console.log(body);
-      }
-    )
-      this.savedContacts.push(this.contactInfo);
+        (response: Response) => {
+          let body = response.json();
+          this.contactInfo = body.data.userInfo;
+          this.savedContacts.push(body.data.userInfo);
+          console.log(body);
+        }
+      )
     }
   }
 
