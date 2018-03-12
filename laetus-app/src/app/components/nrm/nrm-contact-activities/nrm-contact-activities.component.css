@@ -49,6 +49,10 @@
   width: 35px;
 }
 
+.activity-icon:hover {
+  cursor: pointer;
+}
+
 .header-info {
   font-size: 30px;
 }

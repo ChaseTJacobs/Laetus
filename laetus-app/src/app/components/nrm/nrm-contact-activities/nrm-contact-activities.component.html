@@ -1,20 +1,34 @@
 <div class="activity-back-dark px-2 pb-2">
   <div class="">
     <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showActivity != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataActivity" (click)="toggleActivity()">
-    <span class="header-info mr-5">Activities</span>
+    <span class="header-info">Activities</span>
+    <div class="float-right mt-1">
+      <img src="../../../../assets/Icons/green_search_icon.png" class="activity-icon">
+      <img src="../../../../assets/sort-green.png" class="activity-icon">
+      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon" click="addActivity()">
+    </div>
   </div>
   <div id="dataActivity" class="collapse show">
     <div class="action-activities">
-      <table class="table-width">
-        <tr>
-          <td align="left">
-            <span class="ml-2 activity-button" (click)="addActivity()"><img src="../../../../assets/Icons/add_icon.png" class="activity-icon mr-2"> Add Activity</span>
-          </td>
-          <td align="right">
-            <input class="activity-search mr-2" [(ngModel)]="searchInput" type="text" placeholder="Search">
-          </td>
-        </tr>
-      </table>
+      
+      <div>
+        <input class="activity-search" [(ngModel)]="searchInput" type="text" placeholder="Search">
+      </div>
+      <div>
+        <table class="table-width">
+          <tr>
+            <td align="right">
+              <span>Sort By:</span>
+            </td>
+            <td align="left">
+              <select required class="" [(ngModel)]="typeSelected" (ngModelChange)="onOptionsSelected($event)">
+                <option *ngFor="let option of typeOptions" [value]="option.name">{{option.show}}</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
     </div>
     <div class="scrollable">
       <div *ngFor="let activity of currentActivities | filter: searchInput : searchParam; let i = index;">

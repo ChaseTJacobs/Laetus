@@ -22,6 +22,13 @@ export class NrmContactActivitiesComponent implements OnInit {
   private showActivity:boolean = true;
   private currentActivities: any[];
   private pastActivities: any[];
+  private typeOptions;
+  private typeSelected;
+  
+  onOptionsSelected(event) {
+    this.typeSelected = event;
+    //sort
+  }
 
   sortByDate() {
     this.pastActivities.sort((a: any, b: any) => {
@@ -68,6 +75,32 @@ export class NrmContactActivitiesComponent implements OnInit {
     this.pastActivities = [];
     this.currentActivities = [];
     this.getActivities();
+    this.typeOptions = [
+      {
+        show: 'Email',
+        name: 'email'
+      },
+      {
+        show: 'Informational Interview',
+        name: 'infInt'
+      },
+      {
+        show: 'Phone Call',
+        name: 'phone'
+      },
+      {
+        show: 'Meet up',
+        name: 'meet'
+      },
+      {
+        show: 'Interview',
+        name: 'interview'
+      },
+      {
+        show: 'Other',
+        name: 'other'
+      },
+    ];
   }
 
   ngOnInit() {
