@@ -14,7 +14,18 @@ export class NgbdModalContent {
   @Input() edit;
   @Input() title;
   @Input() message;
-  @Input() contact;
+  @Input() contact = {
+    fName: '',
+    lName: '',
+    organization: '',
+    url_linkedin: '',
+    email: '',
+    phone: '',
+    position: '',
+    mail_address: '',
+    notes: '',
+    id: -1,
+  };
   public contactInfo: FormGroup;
   public activityInfo: FormGroup;
   fName: string;
@@ -52,21 +63,28 @@ export class NgbdModalContent {
 
   createContact(contact) {
     console.log(contact);
-    this.nrm.createContact(contact);
+    this.nrm.createContact(contact, false);
     this.activeModal.close('Created Contact');
   }
 
   editContact(contact) {
-      console.log('Edit Contact');
+    console.log('Edit Contact');
+    contact['id'] = this.contact.id;
+    this.nrm.createContact(contact, true);
+    this.activeModal.close('Updated Contact');
 
   }
 
   createActivity(activity) {
-      console.log('Create Activity');
+    console.log('Create Activity');
+
+    this.activeModal.close('Created Contact');
   }
 
   editActivity(activity) {
-      console.log('Edit Activity');
+    console.log('Edit Activity');
+
+    this.activeModal.close('Created Contact');
   }
 }
 
@@ -89,28 +107,18 @@ export class ModalComponent implements OnInit {
     modal.edit = params.edit;
     modal.title = params.title;
     if (params.edit) {
-        modal.message = 'Edit';
-        if (params.info !== null) {
-            modal.contact = params.info;
-            // modal.contactInfo.patchValue({
-            //     fName: params.firstname,
-            //     lName: params.lastname,
-            //     org: params.organization,
-            //     url: params.linkedIn,
-            //     email: params.email,
-            //     phone: params.phone,
-            //     notes: params.description,
-            //     position: params.position,
-            //     address: params.address,
-            // });
+      modal.message = 'Edit';
+      if (params.info !== null) {
+        modal.contact = params.info;
+        console.log(params.info);
+      }
     } else {
-        modal.message = 'Create';
+      modal.message = 'Create';
     }
 
     modal.message += params.title === 'contact' ? ' Contact' : ' Activity';
     console.log(params.info);
   }
-}
 
 
   ngOnInit() {
