@@ -4,7 +4,7 @@
     <span class="header-info ml-3">Activities</span>
     <div class="float-right mt-1">
       <img src="../../../../assets/Icons/green_search_icon.png" class="activity-icon" data-toggle="collapse" data-target="#aSearchTog">
-      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon" click="addActivity()">
+      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon"  (click)="openModalCreate(activity)">
     </div>
   </div>
   <div id="dataActivity" class="collapse show">
@@ -31,7 +31,7 @@
           </table>
         </div>
         <div class="collapse" [attr.id]="i">
-          <div class="activity-info-back mx-2">
+          <div class="activity-info-back mx-2 px-2">
             <table class="table-width">
               <tr>
                 <td class="text-left" rowspan="2">{{activity.description}}</td>
@@ -45,6 +45,7 @@
                 <td class="text-left">{{activity.location}}</td>
               </tr>
             </table>
+            <div  (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
           </div>
         </div>
       </div>
@@ -66,7 +67,7 @@
           </table>
         </div>
         <div class="collapse" [attr.id]="'p' + i">
-          <div class="activity-info-back mx-2">
+          <div class="activity-info-back mx-2 px-2">
             <table class="table-width">
               <tr>
                 <td class="text-left" rowspan="2">{{activity.description}}</td>  
@@ -80,6 +81,7 @@
                 <td class="text-left">{{activity.location}}</td>
               </tr>
             </table>
+            <div (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
           </div>
         </div>
       </div>
