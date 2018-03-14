@@ -296,15 +296,15 @@ export class NrmService {
     let newContact = {
       contactID: contact.id,
       created: new Date().getTime(),
-      fName: contact.fName,
-      lName: contact.lName,
-      company: contact.org,
+      firstname: contact.firstname,
+      lastname: contact.lastname,
+      organization: contact.org,
       position: contact.position,
       email: contact.email,
       phone: contact.phone,
-      linkedIn: contact.url,
+      url_linkedIn: contact.url,
       address: contact.address,
-      description: contact.notes,
+      notes: contact.notes,
       custom: [],
     };
     if (edit) {
@@ -318,6 +318,7 @@ export class NrmService {
     this.httpService.getRequest(endpoint, newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
+        console.log(body);
         if (body.status === 113) {
           this.getContactList();
         } else if (body.status === 115) {

@@ -15,8 +15,8 @@ export class NgbdModalContent {
   @Input() title;
   @Input() message;
   @Input() contact = {
-    fName: '',
-    lName: '',
+    firstname: '',
+    lastname: '',
     organization: '',
     url_linkedin: '',
     email: '',
@@ -28,8 +28,8 @@ export class NgbdModalContent {
   };
   public contactInfo: FormGroup;
   public activityInfo: FormGroup;
-  fName: string;
-  lName: string;
+  firstname: string;
+  lastname: string;
   org: string;
   url: string;
   phone: string;
@@ -40,8 +40,8 @@ export class NgbdModalContent {
     console.log(new Date());
     console.log(this.title);
     this.contactInfo = fb.group({
-      'fName': [null, Validators.required],
-      'lName': [null, Validators.required],
+      'firstname': [null, Validators.required],
+      'lastname': [null, Validators.required],
       'org': [null],
       'url': [null],
       'email': [null],

@@ -14,7 +14,6 @@
           <td align="right"><input class="activity-search" [(ngModel)]="searchInput" type="text" placeholder="Search"></td>
         </tr>
       </table>
-      
     </div>
     <div class="scrollable">
       <div *ngFor="let activity of currentActivities | filter: searchInput : searchParam; let i = index;">
@@ -50,7 +49,6 @@
         </div>
       </div>
     </div>
-    
     <span class="header-info">Past Activities</span>
     <div class="scrollable">
       <div *ngFor="let activity of pastActivities | filter: searchInput : searchParam; let i = index;">
