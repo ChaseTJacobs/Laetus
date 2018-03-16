@@ -24,7 +24,7 @@ export class NgbdModalContent {
     position: '',
     mail_address: '',
     notes: '',
-    id: -1,
+    c_id: -1,
   };
   public contactInfo: FormGroup;
   public activityInfo: FormGroup;
