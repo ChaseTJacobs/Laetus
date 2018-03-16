@@ -15,8 +15,8 @@ export class NgbdModalContent {
   @Input() title;
   @Input() message;
   @Input() contact = {
-    fName: '',
-    lName: '',
+    firstname: '',
+    lastname: '',
     organization: '',
     url_linkedin: '',
     email: '',

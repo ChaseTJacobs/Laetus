@@ -1,9 +1,9 @@
 <div class="modal-content">
-  <div class="modal-header">
+  <div class="modal-header dark-header">
     <h4 class="modal-title text-center">{{message}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <!-- <button type="button" class="close white" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button> -->
   </div>
   <div class="modal-body" *ngIf="title === 'contact'">
     <div class="form-group ml-2 mr-2">
@@ -20,7 +20,7 @@
         <textarea class="form-control" type="text" [(ngModel)]="contact.notes" placeholder="Contact Notes" formControlName="notes"></textarea>
 
         <button type="button" class="btn btn-outline-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary mt-2" (click)="createContact(contactInfo.value)"*ngIf="!edit">Create Contact</button>
+        <button type="button" class="btn btn-outline-primary mt-2" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Contact</button>
       </form>
     </div>
   </div>
@@ -34,12 +34,13 @@
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="aNotes"></textarea>
 
         <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)"*ngIf="!edit">Create Activity</button>
+        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Activity</button>
       </form>
     </div>
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer dark-header">
+    <button type="button" class="btn btn-outline-danger" (click)="activeModal.close('Close click')">Delete</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </div>
