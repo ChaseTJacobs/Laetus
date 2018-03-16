@@ -18,7 +18,7 @@ export class AccountService implements OnInit {
   public redirectUrl = null;
 
   login(email: string, pass: string) {
-    let param = { email: email, pass: pass };
+    let param = { email: email, password: pass };
     let resStatus = null;
     console.log(param);
     this.httpService.getRequest('login', param, null).subscribe(
@@ -80,7 +80,7 @@ export class AccountService implements OnInit {
   register(user) {
     let param = { 
       email: user.email, 
-      pass: user.password, 
+      password: user.password, 
       userInfo: {
         firstName: user.firstname, 
         lastName: user.lastname

@@ -12,7 +12,7 @@ export class NrmService {
   savedContacts: any[];
 
   contactInfo = {
-    id: null,
+    c_id: null,
     firstname: null,
     lastname: null,
     organization: null,
@@ -22,17 +22,17 @@ export class NrmService {
     address: null,
     linkedIn: null,
     description: null,
-    custom: [{}],
+    other_info: [{}],
     activities: [{}]
   };
 
   selectContact(selected) {
-    if (selected.id === this.contactInfo.id) {
+    if (selected.c_id === this.contactInfo.c_id) {
       return;
     } else {
       if (this.savedContacts !== null && this.savedContacts !== undefined) {
         for (let contact of this.savedContacts) {
-          if (contact.id === selected.id) {
+          if (contact.c_id === selected.c_id) {
             this.contactInfo = contact;
             return;
           }
@@ -40,14 +40,13 @@ export class NrmService {
       }
       // call backend
       let data = {
-        contactID: selected.id
+        c_id: selected.c_id
       };
       this.httpService.getRequest('getContactInfo', data, this.accountService.getToken()).subscribe(
         (response: Response) => {
           let body = response.json();
-          this.contactInfo = body.data.userInfo;
-          this.savedContacts.push(body.data.userInfo);
-          console.log(body);
+          this.contactInfo = body.data.contact_info;
+          this.savedContacts.push(body.data.contact_info);
         }
     );
     }
@@ -179,45 +178,28 @@ export class NrmService {
     return this.contactList$;
   }
 
-  // editContact(contact) {
-  //     let curDate = new Date();
-  //     let updatedContact = {
-  //         firstname: contact.firstname,
-  //         lastname: contact.lastname,
-  //         company: contact.company,
-  //         position: contact.position,
-  //         email: contact.email,
-  //         phone: contact.phone,
-  //         url_linkedin: contact.url_linkedin,
-  //         mail_address: contact.mail_address,
-  //         notes: contact.notes,
-  //         custom: []
-  //     }
-  // }
-
   createContact(contact, edit) {
     let endpoint;
+    console.log(contact);
     let newContact = {
-      contactID: contact.id,
-      created: new Date().getTime(),
+      contactID: contact.c_id,
+      created_milli: new Date().getTime(),
       firstname: contact.firstname,
       lastname: contact.lastname,
-      organization: contact.org,
+      organization: contact.organization,
       position: contact.position,
       email: contact.email,
       phone: contact.phone,
-      url_linkedIn: contact.url,
-      address: contact.address,
+      url_linkedin: contact.url,
+      mail_address: contact.address,
       notes: contact.notes,
-      custom: [],
+      other_info: [],
     };
     if (edit) {
       endpoint = 'updateContactInfo';
     } else if (!edit) {
       endpoint = 'createContact';
     }
-    console.log(endpoint);
-    console.log(newContact);
 
     this.httpService.getRequest(endpoint, newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
@@ -239,6 +221,19 @@ export class NrmService {
         }
       }
     );
+  }
+  
+  createActivity(activity, edit) {
+    let endpoint;
+    let newActivity = {
+      c_id: activity.c_id,
+      atype_id: activity.type,
+      a_id: activity.a_id,
+      activity_name: activity.activity_name,
+      event_date: activity.event_date,
+      notes: activity.notes,
+      completed: activity.completed
+    }
   }
 
   constructor(private httpService: HttpService, private accountService: AccountService) {
