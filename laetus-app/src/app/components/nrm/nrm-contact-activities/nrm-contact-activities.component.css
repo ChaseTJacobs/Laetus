@@ -49,13 +49,17 @@
   width: 35px;
 }
 
+.activity-icon:hover {
+  cursor: pointer;
+}
+
 .header-info {
   font-size: 30px;
 }
 
 .activity-search {
   width: 100%;
-  max-width: 180px;
+  max-width: 210px;
   border: 3px solid #2FCF99;
   border-radius: 6px;
 }
@@ -77,10 +81,25 @@
 }
 
 .scrollable {
-  height:189px;
+  max-height:358px;
   overflow-y: scroll;
 }
 
 .table-width {
   width: 100%;
+}
+
+.edit-act-button {
+  background-color: #2FCF99;
+  border: 3px solid #2FCF99;
+  border-radius: 3px;
+  max-width: 150px;
+}
+
+.edit-act-button:hover {
+  cursor: pointer;
+  background-color: #2FCF99;
+  border: 3px solid #2FCF99;
+  border-radius: 3px;
+  max-width: 150px;
 }

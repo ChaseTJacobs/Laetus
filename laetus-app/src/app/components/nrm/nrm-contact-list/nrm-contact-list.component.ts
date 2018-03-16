@@ -13,8 +13,9 @@ export class NrmContactListComponent implements OnInit {
   contactList$:Subscription;
   searchInput: string;
   searchParam = [
-    'name',
-    'company'
+    'firstname',
+    'lastname',
+    'organization'
   ];
 
   private options;
@@ -60,22 +61,22 @@ export class NrmContactListComponent implements OnInit {
     this.options = [
       {
         show: 'First Name',
-        name: 'fName'
+        name: 'firstname'
       },
       {
         show: 'Last Name',
-        name: 'lName'
+        name: 'lastname'
       },
       {
         show: 'Company',
-        name: 'company'
+        name: 'organization'
       },
       {
         show: 'Date Created',
         name: ''
       }
     ];
-    this.optionSelected = 'fName';
+    this.optionSelected = 'firstname';
     this.sortList();
   }
 

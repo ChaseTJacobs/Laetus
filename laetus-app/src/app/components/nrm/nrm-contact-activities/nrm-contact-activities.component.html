@@ -1,18 +1,17 @@
 <div class="activity-back-dark px-2 pb-2">
   <div class="">
     <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showActivity != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataActivity" (click)="toggleActivity()">
-    <span class="header-info mr-5">Activities</span>
+    <span class="header-info ml-3">Activities</span>
+    <div class="float-right mt-1">
+      <img src="../../../../assets/Icons/green_search_icon.png" class="activity-icon" data-toggle="collapse" data-target="#aSearchTog">
+      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon"  (click)="openModalCreate(activity)">
+    </div>
   </div>
   <div id="dataActivity" class="collapse show">
-    <div class="action-activities">
+    <div id="aSearchTog" class="collapse mr-2 mb-1">
       <table class="table-width">
         <tr>
-          <td align="left">
-            <span class="ml-2 activity-button" (click)="addActivity()"><img src="../../../../assets/Icons/add_icon.png" class="activity-icon mr-2"> Add Activity</span>
-          </td>
-          <td align="right">
-            <input class="activity-search mr-2" [(ngModel)]="searchInput" type="text" placeholder="Search">
-          </td>
+          <td align="right"><input class="activity-search" [(ngModel)]="searchInput" type="text" placeholder="Search"></td>
         </tr>
       </table>
     </div>
@@ -32,7 +31,7 @@
           </table>
         </div>
         <div class="collapse" [attr.id]="i">
-          <div class="activity-info-back mx-2">
+          <div class="activity-info-back mx-2 px-2">
             <table class="table-width">
               <tr>
                 <td class="text-left" rowspan="2">{{activity.description}}</td>
@@ -46,11 +45,11 @@
                 <td class="text-left">{{activity.location}}</td>
               </tr>
             </table>
+            <div  (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
           </div>
         </div>
       </div>
     </div>
-    
     <span class="header-info">Past Activities</span>
     <div class="scrollable">
       <div *ngFor="let activity of pastActivities | filter: searchInput : searchParam; let i = index;">
@@ -68,7 +67,7 @@
           </table>
         </div>
         <div class="collapse" [attr.id]="'p' + i">
-          <div class="activity-info-back mx-2">
+          <div class="activity-info-back mx-2 px-2">
             <table class="table-width">
               <tr>
                 <td class="text-left" rowspan="2">{{activity.description}}</td>  
@@ -82,6 +81,7 @@
                 <td class="text-left">{{activity.location}}</td>
               </tr>
             </table>
+            <div (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
           </div>
         </div>
       </div>

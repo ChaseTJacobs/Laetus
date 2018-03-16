@@ -7,20 +7,20 @@
   </div>
   <div class="modal-body" *ngIf="title === 'contact'">
     <div class="form-group ml-2 mr-2">
-      <p>This modal was opened from the {{title}} button!</p>
 
       <form [formGroup]="contactInfo" (ngSubmit)="createContact(contactInfo.value)">
-        <input class="form-control" type="text" placeholder="Contact First Name" formControlName="fName">
-        <input class="form-control" type="text" placeholder="Contact Last Name" formControlName="lName">
-        <input class="form-control" type="text" placeholder="Organization" formControlName="org">
-        <input class="form-control" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
-        <input class="form-control" type="text" placeholder="Contact Email Adress" formControlName="email">
-        <input class="form-control" type="text" placeholder="Contact Position (in Company)" formControlName="position">
-        <input class="form-control" type="text" placeholder="Contact Address" formControlName="address">
-        <input class="form-control" type="text" placeholder="Contact Phone Number" formControlName="phone">
-        <textarea class="form-control" type="text" placeholder="Contact Notes" formControlName="notes"></textarea>
+        <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="firstname">
+        <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lastname">
+        <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="org">
+        <input class="form-control" type="text" [(ngModel)]="contact.url_linkedin" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
+        <input class="form-control" type="text" [(ngModel)]="contact.email" placeholder="Contact Email Adress" formControlName="email">
+        <input class="form-control" type="text" [(ngModel)]="contact.position" placeholder="Contact Position (in Company)" formControlName="position">
+        <input class="form-control" type="text" [(ngModel)]="contact.mail_address" placeholder="Contact Address" formControlName="address">
+        <input class="form-control" type="text" [(ngModel)]="contact.phone" placeholder="Contact Phone Number" formControlName="phone">
+        <textarea class="form-control" type="text" [(ngModel)]="contact.notes" placeholder="Contact Notes" formControlName="notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)">Create Contact</button>
+        <button type="button" class="btn btn-outline-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-outline-primary mt-2" (click)="createContact(contactInfo.value)"*ngIf="!edit">Create Contact</button>
       </form>
     </div>
   </div>
@@ -33,7 +33,8 @@
         <input class="form-control col-lg-12" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="aNotes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary">Create Activity</button>
+        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)"*ngIf="!edit">Create Activity</button>
       </form>
     </div>
   </div>
