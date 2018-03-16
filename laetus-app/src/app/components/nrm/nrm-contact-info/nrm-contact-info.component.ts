@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NrmService } from '../../../services/nrm/nrm.service';
-import {ModalComponent} from '../../modal-template/modal/modal.component';
+import { ModalComponent } from '../../modal-template/modal/modal.component';
 
 @Component({
   selector: 'app-nrm-contact-info',

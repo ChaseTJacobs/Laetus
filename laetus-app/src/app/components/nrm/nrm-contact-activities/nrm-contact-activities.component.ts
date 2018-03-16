@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import {ModalComponent} from '../../modal-template/modal/modal.component';
 import { NrmService } from '../../../services/nrm/nrm.service';
 
+
 @Component({
   selector: 'app-nrm-contact-activities',
   templateUrl: './nrm-contact-activities.component.html',
@@ -27,7 +28,6 @@ export class NrmContactActivitiesComponent implements OnInit {
   
   onOptionsSelected(event) {
     this.typeSelected = event;
-    //sort
   }
 
   sortByDate() {
@@ -101,6 +101,14 @@ export class NrmContactActivitiesComponent implements OnInit {
         name: 'other'
       },
     ];
+  }
+  
+  openModalEdit(activityInfo) {
+    const modalRef = this.modalService.open({edit: true, title: 'activity', info: activityInfo})
+  }
+  
+  openModalCreate() {
+    const modalRef = this.modalService.open({edit: false, title: 'activity', info: null})
   }
 
   ngOnInit() {

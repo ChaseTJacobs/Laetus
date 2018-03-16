@@ -9,8 +9,8 @@
     <div class="form-group ml-2 mr-2">
 
       <form [formGroup]="contactInfo" (ngSubmit)="createContact(contactInfo.value)">
-        <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="fName">
-        <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lName">
+        <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="firstname">
+        <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lastname">
         <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="org">
         <input class="form-control" type="text" [(ngModel)]="contact.url_linkedin" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
         <input class="form-control" type="text" [(ngModel)]="contact.email" placeholder="Contact Email Adress" formControlName="email">

@@ -150,103 +150,7 @@ export class NrmService {
         aDate: 1521507876141,
         location: 'STC Room 225',
         description: 'GIT ER DUUUUN'
-      },
-      {
-        id: 1,
-        type: 'Covfefe',
-        contact: 'Donald Trump',
-        aDate: 1519856054000,
-        location: 'Trump Hotal, NYC',
-        description: 'Everyone that needs to know what it means, knows what it means, and thats all Im gonna say about the matter. Next question #fakenews'
-      },
-      {
-        id: 1,
-        type: 'Phone Call',
-        contact: 'John Cena',
-        aDate: 1519943054000,
-        location: 'digital',
-        description: 'Call or visit online at the WWW.SUUUUUUUPERSLAM.COM'
-      },
-      {
-        id: 1,
-        type: 'Job Interview',
-        contact: 'Loki, God of Trickery',
-        aDate: 1519743054000,
-        location: 'Asgard',
-        description: 'Not so sure about this. Wish me luck'
-      },
-      {
-        id: 1,
-        type: 'Informational Interview',
-        contact: 'Tom Foolery',
-        aDate: 1519845054000,
-        location: '345 Ask Questions Lane',
-        description: 'Quick talk with Tom about his current position'
-      },
-      {
-        id: 1,
-        type: 'Coffee Date',
-        contact: 'Your Mom',
-        aDate: 1529843054000,
-        location: 'Your moms place',
-        description: 'lololol Im in 3rd grade.'
-      },
-      {
-        id: 1,
-        type: 'Finish this page',
-        contact: 'Nim Uleam',
-        aDate: 1521507876141,
-        location: 'STC Room 225',
-        description: 'GIT ER DUUUUN'
-      },
-      {
-        id: 1,
-        type: 'Covfefe',
-        contact: 'Donald Trump',
-        aDate: 1519856054000,
-        location: 'Trump Hotal, NYC',
-        description: 'Everyone that needs to know what it means, knows what it means, and thats all Im gonna say about the matter. Next question #fakenews'
-      },
-      {
-        id: 1,
-        type: 'Phone Call',
-        contact: 'John Cena',
-        aDate: 1519943054000,
-        location: 'digital',
-        description: 'Call or visit online at the WWW.SUUUUUUUPERSLAM.COM'
-      },
-      {
-        id: 1,
-        type: 'Job Interview',
-        contact: 'Loki, God of Trickery',
-        aDate: 1519743054000,
-        location: 'Asgard',
-        description: 'Not so sure about this. Wish me luck'
-      },
-      {
-        id: 1,
-        type: 'Informational Interview',
-        contact: 'Tom Foolery',
-        aDate: 1519845054000,
-        location: '345 Ask Questions Lane',
-        description: 'Quick talk with Tom about his current position'
-      },
-      {
-        id: 1,
-        type: 'Coffee Date',
-        contact: 'Your Mom',
-        aDate: 1529843054000,
-        location: 'Your moms place',
-        description: 'lololol Im in 3rd grade.'
-      },
-      {
-        id: 1,
-        type: 'Finish this page',
-        contact: 'Nim Uleam',
-        aDate: 1521507876141,
-        location: 'STC Room 225',
-        description: 'GIT ER DUUUUN'
-      },
+      }
     ];
     return this.contactInfo.activities;
   }
@@ -296,15 +200,15 @@ export class NrmService {
     let newContact = {
       contactID: contact.id,
       created: new Date().getTime(),
-      fName: contact.fName,
-      lName: contact.lName,
-      company: contact.org,
+      firstname: contact.firstname,
+      lastname: contact.lastname,
+      organization: contact.org,
       position: contact.position,
       email: contact.email,
       phone: contact.phone,
-      linkedIn: contact.url,
+      url_linkedIn: contact.url,
       address: contact.address,
-      description: contact.notes,
+      notes: contact.notes,
       custom: [],
     };
     if (edit) {
@@ -318,6 +222,7 @@ export class NrmService {
     this.httpService.getRequest(endpoint, newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
+        console.log(body);
         if (body.status === 113) {
           this.getContactList();
         } else if (body.status === 115) {
