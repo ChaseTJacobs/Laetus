@@ -182,7 +182,7 @@ export class NrmService {
     let endpoint;
     console.log(contact);
     let newContact = {
-      contactID: contact.c_id,
+      c_id: contact.c_id,
       created_milli: new Date().getTime(),
       firstname: contact.firstname,
       lastname: contact.lastname,
