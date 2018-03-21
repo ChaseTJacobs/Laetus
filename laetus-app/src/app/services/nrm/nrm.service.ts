@@ -10,20 +10,15 @@ export class NrmService {
 
   private contactList$ = new BehaviorSubject<any>(null);
   savedContacts: any[];
+  activityTypes: any[];
+  d = new Date();
 
   contactInfo = {
     c_id: null,
-    firstname: null,
-    lastname: null,
-    organization: null,
-    position: null,
-    email: null,
-    phone: null,
-    address: null,
-    linkedIn: null,
-    description: null,
-    other_info: [{}],
-    activities: [{}]
+    c_info: {},
+    allActivities: [],
+    pastActivities: [],
+    currentActivities: []
   };
 
   selectContact(selected) {
@@ -33,6 +28,11 @@ export class NrmService {
       if (this.savedContacts !== null && this.savedContacts !== undefined) {
         for (let contact of this.savedContacts) {
           if (contact.c_id === selected.c_id) {
+            this.contactInfo.c_id = contact.c_id;
+            this.contactInfo.c_info = null;
+            this.contactInfo.allActivities = null;
+            this.contactInfo.pastActivities = null;
+            this.contactInfo.currentActivities = null;
             this.contactInfo = contact;
             return;
           }
@@ -45,115 +45,44 @@ export class NrmService {
       this.httpService.getRequest('getContactInfo', data, this.accountService.getToken()).subscribe(
         (response: Response) => {
           let body = response.json();
-          this.contactInfo = body.data.contact_info;
-          this.savedContacts.push(body.data.contact_info);
+          // set ID first
+          this.contactInfo.c_id = body.data.contact_info.c_id;
+          // reset the rest of the info
+          this.contactInfo.c_info = null;
+          this.contactInfo.allActivities = null;
+          this.contactInfo.pastActivities = null;
+          this.contactInfo.currentActivities = null;
+          
+          // set contact info
+          this.contactInfo.c_info = body.data.contact_info;
+          
+          // get activities from server
+          this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
+            (aResponse: Response) => {
+              let aBody = aResponse.json();
+              if(aBody.data.activities) {
+                // set all activities
+                this.contactInfo.allActivities = aBody.data.activities;
+                // seperate and sort the current activities
+                this.contactInfo.currentActivities = this.sortByDate(this.getCurrActivities(this.contactInfo.allActivities));
+                // seperate and sort the past activities
+                this.contactInfo.pastActivities = this.sortByDate(this.getPastActivities(this.contactInfo.allActivities));
+                console.log(this.contactInfo);
+                // save the currect activity
+                this.savedContacts.push(this.contactInfo);
+              }
+            }
+          )
         }
-    );
+      );
     }
   }
 
   getActivities() {
-    this.contactInfo.activities = [
-      {
-        id: 1,
-        type: 'Covfefe',
-        contact: 'Donald Trump',
-        aDate: 1519856054000,
-        location: 'Trump Hotal, NYC',
-        description: 'Everyone that needs to know what it means, knows what it means, and thats all Im gonna say about the matter. Next question #fakenews'
-      },
-      {
-        id: 1,
-        type: 'Phone Call',
-        contact: 'John Cena',
-        aDate: 1519943054000,
-        location: 'digital',
-        description: 'Call or visit online at the WWW.SUUUUUUUPERSLAM.COM'
-      },
-      {
-        id: 1,
-        type: 'Job Interview',
-        contact: 'Loki, God of Trickery',
-        aDate: 1519743054000,
-        location: 'Asgard',
-        description: 'Not so sure about this. Wish me luck'
-      },
-      {
-        id: 1,
-        type: 'Informational Interview',
-        contact: 'Tom Foolery',
-        aDate: 1519845054000,
-        location: '345 Ask Questions Lane',
-        description: 'Quick talk with Tom about his current position'
-      },
-      {
-        id: 1,
-        type: 'Coffee Date',
-        contact: 'Your Mom',
-        aDate: 1529843054000,
-        location: 'Your moms place',
-        description: 'lololol Im in 3rd grade.'
-      },
-      {
-        id: 1,
-        type: 'Finish this page',
-        contact: 'Nim Uleam',
-        aDate: 1521507876141,
-        location: 'STC Room 225',
-        description: 'GIT ER DUUUUN'
-      },
-      {
-        id: 1,
-        type: 'Covfefe',
-        contact: 'Donald Trump',
-        aDate: 1519856054000,
-        location: 'Trump Hotal, NYC',
-        description: 'Everyone that needs to know what it means, knows what it means, and thats all Im gonna say about the matter. Next question #fakenews'
-      },
-      {
-        id: 1,
-        type: 'Phone Call',
-        contact: 'John Cena',
-        aDate: 1519943054000,
-        location: 'digital',
-        description: 'Call or visit online at the WWW.SUUUUUUUPERSLAM.COM'
-      },
-      {
-        id: 1,
-        type: 'Job Interview',
-        contact: 'Loki, God of Trickery',
-        aDate: 1519743054000,
-        location: 'Asgard',
-        description: 'Not so sure about this. Wish me luck'
-      },
-      {
-        id: 1,
-        type: 'Informational Interview',
-        contact: 'Tom Foolery',
-        aDate: 1519845054000,
-        location: '345 Ask Questions Lane',
-        description: 'Quick talk with Tom about his current position'
-      },
-      {
-        id: 1,
-        type: 'Coffee Date',
-        contact: 'Your Mom',
-        aDate: 1529843054000,
-        location: 'Your moms place',
-        description: 'lololol Im in 3rd grade.'
-      },
-      {
-        id: 1,
-        type: 'Finish this page',
-        contact: 'Nim Uleam',
-        aDate: 1521507876141,
-        location: 'STC Room 225',
-        description: 'GIT ER DUUUUN'
-      }
-    ];
-    return this.contactInfo.activities;
+    return this.contactInfo.allActivities;
   }
 
+  // Get users list of contacts
   getContactList() {
     this.httpService.tempGetRequest('getContactList', this.accountService.getToken()).subscribe(
       (response: Response) => {
@@ -174,16 +103,57 @@ export class NrmService {
   );
   }
 
+  // return observable of contact list
   getContactList$(): Observable<any> {
     return this.contactList$;
   }
+  
+  // return only past activities
+  getPastActivities(activityList) {
+    let pastAct = [];
+    for(let i = 0; i < activityList.length; i++) {
+      if(activityList[i].event_date < this.d.getTime()) {
+        pastAct.push(activityList[i]);
+      }
+    }
+    return pastAct;
+  }
+  
+  // return only future activities
+  getCurrActivities(activityList) {
+    let currAct = [];
+    for(let i = 0; i < activityList.length; i++) {
+      if(activityList[i].event_date > this.d.getTime()) {
+        currAct.push(activityList[i]);
+      }
+    }
+    return currAct;
+  }
+  
+  // sort activity list by date
+  sortByDate(contactList) {
+    let sortedList;
+    if(contactList) {
+      sortedList = contactList.sort((a: any, b: any) => {
+          if (b.event_date < a.event_date) {
+            return -1;
+          } else if (b.event_date > a.event_date) {
+            return 1;
+          } else {
+            return 0;
+          }
+      }); 
+    }
+    return sortedList;
+  }
 
+  // create and edit contact
   createContact(contact, edit) {
     let endpoint;
     console.log(contact);
     let newContact = {
       c_id: contact.c_id,
-      created_milli: new Date().getTime(),
+      created_milli: this.d.getTime(),
       firstname: contact.firstname,
       lastname: contact.lastname,
       organization: contact.organization,
@@ -195,6 +165,8 @@ export class NrmService {
       notes: contact.notes,
       other_info: [],
     };
+    
+    // set endpoint based on whether contact is being created or edited
     if (edit) {
       endpoint = 'updateContactInfo';
     } else if (!edit) {
@@ -209,13 +181,10 @@ export class NrmService {
           this.getContactList();
         } else if (body.status === 115) {
           console.log('Contact Updated Successfully!');
-
         } else if (body.status === 295) {
           console.log('295');
-
         } else if (body.status === 299) {
           console.log('299');
-
         } else {
           return null;
         }
@@ -223,20 +192,74 @@ export class NrmService {
     );
   }
   
+  // create and edit activity
   createActivity(activity, edit) {
+    console.log(activity);
     let endpoint;
+    let typeName;
+    if(activity.type == 1){
+      typeName = "Send Email";
+    } else if (activity.type == 2){
+      typeName = "Informational Interview";
+    } else if (activity.type == 3){
+      typeName = "Phone Call";
+    } else if (activity.type == 4){
+      typeName = "Meeting";
+    } else if (activity.type == 5){
+      typeName = "Interview";
+    } else if (activity.type == 6){
+      typeName = activity.other;
+    }
+    let curDate = new Date();
     let newActivity = {
-      c_id: activity.c_id,
-      atype_id: activity.type,
+      c_id: this.contactInfo.c_id,
+      atype_id: parseInt(activity.type),
       a_id: activity.a_id,
-      activity_name: activity.activity_name,
+      activity_name: typeName,
       event_date: activity.event_date,
       notes: activity.notes,
       completed: activity.completed
     }
+    
+    // set endpoint to create or edit activity
+    if (edit) {
+      endpoint = 'updateActivity';
+    } else {
+      endpoint = 'createActivity';
+    }
+    
+    this.httpService.getRequest(endpoint, newActivity, this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        console.log(body);
+        // todo: update activity info
+      }
+    )
+  }
+  
+  deleteActivity(a_id) {
+    let param = {
+      a_id: a_id
+    }
+    this.httpService.getRequest('deleteActivity', param, this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        console.log(body);
+      }
+    )
   }
 
   constructor(private httpService: HttpService, private accountService: AccountService) {
     this.savedContacts = [];
+    this.httpService.tempGetRequest('getActivityTypes', this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        if(body.status == 137) {
+          this.activityTypes = body.data.activity_types;
+          this.activityTypes.sort((a, b) => a.atype_id < b.atype_id ? -1 : a.atype_id > b.atype_id ? 1 : 0);
+          console.log(this.activityTypes);
+        }
+      }
+    )
   }
 }

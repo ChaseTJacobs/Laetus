@@ -4,7 +4,7 @@
     <span class="header-info ml-3">Activities</span>
     <div class="float-right mt-1">
       <img src="../../../../assets/Icons/green_search_icon.png" class="activity-icon" data-toggle="collapse" data-target="#aSearchTog">
-      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon"  (click)="openModalCreate(activity)">
+      <img src="../../../../assets/Icons/add_icon.png" class="activity-icon"  (click)="openModalCreate()">
     </div>
   </div>
   <div id="dataActivity" class="collapse show">
@@ -16,16 +16,16 @@
       </table>
     </div>
     <div class="scrollable">
-      <div *ngFor="let activity of currentActivities | filter: searchInput : searchParam; let i = index;">
+      <div *ngFor="let activity of nrmService.contactInfo.currentActivities | filter: searchInput : searchParam; let i = index;">
         <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#' + i">
           <table class="table-width">
             <tr>
               <td>
                 <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-                <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
+                <span>{{activity.activity_name}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{nrmService.contactInfo.c_info.fullname}}</span></span>
               </td>
               <td align="right">
-                <span class="mr-2">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
+                <span class="mr-2">{{activity.event_date | date:'EE LLL dd, yyyy'}}</span>
               </td>
             </tr>
           </table>
@@ -34,10 +34,10 @@
           <div class="activity-info-back mx-2 px-2">
             <table class="table-width">
               <tr>
-                <td class="text-left" rowspan="2">{{activity.description}}</td>
+                <td class="text-left" rowspan="2">{{activity.notes}}</td>
                 <td class="text-right">Time: </td>
                 <td class="text-left">
-                  {{activity.aDate | date:'h:ma'}}
+                  {{activity.event_date | date:'h:mma'}}
                 </td>
               </tr>
               <tr>
@@ -45,23 +45,23 @@
                 <td class="text-left">{{activity.location}}</td>
               </tr>
             </table>
-            <div  (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
+            <div (click)="openModalEdit(activity)" class="edit-act-button">Edit Activity</div>
           </div>
         </div>
       </div>
     </div>
     <span class="header-info">Past Activities</span>
     <div class="scrollable">
-      <div *ngFor="let activity of pastActivities | filter: searchInput : searchParam; let i = index;">
+      <div *ngFor="let activity of nrmService.contactInfo.pastActivities | filter: searchInput : searchParam; let i = index;">
         <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#p' + i">
           <table class="table-width">
             <tr>
               <td>
                 <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-                <span>{{activity.type}} <span *ngIf="activity.contact != null">with {{activity.contact}}</span></span>
+                <span>{{nrmService.contactInfo.c_info.fullname}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{activity.contact}}</span></span>
               </td>
               <td align="right">
-                <span class="mr-2">{{activity.aDate | date:'EE LLL dd, yyyy'}}</span>
+                <span class="mr-2">{{activity.event_date | date:'EE LLL dd, yyyy'}}</span>
               </td>
             </tr>
           </table>
@@ -73,7 +73,7 @@
                 <td class="text-left" rowspan="2">{{activity.description}}</td>  
                 <td class="text-right">Time: </td>
                 <td class="text-left">
-                  {{activity.aDate | date:'h:ma'}}
+                  {{activity.event_date | date:'h:mma'}}
                 </td>
               </tr>
               <tr>

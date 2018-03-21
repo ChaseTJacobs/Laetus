@@ -11,7 +11,7 @@
       <form [formGroup]="contactInfo" (ngSubmit)="createContact(contactInfo.value)">
         <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="firstname">
         <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lastname">
-        <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="org">
+        <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="organization">
         <input class="form-control" type="text" [(ngModel)]="contact.url_linkedin" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
         <input class="form-control" type="text" [(ngModel)]="contact.email" placeholder="Contact Email Adress" formControlName="email">
         <input class="form-control" type="text" [(ngModel)]="contact.position" placeholder="Contact Position (in Company)" formControlName="position">
@@ -26,21 +26,39 @@
   </div>
   <div class="modal-body" *ngIf="title === 'activity'">
     <div class="row">
-      <p>This will show if it is an activity modal</p>
       <form [formGroup]="activityInfo" (ngSubmit)="createActivity(activityInfo.value)">
-        <input class="form-control col-lg-12" type="text" placeholder="Contact First Name" formControlName="aName">
-        <input class="form-control col-lg-12" type="text" placeholder="Organization" formControlName="org">
-        <input class="form-control col-lg-12" type="text" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
-        <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="aNotes"></textarea>
+        <form #myForm="ngForm" novalidate>
+          <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+        </form>
+        <div>
+          <select formControlName="selectedHour">
+            <option *ngFor="let x of hours">{{x}}
+            </option>
+          </select>
+          <select formControlName="selectedMinute">
+            <option *ngFor="let y of minutes" [value]="y.value">{{y.show}}
+            </option>
+          </select>
+          <select formControlName="selectedAmPm">
+            <option *ngFor="let t of amPm">{{t}}
+            </option>
+          </select>
+        </div>
+        <select class="form-control col-lg-12" formControlName="type">
+          <option *ngFor="let option of typeOptions" [value]="option.atype_id">{{option.activity_type}}</option>
+        </select>
+        <div (click)="displayNigga()">Show</div>
+        <input *ngIf="activityInfo.value.type == '6'" class="form-control" type="text" placeholder="Other Type" formControlName="other">
+        <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Activity</button>
+        <button type="button" class="btn btn-outline-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-outline-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
       </form>
     </div>
   </div>
 
   <div class="modal-footer dark-header">
-    <button type="button" class="btn btn-outline-danger" (click)="activeModal.close('Close click')">Delete</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteActivity(activityInfo.value)">Delete</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </div>

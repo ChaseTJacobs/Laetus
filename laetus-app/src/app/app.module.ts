@@ -9,6 +9,7 @@ import { StorageServiceModule} from 'angular-webstorage-service';
 import { FilterPipe } from './services/nrm/search.filter.pipe';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyDatePickerModule } from 'mydatepicker';
 // import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 // Components
@@ -160,7 +161,8 @@ const routingObj: Routes = [
     AlertModule.forRoot(),
     RouterModule.forRoot(routingObj),
     NgbModule.forRoot(),
-    StorageServiceModule
+    StorageServiceModule,
+    MyDatePickerModule
   ],
 
   providers: [ // Services go here
