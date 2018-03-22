@@ -196,26 +196,12 @@ export class NrmService {
   createActivity(activity, edit) {
     console.log(activity);
     let endpoint;
-    let typeName;
-    if(activity.type == 1){
-      typeName = "Send Email";
-    } else if (activity.type == 2){
-      typeName = "Informational Interview";
-    } else if (activity.type == 3){
-      typeName = "Phone Call";
-    } else if (activity.type == 4){
-      typeName = "Meeting";
-    } else if (activity.type == 5){
-      typeName = "Interview";
-    } else if (activity.type == 6){
-      typeName = activity.other;
-    }
     let curDate = new Date();
     let newActivity = {
       c_id: this.contactInfo.c_id,
-      atype_id: parseInt(activity.type),
+      atype_id: activity.atype_id,
       a_id: activity.a_id,
-      activity_name: typeName,
+      activity_name: activity.activity_name,
       event_date: activity.event_date,
       notes: activity.notes,
       completed: activity.completed

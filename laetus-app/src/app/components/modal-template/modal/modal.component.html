@@ -31,25 +31,25 @@
           <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
         </form>
         <div>
-          <select formControlName="selectedHour">
-            <option *ngFor="let x of hours">{{x}}
+          <select formControlName="selectedHour" [(ngModel)]="activity.selectedHour">
+            <option *ngFor="let x of hours" [ngValue]="x">{{x}}
             </option>
           </select>
-          <select formControlName="selectedMinute">
-            <option *ngFor="let y of minutes" [value]="y.value">{{y.show}}
+          <select formControlName="selectedMinute" [(ngModel)]="activity.selectedMinute">
+            <option *ngFor="let y of minutes" [ngValue]="y">{{y.show}}
             </option>
           </select>
-          <select formControlName="selectedAmPm">
-            <option *ngFor="let t of amPm">{{t}}
+          <select formControlName="selectedAmPm" [(ngModel)]="activity.selectedAmPm">
+            <option *ngFor="let t of amPm" [ngValue]="t">{{t}}
             </option>
           </select>
         </div>
-        <select class="form-control col-lg-12" formControlName="type">
-          <option *ngFor="let option of typeOptions" [value]="option.atype_id">{{option.activity_type}}</option>
+        <select class="form-control col-lg-12" formControlName="type" [(ngModel)]="activity.type">
+          <option *ngFor="let option of nrm.activityTypes" [ngValue]="option">{{option.activity_type}}</option>
         </select>
         <div (click)="displayNigga()">Show</div>
-        <input *ngIf="activityInfo.value.type == '6'" class="form-control" type="text" placeholder="Other Type" formControlName="other">
-        <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes"></textarea>
+        <input *ngIf="activityInfo.value.type == '6'" class="form-control" type="text" placeholder="Other Type" formControlName="other" [(ngModel)]="activity.activity_name">
+        <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes" [(ngModel)]="activity.notes"></textarea>
 
         <button type="button" class="btn btn-outline-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
         <button type="button" class="btn btn-outline-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
