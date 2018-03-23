@@ -20,13 +20,6 @@ export class NrmContactActivitiesComponent implements OnInit {
   ];
   
   private showActivity:boolean = true;
-  private typeOptions;
-  private typeSelected;
-  
-  
-  onOptionsSelected(event) {
-    this.typeSelected = event;
-  }
 
   toggleActivity() {
     this.showActivity = !this.showActivity;

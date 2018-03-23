@@ -20,6 +20,23 @@ export class NrmService {
     pastActivities: [],
     currentActivities: []
   };
+  
+  hours = [12,1,2,3,4,5,6,7,8,9,10,11];
+  minutes = [
+    { show: '00', value: 0 },
+    { show: '05', value: 5 },
+    { show: '10', value: 10 },
+    { show: '15', value: 15 },
+    { show: '20', value: 20 },
+    { show: '25', value: 25 },
+    { show: '30', value: 30 },
+    { show: '35', value: 35 },
+    { show: '40', value: 40 },
+    { show: '45', value: 45 },
+    { show: '50', value: 50 },
+    { show: '55', value: 55 },
+  ];
+  amPm = ['am', 'pm'];
 
   selectContact(selected) {
     if (selected.c_id === this.contactInfo.c_id) {
@@ -56,26 +73,33 @@ export class NrmService {
           // set contact info
           this.contactInfo.c_info = body.data.contact_info;
           
-          // get activities from server
-          this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
-            (aResponse: Response) => {
-              let aBody = aResponse.json();
-              if(aBody.data.activities) {
-                // set all activities
-                this.contactInfo.allActivities = aBody.data.activities;
-                // seperate and sort the current activities
-                this.contactInfo.currentActivities = this.sortByDate(this.getCurrActivities(this.contactInfo.allActivities));
-                // seperate and sort the past activities
-                this.contactInfo.pastActivities = this.sortByDate(this.getPastActivities(this.contactInfo.allActivities));
-                console.log(this.contactInfo);
-                // save the currect activity
-                this.savedContacts.push(this.contactInfo);
-              }
-            }
-          )
+          this.getContactActivities(data);
         }
       );
     }
+  }
+  
+  getContactActivities(data) {
+    console.log(data);
+    // get activities from server
+    this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
+      (aResponse: Response) => {
+        let aBody = aResponse.json();
+        console.log(aBody);
+        if(aBody.data.activities) {
+          console.log(aBody);
+          // set all activities
+          this.contactInfo.allActivities = aBody.data.activities;
+          // seperate and sort the current activities
+          this.contactInfo.currentActivities = this.sortByDate(this.getCurrActivities(this.contactInfo.allActivities));
+          // seperate and sort the past activities
+          this.contactInfo.pastActivities = this.sortByDate(this.getPastActivities(this.contactInfo.allActivities));
+          console.log(this.contactInfo);
+          // save the currect activity
+          this.savedContacts.push(this.contactInfo);
+        }
+      }
+    )
   }
 
   getActivities() {
@@ -219,6 +243,7 @@ export class NrmService {
         let body = response.json();
         console.log(body);
         // todo: update activity info
+        this.getContactActivities({c_id: this.contactInfo.c_id});
       }
     )
   }
@@ -231,6 +256,7 @@ export class NrmService {
       (response: Response) => {
         let body = response.json();
         console.log(body);
+        this.getContactActivities({c_id: this.contactInfo.c_id});
       }
     )
   }

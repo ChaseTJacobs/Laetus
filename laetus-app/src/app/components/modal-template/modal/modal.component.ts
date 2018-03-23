@@ -4,6 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NrmService } from '../../../services/nrm/nrm.service';
 import { IMyDpOptions } from 'mydatepicker';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-ngbd-modal-content',
@@ -12,26 +13,10 @@ import { IMyDpOptions } from 'mydatepicker';
 })
 
 export class NgbdModalContent {
-  hours = [12,1,2,3,4,5,6,7,8,9,10,11];
-  minutes = [
-    { show: '00', value: 0 },
-    { show: '05', value: 5 },
-    { show: '10', value: 10 },
-    { show: '15', value: 15 },
-    { show: '20', value: 20 },
-    { show: '25', value: 25 },
-    { show: '30', value: 30 },
-    { show: '35', value: 35 },
-    { show: '40', value: 40 },
-    { show: '45', value: 45 },
-    { show: '50', value: 50 },
-    { show: '55', value: 55 },
-  ];
-  amPm = ['am', 'pm'];
   todaysDate = new Date();
   dateFormat = {
     year: this.todaysDate.getFullYear(),
-    month: this.todaysDate.getMonth() + 1,
+    month: this.todaysDate.getMonth(),
     day: this.todaysDate.getDate()
   };
   @Input() edit;
@@ -54,27 +39,20 @@ export class NgbdModalContent {
     activity_name: '',
     type: this.nrm.activityTypes[0],
     c_id: -1,
-    selectedHour: this.hours[0],
-    selectedMinute: this.minutes[0],
-    selectedAmPm: this.amPm[0],
+    selectedHour: this.nrm.hours[0],
+    selectedMinute: this.nrm.minutes[0],
+    selectedAmPm: this.nrm.amPm[0],
     completed: false,
-    notes: ''
+    notes: '',
+    model: null
   };
   
   // hour and date initializers
   model = { 
-    date: this.dateFormat,
-    jsdate: new Date(this.dateFormat.year, this.dateFormat.month - 1, this.dateFormat.day),
+    date: null,
+    jsdate: null,
     epoc: -1
   };
-  // set default hour,minute,ampm
-  selectedHour = this.hours[0];
-  selectedMinute = this.minutes[0].value;
-  selectAmPm = this.amPm[0];
-
-  public contactInfo: FormGroup;
-  public activityInfo: FormGroup;
-  typeOptions = [];
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private nrm: NrmService) {
     this.typeOptions = this.nrm.activityTypes;
@@ -101,10 +79,27 @@ export class NgbdModalContent {
       'notes': [null],
       'other': [null]
     });
+    
+    
   }
+  ngAfterViewInit() {
+    this.displayNigga();
+  }
+  
+  public contactInfo: FormGroup;
+  public activityInfo: FormGroup;
+  typeOptions = [];
   
   displayNigga(){
     console.log(this.activity);
+    //this.model = {};
+    if(this.activity.model != null) {
+      this.model.jsdate = this.activity.model;
+    } else {
+      this.model.jsdate = new Date(this.dateFormat.year, this.dateFormat.month, this.dateFormat.day); 
+      console.log(this.model.jsdate);
+    }
+    //this.displayNigga();
   }
   
   // calculate milliseconds given current minute/hour/ampm
@@ -149,7 +144,7 @@ export class NgbdModalContent {
     console.log('Edit Activity');
     activity['c_id'] = this.contact.c_id;
     activity['a_id'] = this.activity.a_id;
-    activity['event_date'] = this.model.epoc;
+    activity['event_date'] = this.model.jsdate.getTime() + this.calcMilli();
     activity['atype_id'] = activity.type.atype_id;
     activity['activity_name'] = activity.type.activity_type;
     this.nrm.createActivity(activity, true);
@@ -171,21 +166,6 @@ export class NgbdModalContent {
 
 @Injectable()
 export class ModalComponent implements OnInit {
-  
-  minutes = [
-      { show: '00', value: 0 },
-      { show: '05', value: 5 },
-      { show: '10', value: 10 },
-      { show: '15', value: 15 },
-      { show: '20', value: 20 },
-      { show: '25', value: 25 },
-      { show: '30', value: 30 },
-      { show: '35', value: 35 },
-      { show: '40', value: 40 },
-      { show: '45', value: 45 },
-      { show: '50', value: 50 },
-      { show: '55', value: 55 },
-    ];
 
   constructor(private modalService: NgbModal, private nrm: NrmService) {
 
@@ -196,7 +176,6 @@ export class ModalComponent implements OnInit {
     const modal = modalRef.componentInstance;
     modal.edit = params.edit;
     modal.title = params.title;
-    console.log(params);
     if (params.edit) {
       modal.message = 'Edit';
       if (params.info !== null) {
@@ -208,22 +187,32 @@ export class ModalComponent implements OnInit {
           }
           let tempDate = new Date(params.info.event_date);
           let tempStartDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());
+          // set start date for model
+          params.info.model =  tempStartDate;
+          // find difference from start of day (00:00:00) and time set
           let milliDif = tempDate.getTime() - tempStartDate.getTime();
+          // find am or pm
           if(milliDif >= 43200000) {
             milliDif -= 43200000;
             params.info.selectedAmPm = 'pm';
           } else {
             params.info.selectedAmPm = 'am';
           }
+          // find number of hours
           if(milliDif >= 3600000) {
             params.info.selectedHour = ((milliDif - (milliDif % 3600000)) / 3600000);
             milliDif = (milliDif % 3600000);
           }
+          // find number of minutes
           milliDif = milliDif / 60000;
-          for (let entry of this.minutes) {
+          // must come from the NRM service to be the same instance
+          for (let entry of this.nrm.minutes) {
             if(entry.value == milliDif){
               params.info.selectedMinute = entry;
             }
+          }
+          if(params.info.selectedHour == undefined){
+            params.info.selectedHour = 12;
           }
           modal.activity = params.info;
         } else {

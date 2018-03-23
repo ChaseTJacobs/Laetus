@@ -32,15 +32,15 @@
         </form>
         <div>
           <select formControlName="selectedHour" [(ngModel)]="activity.selectedHour">
-            <option *ngFor="let x of hours" [ngValue]="x">{{x}}
+            <option *ngFor="let x of nrm.hours" [ngValue]="x">{{x}}
             </option>
           </select>
           <select formControlName="selectedMinute" [(ngModel)]="activity.selectedMinute">
-            <option *ngFor="let y of minutes" [ngValue]="y">{{y.show}}
+            <option *ngFor="let y of nrm.minutes" [ngValue]="y">{{y.show}}
             </option>
           </select>
           <select formControlName="selectedAmPm" [(ngModel)]="activity.selectedAmPm">
-            <option *ngFor="let t of amPm" [ngValue]="t">{{t}}
+            <option *ngFor="let t of nrm.amPm" [ngValue]="t">{{t}}
             </option>
           </select>
         </div>
