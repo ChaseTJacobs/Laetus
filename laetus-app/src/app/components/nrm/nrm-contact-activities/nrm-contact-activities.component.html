@@ -1,7 +1,7 @@
 <div class="activity-back-dark px-2 pb-2">
   <div class="">
     <img class="collapse-icon invert-color mt-2 float-left" [ngStyle]="{'transform':showActivity != true ? 'rotate(90deg)' : 'rotate(270deg)'}" src="../../../../assets/right-arrow.png" data-toggle="collapse" data-target="#dataActivity" (click)="toggleActivity()">
-    <span class="header-info ml-3">Activities</span>
+    <span class="header-info ml-5">Activities</span>
     <div class="float-right mt-1">
       <img src="../../../../assets/Icons/green_search_icon.png" class="activity-icon" data-toggle="collapse" data-target="#aSearchTog">
       <img src="../../../../assets/Icons/add_icon.png" class="activity-icon"  (click)="openModalCreate()">
@@ -16,6 +16,7 @@
       </table>
     </div>
     <div class="scrollable">
+      <div *ngIf="nrmService.contactInfo.currentActivities != null && nrmService.contactInfo.currentActivities.length == 0">No Future Activities</div>
       <div *ngFor="let activity of nrmService.contactInfo.currentActivities | filter: searchInput : searchParam; let i = index;">
         <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#' + i">
           <table class="table-width">
@@ -52,6 +53,7 @@
     </div>
     <span class="header-info">Past Activities</span>
     <div class="scrollable">
+      <div *ngIf="nrmService.contactInfo.pastActivities != null && nrmService.contactInfo.pastActivities.length == 0">No Past Activities</div>
       <div *ngFor="let activity of nrmService.contactInfo.pastActivities | filter: searchInput : searchParam; let i = index;">
         <div class="activity-back mx-2 my-1 py-2" data-toggle="collapse" [attr.data-target]="'#p' + i">
           <table class="table-width">

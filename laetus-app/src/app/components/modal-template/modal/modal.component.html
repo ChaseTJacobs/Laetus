@@ -47,8 +47,7 @@
         <select class="form-control col-lg-12" formControlName="type" [(ngModel)]="activity.type">
           <option *ngFor="let option of nrm.activityTypes" [ngValue]="option">{{option.activity_type}}</option>
         </select>
-        <div (click)="displayNigga()">Show</div>
-        <input *ngIf="activityInfo.value.type == '6'" class="form-control" type="text" placeholder="Other Type" formControlName="other" [(ngModel)]="activity.activity_name">
+        <input *ngIf="activityInfo.value.type.atype_id == 6" class="form-control" type="text" placeholder="Other Type" formControlName="other" [(ngModel)]="activity.other">
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes" [(ngModel)]="activity.notes"></textarea>
 
         <button type="button" class="btn btn-outline-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>

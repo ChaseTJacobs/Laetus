@@ -72,7 +72,6 @@ export class NrmService {
           
           // set contact info
           this.contactInfo.c_info = body.data.contact_info;
-          
           this.getContactActivities(data);
         }
       );
@@ -85,17 +84,19 @@ export class NrmService {
     this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
       (aResponse: Response) => {
         let aBody = aResponse.json();
-        console.log(aBody);
-        if(aBody.data.activities) {
-          console.log(aBody);
+        if(aBody.status == 123) {
           // set all activities
           this.contactInfo.allActivities = aBody.data.activities;
           // seperate and sort the current activities
           this.contactInfo.currentActivities = this.sortByDate(this.getCurrActivities(this.contactInfo.allActivities));
           // seperate and sort the past activities
           this.contactInfo.pastActivities = this.sortByDate(this.getPastActivities(this.contactInfo.allActivities));
-          console.log(this.contactInfo);
           // save the currect activity
+          this.savedContacts.push(this.contactInfo);
+        } else if(aBody.status == 124) {
+          this.contactInfo.allActivities = [];
+          this.contactInfo.currentActivities = [];
+          this.contactInfo.pastActivities = [];
           this.savedContacts.push(this.contactInfo);
         }
       }

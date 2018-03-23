@@ -83,24 +83,17 @@ export class NgbdModalContent {
     
   }
   ngAfterViewInit() {
-    this.displayNigga();
-  }
-  
-  public contactInfo: FormGroup;
-  public activityInfo: FormGroup;
-  typeOptions = [];
-  
-  displayNigga(){
-    console.log(this.activity);
-    //this.model = {};
     if(this.activity.model != null) {
       this.model.jsdate = this.activity.model;
     } else {
       this.model.jsdate = new Date(this.dateFormat.year, this.dateFormat.month, this.dateFormat.day); 
       console.log(this.model.jsdate);
     }
-    //this.displayNigga();
   }
+  
+  public contactInfo: FormGroup;
+  public activityInfo: FormGroup;
+  typeOptions = [];
   
   // calculate milliseconds given current minute/hour/ampm
   calcMilli() {
@@ -131,11 +124,15 @@ export class NgbdModalContent {
 
   createActivity(activity) {
     console.log('Create Activity');
-    console.log(activity);
     activity['c_id'] = this.contact.c_id;
     activity['event_date'] = this.model.jsdate.getTime() + this.calcMilli();
     activity['atype_id'] = activity.type.atype_id;
-    activity['activity_name'] = activity.type.activity_type;
+    if(activity.type.atype_id == 6){
+      activity['activity_name'] = activity.other;
+    } else {
+      activity['activity_name'] = activity.type.activity_type;
+    }
+    
     this.nrm.createActivity(activity, false);
     this.activeModal.close('Created Contact');
   }
@@ -146,7 +143,11 @@ export class NgbdModalContent {
     activity['a_id'] = this.activity.a_id;
     activity['event_date'] = this.model.jsdate.getTime() + this.calcMilli();
     activity['atype_id'] = activity.type.atype_id;
-    activity['activity_name'] = activity.type.activity_type;
+    if(activity.type.atype_id == 6){
+      activity['activity_name'] = activity.other;
+    } else {
+      activity['activity_name'] = activity.type.activity_type;
+    }
     this.nrm.createActivity(activity, true);
     this.activeModal.close('Created Contact');
   }
@@ -180,6 +181,7 @@ export class ModalComponent implements OnInit {
       modal.message = 'Edit';
       if (params.info !== null) {
         if(params.title == 'activity') {
+          params.info.other = params.info.activity_name;
           for(let type of this.nrm.activityTypes) {
             if (type.atype_id == params.info.atype_id) {
               params.info.type = type;
