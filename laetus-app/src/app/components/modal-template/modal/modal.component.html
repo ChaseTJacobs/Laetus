@@ -59,8 +59,8 @@
         </div>
         <textarea class="form-control" type="text" [(ngModel)]="contact.notes" placeholder="Contact Notes" formControlName="notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary mt-2" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Contact</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Contact</button>
       </form>
     </div>
   </div>
@@ -97,7 +97,7 @@
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes" [(ngModel)]="activity.notes"></textarea>
 
         <button type="button" class="btn btn-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
+        <button type="button" class="btn btn-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
       </form>
     </div>
   </div>
