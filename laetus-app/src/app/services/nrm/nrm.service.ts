@@ -79,7 +79,6 @@ export class NrmService {
   }
   
   getContactActivities(data) {
-    console.log(data);
     // get activities from server
     this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
       (aResponse: Response) => {
