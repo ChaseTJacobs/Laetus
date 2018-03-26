@@ -1,5 +1,5 @@
-<div class="modal-content">
-  <div class="modal-header dark-header">
+<div class="modal-content panel-warning">
+  <div class="modal-header panel-header">
     <h4 class="modal-title text-center">{{message}}</h4>
     <!-- <button type="button" class="close white" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -9,18 +9,58 @@
     <div class="form-group ml-2 mr-2">
 
       <form [formGroup]="contactInfo" (ngSubmit)="createContact(contactInfo.value)">
-        <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="firstname">
-        <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lastname">
-        <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="organization">
-        <input class="form-control" type="text" [(ngModel)]="contact.url_linkedin" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
-        <input class="form-control" type="text" [(ngModel)]="contact.email" placeholder="Contact Email Adress" formControlName="email">
-        <input class="form-control" type="text" [(ngModel)]="contact.position" placeholder="Contact Position (in Company)" formControlName="position">
-        <input class="form-control" type="text" [(ngModel)]="contact.mail_address" placeholder="Contact Address" formControlName="address">
-        <input class="form-control" type="text" [(ngModel)]="contact.phone" placeholder="Contact Phone Number" formControlName="phone">
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/person_icon.png">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.firstname" placeholder="Contact First Name" formControlName="firstname">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/person_icon.png">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.lastname" placeholder="Contact Last Name" formControlName="lastname">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/location_icon.png" class="icon-info-small">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.organization" placeholder="Organization" formControlName="organization">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/toolbox_icon.png" class="icon-info-small">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.url_linkedin" placeholder="Contacts Website or LinkedIn URL" formControlName="url">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/black_email_icon.png" class="icon-info-small invert-color">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.email" placeholder="Contact Email Adress" formControlName="email">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/toolbox_icon.png" class="icon-info-small">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.position" placeholder="Contact Position (in Company)" formControlName="position">
+        </div>
+          <div class="input-group mb-1">
+            <span class="input-group-prepend">
+              <img src="../../../../assets/Icons/road_icon_white.png" class="icon-info-small">
+            </span>
+            <input class="form-control" type="text" [(ngModel)]="contact.mail_address" placeholder="Contact Address" formControlName="address">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-prepend">
+            <img src="../../../../assets/Icons/phone_icon_white.png" class="icon-info-small">
+          </span>
+          <input class="form-control" type="text" [(ngModel)]="contact.phone" placeholder="Contact Phone Number" formControlName="phone">
+        </div>
         <textarea class="form-control" type="text" [(ngModel)]="contact.notes" placeholder="Contact Notes" formControlName="notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary mt-2" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Contact</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="editContact(contactInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-primary mt-2" (click)="createContact(contactInfo.value)" *ngIf="!edit">Create Contact</button>
       </form>
     </div>
   </div>
@@ -30,19 +70,25 @@
         <form #myForm="ngForm" novalidate>
           <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
         </form>
-        <div>
-          <select formControlName="selectedHour" [(ngModel)]="activity.selectedHour">
+        <div class="form-row">
+          <div class="form-group col">
+          <select class="form-control" formControlName="selectedHour" [(ngModel)]="activity.selectedHour">
             <option *ngFor="let x of nrm.hours" [ngValue]="x">{{x}}
             </option>
           </select>
-          <select formControlName="selectedMinute" [(ngModel)]="activity.selectedMinute">
+            </div>
+          <div class="form-group col">
+          <select class="form-control" formControlName="selectedMinute" [(ngModel)]="activity.selectedMinute">
             <option *ngFor="let y of nrm.minutes" [ngValue]="y">{{y.show}}
             </option>
           </select>
-          <select formControlName="selectedAmPm" [(ngModel)]="activity.selectedAmPm">
+          </div>
+          <div class="form-group col">
+          <select class="form-control" formControlName="selectedAmPm" [(ngModel)]="activity.selectedAmPm">
             <option *ngFor="let t of nrm.amPm" [ngValue]="t">{{t}}
             </option>
           </select>
+          </div>
         </div>
         <select class="form-control col-lg-12" formControlName="type" [(ngModel)]="activity.type">
           <option *ngFor="let option of nrm.activityTypes" [ngValue]="option">{{option.activity_type}}</option>
@@ -50,14 +96,14 @@
         <input *ngIf="activityInfo.value.type.atype_id == 6" class="form-control" type="text" placeholder="Other Type" formControlName="other" [(ngModel)]="activity.other">
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes" [(ngModel)]="activity.notes"></textarea>
 
-        <button type="button" class="btn btn-outline-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
-        <button type="button" class="btn btn-outline-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
+        <button type="button" class="btn btn-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
+        <button type="button" class="btn btn-primary" (click)="createActivity(activityInfo.value)" *ngIf="!edit">Create Activity</button>
       </form>
     </div>
   </div>
 
   <div class="modal-footer dark-header">
-    <button type="button" class="btn btn-outline-danger" (click)="deleteActivity(activityInfo.value)">Delete</button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="deleteActivity(activityInfo.value)">Delete</button>
+    <button type="button" class="btn btn-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </div>
