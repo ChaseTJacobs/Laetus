@@ -98,7 +98,22 @@ export class AccountService implements OnInit {
         (error) => console.log('ERROR')
     );
   }
-  
+
+  /*
+    Remember:
+    - "tempGetRequest" = GET
+    - "getRequest" = POST
+  */
+  getUserInfo() {
+    return (this.httpService.tempGetRequest('getUserInfo', this.getToken()));
+  }
+  updateUserInfo(reqBody) {
+    return (this.httpService.getRequest('updateUserInfo', reqBody, this.getToken()));
+  }
+  changePassword(reqBody) {
+    return (this.httpService.getRequest('changePassword', reqBody, this.getToken()));
+  }
+    
   constructor(private httpService: HttpService, private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService) { }
 
   ngOnInit() {
