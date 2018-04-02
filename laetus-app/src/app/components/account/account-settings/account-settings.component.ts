@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../../services/auth/account.service';
-//import { HttpService } from '../../../services/http/http.service';
 import { Response } from '@angular/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -9,13 +8,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './account-settings.component.html',
   styleUrls: ['./account-settings.component.css']
 })
-export class AccountSettingsComponent implements OnInit {
-
-    
+export class AccountSettingsComponent implements OnInit {  
   private user_info = {};
   private u_info_keys = [];
-  
-  
   updatePassForm: FormGroup;
   old_pass: string;
   new_pass: string;
@@ -38,19 +33,17 @@ export class AccountSettingsComponent implements OnInit {
     );
   }
   
-  /*getUserInfo() {
-    this.accountService.getUserInfo().subscribe(
+  updateUserInfo() {
+    this.accountService.updateUserInfo(this.user_info).subscribe(
       (response: Response) => {
         let body = response.json();
-        if (body.status < 200) {
-          let u_info = JSON.parse(body.data.user_info);
-          console.log(u_info);
-          this.user_info = u_info;
-          this.dummy = JSON.stringify(u_info);
-        }
+        if (body.status < 200)
+          console.log("Success!");
+        else
+          console.log("Failed to update User's Info!");
       }
     );
-  }*/
+  }
   
 
   constructor(private accountService: AccountService, private fb: FormBuilder) {
