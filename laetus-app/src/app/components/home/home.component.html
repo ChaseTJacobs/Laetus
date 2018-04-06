@@ -58,7 +58,7 @@
               <div><h2>Modules</h2></div>
               <div *ngIf="!takenQuiz">
                 Please take the quiz to access your modules!
-                <div class="intro-button mt-3 mb-4">TAKE QUIZ</div>
+                <div class="intro-button mt-3 mb-4" (click)="takeQuiz()">TAKE QUIZ</div>
               </div>
               <div *ngIf="takenQuiz">
                 <span class="module-button" *ngFor="let module of moduleList">{{module.number}}</span>

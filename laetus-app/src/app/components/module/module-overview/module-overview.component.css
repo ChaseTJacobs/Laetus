@@ -1,0 +1,42 @@
+.moduleBox {
+  color: white;
+  background-color: #333;
+  border: 3px solid #333;
+  border-radius: 9px;
+  min-height: 35vh;
+}
+
+.textHead {
+  font-size: 28px;
+}
+
+.modButton {
+  color:white;
+  text-decoration: none;
+  background-color: #2FCF99;
+  border: 3px solid #2FCF99;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.modButton:hover {
+  cursor: pointer;
+  border: 3px solid white;
+}
+
+.modNum {
+  font-size: 78px;
+}
+
+.modName {
+  font-size: 24px;
+  text-align: left;
+}
+
+.modDes {
+  font-size: 14px;
+  text-align: left;
+}

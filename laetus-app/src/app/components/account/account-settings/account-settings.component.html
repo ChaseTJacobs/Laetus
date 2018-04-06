@@ -1,4 +1,24 @@
-<p>
-  account-settings works!
+<legend>Your Account Information</legend>
+<!-- TODO: These items need to be editable (except for email!) -->
+<p *ngFor="let key of u_info_keys">
+  {{key}} = <span [innerHTML]='user_info[key]'></span>
 </p>
+<!-- TODO: Also, we need to allow them to define & add a new item -->
+<!-- TODO: an "Update Account Info" button that hits the updateUserInfo() endpoint -->
+
+<form [formGroup]="updatePassForm">
+    <div class="form-container px-4 py-2">
+      <fieldset class="container" id="userInfo">
+        <legend>Change Your Password</legend>
+
+        <input class="form-control mt-2" type="password" autocomplete="on" placeholder="your old password" formControlName="old_pass">
+        
+        <input class="form-control mt-2" type="password" placeholder="your new password" formControlName="new_pass">
+        
+        <input type="submit" class="btn btn-teal mt-2" (click)="changePassRequest(updatePassForm.value)" value="Change Password">
+        
+      </fieldset>
+    </div>
+</form>
+
 <input type="submit" class="btn btn-red" (click)="logout()" value="Logout">

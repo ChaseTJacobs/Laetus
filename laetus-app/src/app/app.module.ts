@@ -1,5 +1,6 @@
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AlertModule } from 'ngx-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { FilterPipe } from './services/nrm/search.filter.pipe';
+import { SafePipe } from './services/nrm/sanitize.pipe';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -69,7 +71,8 @@ const routingObj: Routes = [
   },
   {
     path: 'quiz',
-    component: QuizBodyComponent
+    component: QuizBodyComponent,
+    canActivate: [AuthguardService]
   },
   {
     path: 'landing',
@@ -82,6 +85,11 @@ const routingObj: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'module-index',
+    component: ModuleOverviewComponent,
+    canActivate: [AuthguardService]
   },
   {
     path: 'module',
@@ -151,12 +159,14 @@ const routingObj: Routes = [
     QuizResultsComponent,
     StatsToolComponent,
     FilterPipe,
+    SafePipe,
     ModalComponent,
     NgbdModalContent,
     VerifyEmailComponent,
   ],
   imports: [      // Modules go here
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     ReactiveFormsModule,
     FormsModule,

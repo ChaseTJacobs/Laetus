@@ -1,3 +1,2 @@
-<p>
-  quiz-body works!
-</p>
+<app-quiz-question *ngIf="!accountService.quizResults"></app-quiz-question>
+<app-quiz-results *ngIf="accountService.quizResults"></app-quiz-results>

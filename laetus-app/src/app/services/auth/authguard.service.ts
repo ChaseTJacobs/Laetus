@@ -16,6 +16,7 @@ constructor(private router: Router, private accountService: AccountService) { }
   }
 
   checkLogin(url: string): boolean {
+
     if (this.accountService.isLoggedIn()) {
       if(url == '/login') {
         this.router.navigate(['/home']);
@@ -27,6 +28,9 @@ constructor(private router: Router, private accountService: AccountService) { }
         this.router.navigate(['/home']);
       }
       return true; 
+    }
+    if(url == '/quiz') {
+      return true;
     }
 
     // Store the attempted URL for redirecting
