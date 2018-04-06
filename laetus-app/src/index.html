@@ -13,7 +13,8 @@
 
   <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
   <script type="text/javascript">
-    Stripe('pk_test_8vCSYj5SLUNhpIOW8PN8dsxO');
+    var stripe = Stripe('pk_test_8vCSYj5SLUNhpIOW8PN8dsxO');
+    var elements = stripe.elements();
   </script>
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">

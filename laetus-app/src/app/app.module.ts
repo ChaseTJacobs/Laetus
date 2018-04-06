@@ -55,6 +55,7 @@ import { NrmService } from './services/nrm/nrm.service';
 import { StatService } from './services/stat/stat.service';
 import { PaymentService } from './services/payment/payment.service';
 import { ModalComponent } from './components/modal-template/modal/modal.component';
+import { VerifyEmailComponent } from './components/account/register/verify-email/verify-email.component';
 
 const routingObj: Routes = [
   {
@@ -152,6 +153,7 @@ const routingObj: Routes = [
     FilterPipe,
     ModalComponent,
     NgbdModalContent,
+    VerifyEmailComponent,
   ],
   imports: [      // Modules go here
     BrowserModule,

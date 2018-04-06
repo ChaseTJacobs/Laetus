@@ -15,7 +15,11 @@ export class AccountService implements OnInit {
   private loggedInUserToken = new BehaviorSubject<any>(null);
   private loggedInStatus = new BehaviorSubject<any>(null);
   private sToken = null;
+  private paToken = null;
+  private raToken = null;
   public redirectUrl = null;
+  public confirmForm = false;
+  public uInfo = null;
 
   login(email: string, pass: string) {
     let param = { email: email, password: pass };
@@ -77,28 +81,64 @@ export class AccountService implements OnInit {
     return this.loggedInStatus.asObservable();
   }
 
-  register(user) {
-    let param = { 
-      email: user.email, 
+  verifyEmail(email) {
+    let param = {
+      email: email
+    };
+    this.httpService.getRequest('emailToken', param, null).subscribe(
+      (response: Response) => {
+        let emailRes = response.json();
+        this.paToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+        this.setVerifyEmail(true);
+      }
+    )
+  }
+  
+  setVerifyEmail(isSet) {
+    this.confirmForm = isSet;
+  }
+  
+  setUserInfo(user) {
+    this.uInfo = {
+      email: user.email,
       password: user.password, 
       userInfo: {
         firstName: user.firstname, 
         lastName: user.lastname
       }
-    };
-    console.log(param);
-    this.httpService.getRequest('createAccount', param, null).subscribe(
-      (response: Response) => {
-        let res = response.json();
-        this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-        this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
-        this.loggedInUserToken.next(this.sToken);
-        this.router.navigate(['/home']);
-      },
-        (error) => console.log('ERROR')
-    );
+    }
   }
   
+  register(code) {
+    let param = {
+      token: code,
+      email: this.uInfo.email,
+    };
+    console.log(param);
+    
+    this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe(
+    (response: Response) => {
+      let result = response.json();
+      console.log(result);
+      console.log(JSON.parse(JSON.stringify(response.headers)));
+      this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+      
+      if (this.uInfo !== null){
+        this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
+          (response: Response) => {
+            let res = response.json();
+            this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+            this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+            this.loggedInUserToken.next(this.sToken);
+            this.router.navigate(['/home']);
+          },
+          (error) => console.log('ERROR')
+      );
+      } else { 
+        console.log("Chase is a turd.")};
+    })
+  }
+    
   constructor(private httpService: HttpService, private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService) { }
 
   ngOnInit() {

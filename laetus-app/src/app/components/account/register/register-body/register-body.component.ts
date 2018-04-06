@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaymentService } from '../../../../services/payment/payment.service';
+import { AccountService } from '../../../../services/auth/account.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ export class RegisterBodyComponent implements OnInit {
 
 
 
-  constructor(private paySvc: PaymentService) {
+  constructor(private acctSvc: AccountService) {
   }
 
   ngOnInit() {

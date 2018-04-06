@@ -1,6 +1,6 @@
 .register{
-  /* align-content: center; */
-  background-image: url("../../../../../assets/blacknwhite_stock3_optimized.jpg");
+  align-items: center; 
+/*  background-image: url("../../../../../assets/teal-panel-back.jpg");*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -18,4 +18,9 @@ img{
 img:hover{
   background-color: white;
   border-radius: 5%;
+}
+
+.col-centered{
+float: none;
+margin: 0 auto;
 }

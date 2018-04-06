@@ -1,0 +1,8 @@
+<div class="verification-container rounded">
+  <h2>Almost done!</h2>
+  <h6 class="font-weight-light">Copy the verification code from the email we sent you and paste it into the space below:</h6>
+  <div class="px-3 mb-3 mt-3">
+    <input class="form-control" type="text" name="verCode" placeholder="Verification Code Here" [(ngModel)]="verify_code">
+  </div>
+  <button class="btn btn-teal pr-5 pl-5" (click)="verifyEmail()">Verify</button>
+</div>

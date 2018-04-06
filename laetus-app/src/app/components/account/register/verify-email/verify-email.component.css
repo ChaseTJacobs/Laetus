@@ -1,4 +1,8 @@
-.register-container{
+.verification-container{
+/*
+  background-color: rgba(255, 255, 255, .9);
+  color: rgb(52,52,52);
+*/
   background-color: rgba(38, 50, 56, .8);
 /*  color: rgb(52,52,52);*/
   color: white;
