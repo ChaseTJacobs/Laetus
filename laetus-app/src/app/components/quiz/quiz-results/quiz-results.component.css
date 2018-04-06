@@ -1,0 +1,16 @@
+.resultBod {
+  color: white;
+  background-color: #1a1a1a;
+  border: 3px solid #1a1a1a;
+  border-radius: 8px;
+}
+
+.table1 {
+  width: 100%;
+}
+
+.test {
+  background-color: #4d4d4d;
+  border: 3px solid #4d4d4d;
+  border-radius: 5px;
+}

@@ -10,7 +10,7 @@ export class AccountSettingsComponent implements OnInit {
 
   logout() {
     console.log("this is a log out");
-    this.accountService.logout();
+    this.accountService.logout(false);
   }
   
   constructor(private accountService: AccountService) { }

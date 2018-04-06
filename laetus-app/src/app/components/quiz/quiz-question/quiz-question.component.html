@@ -1,3 +1,220 @@
-<p>
-  quiz-question works!
-</p>
+<div id="quizCarousel" class="carousel slide noSel" data-interval="false" data-wrap="false">
+  <div class="carousel-inner">
+  <!--    Question 1   -->
+    <div class="carousel-item active">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink nextQ1" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+          <a class="qLink" role="button" (click)="submitQuiz()"><span>finishQuiz</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q1" width="50%">   
+            <span class="answerFont">What is your primary motivation to find an internship?</span>
+          </td>
+          <td [@q1]='q1Answer.state' width="50%">
+            <div [style.visibility]="q1Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q1Answer)"></div>
+            <span class="answerFont">{{q1Answer.answers[q1Answer.answer].a}}</span>
+            <div [style.visibility]="q1Answer.answer == 3 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q1Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 2   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q2" width="50%">
+            
+            <span class="answerFont">Are you looking for internships in a specific geographic location?</span>
+            
+            
+          </td>
+          <td [@q2]='q2Answer.state' width="50%">
+            <div [style.visibility]="q2Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q2Answer)"></div>
+            <span class="answerFont">{{q2Answer.answers[q2Answer.answer].a}}</span>
+            <div [style.visibility]="q2Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q2Answer)"></div>
+            
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 3   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q3" width="50%">
+            
+            <span class="answerFont">Have you already determined ideal companies to intern with?</span>
+            
+          </td>
+          <td [@q3]='q3Answer.state' width="50%">
+            <div [style.visibility]="q3Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q3Answer)"></div>
+            <span class="answerFont">{{q3Answer.answers[q3Answer.answer].a}}</span>
+            <div [style.visibility]="q3Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q3Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 4   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q4" width="50%">
+            
+            <span class="answerFont">Do you know what role you’d like to fill in an internship?</span>
+            
+          </td>
+          <td [@q4]='q4Answer.state' width="50%">
+            <div [style.visibility]="q4Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q4Answer)"></div>
+            <span class="answerFont">{{q4Answer.answers[q4Answer.answer].a}}</span>
+            <div [style.visibility]="q4Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q4Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 5   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q5" width="50%">
+            
+            <span class="answerFont">Do you need an internship to fulfill graduation requirements?</span>
+            
+          </td>
+          <td [@q5]='q5Answer.state' width="50%">
+            <div [style.visibility]="q5Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q5Answer)"></div>
+            <span class="answerFont">{{q5Answer.answers[q5Answer.answer].a}}</span>
+            <div [style.visibility]="q5Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q5Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 6   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q6" width="50%">
+            
+            <span class="answerFont">Would you like to improve your professional relationship building (or networking) skills? (This is the best way to get internships.)</span>
+            
+          </td>
+          <td [@q6]='q6Answer.state' width="50%">
+            <div [style.visibility]="q6Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q6Answer)"></div>
+            <span class="answerFont">{{q6Answer.answers[q6Answer.answer].a}}</span>
+            <div [style.visibility]="q6Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q6Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 7   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" href="#quizCarousel" role="button" data-slide="next"><span>Next Question</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q7" width="50%">
+            
+            <span class="answerFont">Would you like to learn how to navigate the online internship application process more effectively?</span>
+            
+          </td>
+          <td [@q7]='q7Answer.state' width="50%">
+            <div [style.visibility]="q7Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q7Answer)"></div>
+            <span class="answerFont">{{q7Answer.answers[q7Answer.answer].a}}</span>
+            <div [style.visibility]="q7Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q7Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--    Question 8   -->
+    <div class="carousel-item">
+      <div class="qa">
+        <span>Q:</span>
+        <span class="qm">A:</span>
+      </div>
+      <div class="buttonHolder">
+        <div>
+          <a class="qLink prevQ" href="#quizCarousel" role="button" data-slide="prev"><span>Previous Question</span></a>
+          <a class="qLink nextQ" role="button"  (click)="submitQuiz()"><span>Submit Answers</span></a>
+        </div>
+      </div>
+      <table class="w-100 fullH">
+        <tr>
+          <td class="backgroundQ q8" width="50%">
+            
+            <span class="answerFont">Would you like to learn how to nail job/internship interviews?</span>
+            
+          </td>
+          <td [@q8]='q8Answer.state' width="50%">
+            <div [style.visibility]="q8Answer.answer == 0 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/up_arrow_white.png" class="arrowIcon"(click)="previousAnswer(q8Answer)"></div>
+            <span class="answerFont">{{q8Answer.answers[q8Answer.answer].a}}</span>
+            <div [style.visibility]="q8Answer.answer == 1 ? 'hidden' : 'visible'"> <img src="../../../../assets/Icons/down_arrow_white.png" class="arrowIcon"(click)="nextAnswer(q8Answer)"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

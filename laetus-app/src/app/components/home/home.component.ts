@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../../services/auth/account.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,10 @@ moduleList: {
       {number: "12", completed: false, link: "first"},
     ];
 
-  constructor() { 
+  takeQuiz(){
+    this.accountService.goToQuiz();
+  }
+  constructor(private accountService: AccountService) { 
 
   }
 

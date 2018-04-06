@@ -1,3 +1,69 @@
-<p>
-  module-overview works!
-</p>
+<div class="container-fluid">
+  <span class="textHead">My Plan</span>
+  <div class="row">
+    <ng-container *ngFor="let module of moduleService.modules">
+      <div *ngIf="module.completed || module.interested" class="col-sm-6 col-md-4 py-4">
+        <div class="moduleBox p-2">
+          <table class="w-100 h-100">
+            <tr valign="top">
+              <td rowspan="2">
+                <span class="modNum mx-2">{{module.module_number}}</span>
+              </td>
+              <td>
+                <div class="modName">
+                  {{module.module_name}}
+                </div>
+              </td>
+            </tr>
+            <tr valign="bottom">
+              <td>
+                <div class="modDes">
+                  This is a test description that I will use for now. It is quite long, and I don't like it. This module will help you learn blah blah blah it's really great click below now har har.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td valign="bottom" colspan="2">
+                <div class="modButton" (click)="goToModule(module.mod_id)">Go To Module</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <span class="textHead">Other Modules</span>
+  <div class="row">
+    <ng-container *ngFor="let module of moduleService.modules">
+      <div *ngIf="!module.completed && !module.interested" class="col-sm-6 col-md-4 py-4">
+        <div class="moduleBox p-2">
+          <table class="w-100 h-100">
+            <tr valign="top">
+              <td rowspan="2">
+                <span class="modNum mx-2">{{module.module_number}}</span>
+              </td>
+              <td>
+                <div class="modName">
+                  {{module.module_name}}
+                  <div class="float-right" (click)="setInterested(module.mod_id)">Star</div>
+                </div>
+              </td>
+            </tr>
+            <tr valign="bottom">
+              <td>
+                <div class="modDes">
+                  This is a test description that I will use for now. It is quite long, and I don't like it. This module will help you learn blah blah blah it's really great click below now har har.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td valign="bottom" colspan="2">
+                <div class="modButton" (click)="goToModule(module.mod_id)">Go To Module</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

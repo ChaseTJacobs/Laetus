@@ -114,14 +114,18 @@ export class NrmService {
         console.log(body);
         if (body.status === 112) {
           this.contactList$.next(body.data);
-      } else if (body.status === 296) {
-
-      } else if (body.status === 295) {
-
-      } else if (body.status === 299) {
-
+        } else if (body.status === 296) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 295) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 299) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         } else {
-          return null;
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         }
       }
   );
@@ -206,11 +210,14 @@ export class NrmService {
         } else if (body.status === 115) {
           console.log('Contact Updated Successfully!');
         } else if (body.status === 295) {
-          console.log('295');
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         } else if (body.status === 299) {
-          console.log('299');
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         } else {
-          return null;
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         }
       }
     );
@@ -243,7 +250,18 @@ export class NrmService {
         let body = response.json();
         console.log(body);
         // todo: update activity info
-        this.getContactActivities({c_id: this.contactInfo.c_id});
+        if (body.status == 120 || body.status == 126) {
+          this.getContactActivities({c_id: this.contactInfo.c_id});
+        } else if (body.status === 295) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 299) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        }
       }
     )
   }
@@ -255,8 +273,20 @@ export class NrmService {
     this.httpService.getRequest('deleteActivity', param, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
+        if (body.status == 125) {
+          this.getContactActivities({c_id: this.contactInfo.c_id});
+        } else if (body.status === 295) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 299) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        }
         console.log(body);
-        this.getContactActivities({c_id: this.contactInfo.c_id});
+        
       }
     )
   }
@@ -270,6 +300,15 @@ export class NrmService {
           this.activityTypes = body.data.activity_types;
           this.activityTypes.sort((a, b) => a.atype_id < b.atype_id ? -1 : a.atype_id > b.atype_id ? 1 : 0);
           console.log(this.activityTypes);
+        } else if (body.status === 295) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 299) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
         }
       }
     )
