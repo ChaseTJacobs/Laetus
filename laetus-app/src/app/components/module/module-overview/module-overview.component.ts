@@ -30,10 +30,8 @@ export class ModuleOverviewComponent implements OnInit {
     this.router.navigate(['/module']);
   }
 
-  constructor(private moduleService: ModuleService, private httpService: HttpService, private accountService: AccountService, private router: Router) { 
-    if (this.moduleService.modules == undefined) {
-      this.moduleService.getModuleList()
-    }
+  constructor(private moduleService: ModuleService, private httpService: HttpService, private accountService: AccountService, private router: Router) {
+    this.moduleService.getModuleList()
   }
 
   ngOnInit() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/auth/account.service';
+import { ModuleService } from '../../services/module/module.service';
 
 @Component({
   selector: 'app-home',
@@ -8,31 +9,13 @@ import { AccountService } from '../../services/auth/account.service';
 })
 export class HomeComponent implements OnInit {
 
-takenQuiz: boolean = false;
-moduleList: {
-  number: string,
-  completed: boolean,
-  link: string
-  }[] = [
-      {number: "1", completed: false, link: "first"},
-      {number: "2", completed: false, link: "first"},
-      {number: "3", completed: false, link: "first"},
-      {number: "4", completed: false, link: "first"},
-      {number: "5", completed: false, link: "first"},
-      {number: "6", completed: false, link: "first"},
-      {number: "7", completed: false, link: "first"},
-      {number: "8", completed: false, link: "first"},
-      {number: "9", completed: false, link: "first"},
-      {number: "10", completed: false, link: "first"},
-      {number: "11", completed: false, link: "first"},
-      {number: "12", completed: false, link: "first"},
-    ];
+  takenQuiz: boolean = false;
 
   takeQuiz(){
     this.accountService.goToQuiz();
   }
-  constructor(private accountService: AccountService) { 
-
+  constructor(private accountService: AccountService, private moduleService: ModuleService) { 
+    this.moduleService.getModuleList();
   }
 
   ngOnInit() {

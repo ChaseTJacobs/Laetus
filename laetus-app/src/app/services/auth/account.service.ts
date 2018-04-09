@@ -100,6 +100,7 @@ export class AccountService implements OnInit {
         let body = response.json();
         resStatus = body.status;
         if(body.status == 110){
+          console.log(body);
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
           console.log(this.sToken);
           this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));

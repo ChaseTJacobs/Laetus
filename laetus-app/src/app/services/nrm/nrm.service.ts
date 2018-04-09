@@ -290,9 +290,8 @@ export class NrmService {
       }
     )
   }
-
-  constructor(private httpService: HttpService, private accountService: AccountService) {
-    this.savedContacts = [];
+  
+  getActivityTypes() {
     this.httpService.tempGetRequest('getActivityTypes', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
@@ -313,5 +312,10 @@ export class NrmService {
         }
       }
     )
+  }
+
+  constructor(private httpService: HttpService, private accountService: AccountService) {
+    this.savedContacts = [];
+    
   }
 }
