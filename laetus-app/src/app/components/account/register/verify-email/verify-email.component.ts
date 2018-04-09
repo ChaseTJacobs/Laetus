@@ -23,9 +23,4 @@ export class VerifyEmailComponent implements OnInit {
       this.acctSvc.confirmEmail(this.token, false);
     }
   }
-  
-//  resetPass() {
-//    this.acctSvc.
-//  }
-
 }
