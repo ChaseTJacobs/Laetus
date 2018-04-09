@@ -8,21 +8,24 @@ import { AccountService } from '../../../../services/auth/account.service';
 })
 export class VerifyEmailComponent implements OnInit {
 
-  verify_code = null;
-  
+  token = null;
+
   constructor(private acctSvc: AccountService) {
-  
+
   }
 
   ngOnInit() {
   }
-  
-  verifyEmail(){
-    console.log(this.verify_code);
-    if (this.verify_code !== null) {
-      this.acctSvc.register(this.verify_code)
-      console.log("Send the code to the email service");
+
+  verifyEmail() {
+    console.log(this.token);
+    if (this.token !== null) {
+      this.acctSvc.confirmEmail(this.token, false);
     }
   }
+  
+//  resetPass() {
+//    this.acctSvc.
+//  }
 
 }

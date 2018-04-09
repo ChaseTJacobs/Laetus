@@ -14,12 +14,15 @@ export class AccountService implements OnInit {
 
   private loggedInUserToken = new BehaviorSubject<any>(null);
   private loggedInStatus = new BehaviorSubject<any>(null);
+  private paToken = null; // preliminary token
+  private raToken = null; // restricted access token
+  private sToken = null; // all access token
   private moduleChange = new BehaviorSubject<any>(null);
-  private sToken = null;
-  private paToken = null;
-  private raToken = null;
-  public redirectUrl = null;
   public confirmForm = false;
+  public errorMessage = null;
+  /* rPass is to keep track of where we are at in the reset password process: 0 = beginning; 1 = confirmation token sent to email; 2 = email confirmed; 3 = new password saved to database */
+  public rPass = 0;
+  public redirectUrl = null;
   public uInfo = null;
   public quizResults = null;
   public quizQuestions = [
@@ -98,7 +101,6 @@ export class AccountService implements OnInit {
     this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
         let body = response.json();
-        resStatus = body.status;
         if(body.status == 110){
           console.log(body);
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
@@ -146,10 +148,78 @@ export class AccountService implements OnInit {
     }
   }
 
+  /* changePassword() is for changing a password from the account settings page */
+  changePassword(reqBody) {
+    return (this.httpService.getRequest('changePassword', reqBody, this.getToken()));
+  }
+  
+  /* confirmEmail() takes the 8 character token that was sent to the users email and verifies that it is the correct token associated with that email. The isResetPass parameter is for us to know if we should create an account upon a successful response, or move along in the reset password process. */
+  confirmEmail(token, isResetPass) {
+    let param = {
+      email: this.uInfo.email,
+      token: token
+    };
+    this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe((response: Response) => {
+      console.log(response);
+      let resp = response.json();
+      this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+      if(!isResetPass) {
+        if (this.uInfo !== null){
+        this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
+          (response: Response) => {
+            console.log(response);
+            let res = response.json();
+            if (res.status === 211) {
+              this.errorMessage = "The email you are trying to register with is already in use with another account.";
+            } else {
+            this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+            this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+            this.loggedInUserToken.next(this.sToken);
+            this.router.navigate(['/home']);
+            }
+          },
+          (error) => console.log('ERROR')
+      );
+      } else { 
+        console.log("Could not find users information.");
+      };
+      } else {
+        this.rPass = 2;
+      }
+      
+    }
+    )
+  }
+  
+  /* updateForgotPass() allows the user to set a new password after verifying their email.*/
+  updateForgotPass(email, password) {
+    console.log(this.raToken);
+    let param = {
+      email: email,
+      new_password: password,
+    };
+    this.httpService.getRequest('updateForgotPass', param, this.raToken).subscribe((response: Response) => {
+      let res = response.json();
+      this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+      this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+      this.loggedInUserToken.next(this.sToken);
+      this.rPass = 3;
+      setTimeout(() => {
+        this.router.navigate(['/home']);  
+      }, 3000);
+      
+    });
+  }
+  
+  getUserInfo() {
+    return (this.httpService.tempGetRequest('getUserInfo', this.getToken()));
+  }
+  updateUserInfo(reqBody) {
+    return (this.httpService.getRequest('updateUserInfo', reqBody, this.getToken()));
+  }
   getUser(): Observable<any> {
     return this.loggedInUserToken.asObservable();
   }
-  
   getStatus(): Observable<any> {
     return this.loggedInStatus.asObservable();
   }
@@ -158,7 +228,8 @@ export class AccountService implements OnInit {
     return this.moduleChange.asObservable();
   }
 
-  verifyEmail(email) {
+  /*sends an 8 character token to their email for email verification and forgot password*/
+  emailToken(email) {
     let param = {
       email: email
     };
@@ -167,15 +238,19 @@ export class AccountService implements OnInit {
         let emailRes = response.json();
         this.paToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
         this.setVerifyEmail(true);
+        this.rPass = 1;
       }
     )
   }
   
+  /* Sets the confirmForm boolean so that the register-body page shows the correct form when registering (if false: shows the user information form. If true: shows the verify email form.)*/
   setVerifyEmail(isSet) {
     this.confirmForm = isSet;
   }
   
-  setUserInfo(user) {
+  /* Takes the users information from the register page and holds onto it until they have verified their email and their account can be created. If isResetPass is true, we only worry about the email. */
+  setUserInfo(user, isResetPass) {
+    if(!isResetPass) {
     this.uInfo = {
       email: user.email,
       password: user.password, 
@@ -184,36 +259,11 @@ export class AccountService implements OnInit {
         lastName: user.lastname
       }
     }
-  }
-  
-  register(code) {
-    let param = {
-      token: code,
-      email: this.uInfo.email,
-    };
-    console.log(param);
-    
-    this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe(
-    (response: Response) => {
-      let result = response.json();
-      console.log(result);
-      console.log(JSON.parse(JSON.stringify(response.headers)));
-      this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-      
-      if (this.uInfo !== null){
-        this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
-          (response: Response) => {
-            let res = response.json();
-            this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-            this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
-            this.loggedInUserToken.next(this.sToken);
-            this.router.navigate(['/home']);
-          },
-          (error) => console.log('ERROR')
-      );
-      } else { 
-        console.log("Chase is a turd.")};
-    })
+    } else {
+      this.uInfo = {
+        email: user
+      }
+    }
   }
   
   goToQuiz(){
@@ -312,15 +362,7 @@ export class AccountService implements OnInit {
     - "tempGetRequest" = GET
     - "getRequest" = POST
   */
-  getUserInfo() {
-    return (this.httpService.tempGetRequest('getUserInfo', this.getToken()));
-  }
-  updateUserInfo(reqBody) {
-    return (this.httpService.getRequest('updateUserInfo', reqBody, this.getToken()));
-  }
-  changePassword(reqBody) {
-    return (this.httpService.getRequest('changePassword', reqBody, this.getToken()));
-  }
+
     
   constructor(private httpService: HttpService, private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService) { }
 

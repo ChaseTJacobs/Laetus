@@ -2,22 +2,62 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col"></div>
-      <div class="col-10 col-sm-8 col-md-6 col-lg-4 mt-5">
-        <div class="login-container">
+      <div class="col-10 col-sm-8 col-md-6 col-lg-5 mt-5">
+        <div class="login-container" *ngIf="!forgotPass">
+          <h2>Login to Wayfinder</h2>
           <form [formGroup]="loginForm">
             <div class="form-container px-4 py-2">
               <fieldset class="container" id="userInfo">
-                <legend>Login to Wayfinder</legend>
-
                 <input class="form-control mt-2" type="text" autocomplete="on" placeholder="email" formControlName="username">
                 <input class="form-control mt-2" type="password" placeholder="password" formControlName="password">
                 <input type="submit" class="btn btn-teal mt-2" (click)="loginRequest(loginForm.value)" value="Login">
-                <a><span class="mt-2">Forgot password?</span></a>
+                <button type="button" (click)="setForgotPass(true)" class="btn btn-sm btn-secondary mt-2">Forgot password?</button>
                 <div class="mt-2">{{errorMessage}}</div>
               </fieldset>
             </div>
           </form>
         </div>
+        
+        <div class="login-container" *ngIf="forgotPass && acctSvc.rPass === 0">
+        <h2>Congratulations! You have forgotten your password!</h2>
+        <h6 class="font-weight-light">Please enter the email associated with your Wayfinder account to reset your password...</h6>
+          <div class="px-3 mb-3 mt-3">
+            <input class="form-control" type="text" placeholder="Account Email" [(ngModel)]="userEmail">
+          </div>
+          <div class="btn-group">
+        <button class="btn btn-danger pr-5 pl-5" (click)="forgotPassword()">RESET</button>
+          <button class="btn btn-teal pr-5 pl-5" (click)="setForgotPass(false)">CANCEL</button>
+            </div>
+        </div>
+        
+       <div class="login-container rounded" *ngIf="acctSvc.rPass === 1">
+          <h2>First things first...</h2>
+          <h6 class="font-weight-light">Copy the verification code from the email we sent you and paste it into the space below, just so we know it's really you:</h6>
+          <div class="px-3 mb-3 mt-3">
+            <input class="form-control" type="text" name="verCode" placeholder="Verification Code Here" [(ngModel)]="token">
+          </div>
+          <button class="btn btn-teal pr-5 pl-5" (click)="verifyEmail()">It's me!</button>
+        </div>
+        
+        <div class="login-container rounded" *ngIf="acctSvc.rPass === 2">
+          <h2>Almost done!</h2>
+          <h6 class="font-weight-light">Please enter your email and the new password you wish to use for this account...</h6>
+          <div class="px-3 mb-3 mt-3">
+            <input class="form-control" type="text" name="email" placeholder="Email" [(ngModel)]="email">
+            <div class="input-group">
+            <input class="form-control" [type]="showPass ? 'text' : 'password'" name="newPass" placeholder="New Password" [(ngModel)]="newPass">
+            <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" (click)="showPass ? showPass = false : showPass = true">{{showPass ? "Hide" : "Show"}}</button>
+            </div>
+            </div>
+          </div>
+          <button class="btn btn-teal pr-5 pl-5" (click)="confirmPassReset()">Save New Password</button>
+        </div>
+        
+         <div class="login-container rounded" *ngIf="acctSvc.rPass === 3">
+          <h2>Your password has been reset!</h2>
+        </div>
+        
       </div>
       <div class="col"></div>
     </div>

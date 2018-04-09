@@ -19,43 +19,41 @@ export class RegisterFormComponent implements OnInit {
   password: string;
   confirmPass: string;
   valid_email: boolean;
-  regex = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$/, 'igm');
+  regex = new RegExp('/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}/', 'igm');
   user: any;
+  namePattern = new RegExp('\w+\s+\w+', 'ig');
 
   constructor(private fb: FormBuilder, private acctSvc: AccountService, public paySvc: PaymentService) {
-  
     this.rForm = fb.group({
-      'firstname': [null, Validators.required],
+      'firstname': [null, Validators.compose([Validators.required, Validators.pattern('\\w+\\s+\\w+')])],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      'email': [null, Validators.compose([Validators.required, Validators.pattern(this.regex)])],
+      'email': [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}')])],
       'confirmPass': [null, Validators.required],
     });
   }
 
   ngOnInit() {
   }
-
-  testEmail() {
-    console.log(this.regex);
-  }
   
   submitUserInfo(user) {
-    
-    let userName = user.firstname.split(' ');
-    console.log(userName);
-    this.firstname = userName[0];
-    if (userName.length === 2) {
-      this.lastname = userName[1];
+    console.log(user);
+    if (user.firstname !== "" && user.firstname !== null){
+      let userName = user.firstname.split(' ');
+      this.firstname = userName[0];
+      if (userName.length === 2) {
+        this.lastname = userName[1];
+      }
+      this.user = {
+        firstname: userName[0],
+        lastName: userName[1],
+        email: user.email,
+        password: user.password
+      };
+      this.acctSvc.setUserInfo(this.user, false);
+      this.acctSvc.emailToken(user.email);
+    } else {
+      return;
     }
-    this.user = {
-      firstname: userName[0],
-      lastName: userName[1],
-      email: user.email,
-      password: user.password
-    }
-    
-    this.acctSvc.setUserInfo(this.user);
-    this.acctSvc.verifyEmail(user.email);
   }
 
   invalidInput(control) {
@@ -75,10 +73,5 @@ export class RegisterFormComponent implements OnInit {
       return false;
     }
   }
-
-  registerUser(user) {
-    this.acctSvc.register(user);
-  }
-
 }
 

@@ -1,16 +1,17 @@
 .background-container{
   background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
-  width: 100%;
-  height: 100vh;
+  background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: cover;
+  height: calc(100vh - 80px);
   align-content: center;
 }
 
 .login-container {
   background-color: rgba(255, 255, 255, .7);
   border-radius: 5px;
+  padding: 10px;
+  height: auto;
 }
 
 .input-group-text{
@@ -33,3 +34,4 @@
   height: 23px;
   filter: invert(80%);
 }
+
