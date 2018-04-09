@@ -296,6 +296,7 @@ export class NrmService {
     this.httpService.tempGetRequest('getActivityTypes', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
+        console.log(body.status);
         if(body.status == 137) {
           this.activityTypes = body.data.activity_types;
           this.activityTypes.sort((a, b) => a.atype_id < b.atype_id ? -1 : a.atype_id > b.atype_id ? 1 : 0);

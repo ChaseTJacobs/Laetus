@@ -17,6 +17,7 @@ export class AccountService implements OnInit {
   private paToken = null; // preliminary token
   private raToken = null; // restricted access token
   private sToken = null; // all access token
+  private moduleChange = new BehaviorSubject<any>(null);
   public confirmForm = false;
   public errorMessage = null;
   /* rPass is to keep track of where we are at in the reset password process: 0 = beginning; 1 = confirmation token sent to email; 2 = email confirmed; 3 = new password saved to database */
@@ -221,6 +222,10 @@ export class AccountService implements OnInit {
   getStatus(): Observable<any> {
     return this.loggedInStatus.asObservable();
   }
+  
+  getModuleChange(): Observable<any> {
+    return this.moduleChange.asObservable();
+  }
 
   /*sends an 8 character token to their email for email verification and forgot password*/
   emailToken(email) {
@@ -281,17 +286,17 @@ export class AccountService implements OnInit {
             if (modIndex > -1) {
               data = {
                 mod_id: modList[j].mod_id,
-                completed: 1
+                recommended: 1
               }
             } else {
               data = {
                 mod_id: modList[j].mod_id,
-                completed: 0
+                recommended: 0
               }
             }
             this.httpService.getRequest('updateMyModules', data, this.getToken()).subscribe(
               (response2: Response) => {
-                console.log(response2);
+                this.moduleChange.next(1);
               }
             )
           }

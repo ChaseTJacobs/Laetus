@@ -17,6 +17,8 @@ export class ModuleBodyComponent implements OnInit {
     step: -1,
     sub: -1
   }
+  assetsLink = '../../../../assets/module';
+  
   setModule(mod_id) {
     this.moduleService.getModule(mod_id);
     this.currentIndex = {
@@ -73,6 +75,10 @@ export class ModuleBodyComponent implements OnInit {
         this.setSubStep(this.currentStep, this.currentStep.substeps[this.currentSubstep.number - 1]);
       }
     }
+  }
+  
+  completeModule() {
+    this.moduleService.completeModule(this.currentModule.mod_id);
   }
 
   constructor(private moduleService: ModuleService) { 

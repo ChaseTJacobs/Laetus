@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../../services/http/http.service';
 import { AccountService } from '../../services/auth/account.service';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -16,14 +17,11 @@ export class ModuleService {
     this.httpService.tempGetRequest('getModuleList', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let res = response.json();
-        console.log(res.data);
         if (res.status == 142) {
           res.data.sort(function(a,b) {
             return (a.module_number > b.module_number) ? 1 : ((b.module_number > a.module_number) ? -1 : 0);
           });
-          console.log(res.data);
-          this.modules = res.data;
-          this.getUserModStatus();
+          this.getUserModStatus(res.data);
         } else if (res.status === 295) {
           this.accountService.redirectUrl = '/module';
           this.accountService.logout(true);
@@ -38,30 +36,29 @@ export class ModuleService {
     );
   };
   
-  getUserModStatus() {
+  getUserModStatus(tempMods) {
     this.httpService.tempGetRequest('getUserModStatus', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let res = response.json();
-        console.log(res);
         for (let i = 0; i < res.data.length; i++) {
-          for(let j = 0; j < this.modules.length; j++) {
-            if (res.data[i].m_id == this.modules[j].mod_id) {
+          for(let j = 0; j < tempMods.length; j++) {
+            if (res.data[i].m_id == tempMods[j].mod_id) {
               if(res.data[i].recommended) {
-                this.modules[j].recommended = 1;
+                tempMods[j].recommended = 1;
               }
               if(res.data[i].completed) {
-                this.modules[j].completed = 1;
+                tempMods[j].completed = 1;
               }
               if(res.data[i].in_progress) {
-                this.modules[j].in_progress = 1;
+                tempMods[j].in_progress = 1;
               }
               if(res.data[i].interested) {
-                this.modules[j].interested = 1;
+                tempMods[j].interested = 1;
               }
             }
           }
+          this.modules = tempMods;
         }
-        console.log(this.modules);
       }
     )
   }
@@ -74,8 +71,10 @@ export class ModuleService {
       (response: Response) => {
         let res = response.json();
         if (res.status == 143) {
-          this.currentModule.next(JSON.parse(res.data.module_content));
-          console.log(res.data);
+          let tempMod = JSON.parse(res.data.module_content);
+          tempMod.mod_id = mod_id;
+          console.log(tempMod);
+          this.currentModule.next(tempMod);
         } else if (res.status === 295) {
           this.accountService.redirectUrl = '/module';
           this.accountService.logout(true);
@@ -143,12 +142,32 @@ export class ModuleService {
     }
   ];
   
+  completeModule(mod_id) {
+    let params = {
+      mod_id: mod_id,
+      completed: 1
+    }
+    this.httpService.getRequest('updateMyModules', params, this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let res = response.json();
+        console.log(res);
+        this.getModuleList();
+        this.router.navigate(['/module-index']);
+      }
+    )
+  }
+  
   getCurrModule(): Observable<any> {
     return this.currentModule.asObservable();
   }
 
-  constructor(private httpService: HttpService, private accountService: AccountService) { 
+  constructor(private httpService: HttpService, private accountService: AccountService, private router: Router) { 
     this.getModuleList();
+    this.accountService.getModuleChange().subscribe(data => {
+      if (data == 1) {
+        this.getModuleList();
+      }
+    })
   }
 
 }

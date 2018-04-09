@@ -60,7 +60,11 @@
 
 .backgroundTest {
   background-image: url('../../../../assets/blacknwhite_stock3_optimized.jpg');
-  width: 100%;
+  background-repeat: no-repeat;
+/*  overflow-y: hidden;*/
+  background-size: cover;
+  background-position: center;
+/*  width: 100vw;*/
   height: calc(100vh - 80px);
   color: white;
 }
@@ -100,6 +104,12 @@
   width: 90%;
 }
 
+.contentBackground {
+  background-color: #333;
+  border: 3px solid #333;
+  border-radius: 10px;
+}
+
 .stepCircle {
   font-size: 24px;
   width: 45px;
@@ -137,4 +147,54 @@
 .arrowIcon {
   height: 70px;
   width: 70px;
+}
+
+.arrowIcon:hover {
+  cursor: pointer;
+}
+
+/*intro*/
+.introTitle {
+  font-size: 32px;
+}
+.introImg {
+  width: 300px;
+  height: 300px;
+}
+.introButton {
+  width: 200px;
+  height: 35px;
+  color: white;
+  margin-left: calc(50% - 100px);
+  margin-left: calc(50% - 100px);
+  border: 3px solid #2FCF99;
+  background-color: #2FCF99;
+  border-radius: 5px;
+}
+.introButton:hover {
+  border: 3px solid white;
+}
+
+.stepTitle {
+  font-size: 32px;
+}
+
+.contentHeight {
+  height: calc(100vh - 160px);
+  width: 100%;
+}
+
+.arrowWidth {
+  width: 72px;
+  margin-top: calc(50vh - 35px);
+  margin-bottom: calc(50vh - 35px);
+}
+
+.whatLearn {
+  text-align: left;
+}
+
+.videoSize {
+  width: 80%;
+  height: calc(((100vw - 160px) * .5) * .5625);
 }

@@ -2,14 +2,16 @@
   <span class="textHead">My Plan</span>
   <div class="row">
     <ng-container *ngFor="let module of moduleService.modules">
-      <div *ngIf="module.completed || module.interested" class="col-sm-6 col-md-4 py-4">
-        <div class="moduleBox p-2">
-          <table class="w-100 h-100">
+      <div *ngIf="module.recommended || module.interested" class="col-sm-6 col-md-4 py-4">
+        <div [ngClass]="module.completed ? 'moduleBoxComplete' : 'moduleBox'" class="p-2">
+          <table class="w-100 tableHeight">
             <tr valign="top">
               <td rowspan="2">
                 <span class="modNum mx-2">{{module.module_number}}</span>
               </td>
               <td>
+                <div *ngIf="(module.interested && !module.recommended)" class="float-right" (click)="setInterested(module.mod_id, 0)">Star</div>
+                <div *ngIf="(!module.interested && module.recommended)"class="float-right" (click)="setInterested(module.mod_id, 1)">noStar</div>
                 <div class="modName">
                   {{module.module_name}}
                 </div>
@@ -35,17 +37,17 @@
   <span class="textHead">Other Modules</span>
   <div class="row">
     <ng-container *ngFor="let module of moduleService.modules">
-      <div *ngIf="!module.completed && !module.interested" class="col-sm-6 col-md-4 py-4">
-        <div class="moduleBox p-2">
+      <div *ngIf="!module.recommended && !module.interested" class="col-sm-6 col-md-4 py-4">
+        <div [ngClass]="module.completed ? 'moduleBoxComplete' : 'moduleBox'" class="p-2">
           <table class="w-100 h-100">
             <tr valign="top">
               <td rowspan="2">
                 <span class="modNum mx-2">{{module.module_number}}</span>
               </td>
               <td>
+                <div *ngIf="!module.interested" class="float-right" (click)="setInterested(module.mod_id, 1)">noStar</div>
                 <div class="modName">
                   {{module.module_name}}
-                  <div class="float-right" (click)="setInterested(module.mod_id)">Star</div>
                 </div>
               </td>
             </tr>
