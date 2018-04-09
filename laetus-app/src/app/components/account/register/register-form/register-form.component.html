@@ -1,22 +1,16 @@
 <div class="register-container rounded">
-  <div>
     <h2>Register for Wayfinder!</h2>
     <form [formGroup]="rForm" (ngSubmit)="submitUserInfo(rForm.value)">
       <div class="py-3">
         <fieldset id="userInfo">
-<!--          <legend class="font-weight-bold">Register For Wayfinder</legend>-->
-
-
           <div class="px-3">
-
             <div class="form-group text-left font-weight-bold">
-              <label class="pl-1" for="firstname">Full Name</label>
-              <input class="form-control" [ngClass]="{'is-invalid': rForm.controls.firstname.invalid}" id="firstname" placeholder="John Doe" type="text" formControlName="firstname">
-              <div class="invalid-feedback" [hidden]="rForm.controls.firstname.valid || (rForm.controls.firstname.pristine && !submitted)">
-                *Please enter your first and last name
+              <label class="pl-1" for="firstname">First and Last Name</label>
+              <input class="form-control" [ngClass]="{'is-invalid': rForm.controls.firstname.invalid && rForm.controls.firstname.dirty}" id="firstname" placeholder="John Doe" type="text" formControlName="firstname">
+              <div class="invalid-feedback" *ngIf="rForm.controls.firstname.invalid || (rForm.controls.firstname.pristine && !submitted)">
+                *Please enter your FIRST AND LAST name
               </div>
             </div>
-
 <!--
             <div class="form-group text-left font-weight-bold">
               <label class="pl-1" for="lastname">Last Name</label>
@@ -26,14 +20,12 @@
 
             <div class="form-group text-left font-weight-bold">
               <label class="pl-1" for="emailInput">Email</label>
-              <input class="form-control" [ngClass]="{'is-invalid': rForm.controls.email.invalid}" id="emailInput" placeholder="johndoe@email.com" type="email" formControlName="email" (blur)="testEmail()">
-              <small class="form-text text-light"> A verification email will be sent to this email before your account will be activated</small>
-<!--              (blur)="invalidInput('email')"-->
-              <div class="invalid-feedback" [hidden]="rForm.controls.email.valid || (rForm.controls.email.pristine && !submitted)">
+              <input class="form-control" [ngClass]="{'is-invalid': rForm.controls.email.invalid && rForm.controls.email.dirty}" id="emailInput" placeholder="johndoe@email.com" type="email" formControlName="email">
+              <small class="form-text text-dark"> NOTE: A verification email will be sent to this email before your account will be activated</small>
+              <div class="invalid-feedback" *ngIf="rForm.controls.email.invalid || (rForm.controls.email.pristine && !submitted)">
                 *Please provide a valid email
               </div>
             </div>
-
             <div class="form-group text-left font-weight-bold">
               <label class="pl-1" for="password">Password</label>
               <input class="form-control" [ngClass]="{'is-invalid': matchPass()}" id="password" placeholder="Password" type="password" formControlName="password">
@@ -49,6 +41,5 @@
       </div>
 
     </form>
-  </div>
 
 </div>

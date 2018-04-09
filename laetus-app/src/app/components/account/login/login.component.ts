@@ -17,13 +17,19 @@ export class LoginComponent implements OnInit {
   resStatus: any;
   errorMessage: string = '';
   loginStatus:Subscription;
+  forgotPass: any;
+  userEmail = null;
+  token = null;
+  email = null;
+  newPass = null;
+  showPass = false;
 
-  constructor(private accountService: AccountService, private fb: FormBuilder) {
+  constructor(private acctSvc: AccountService, private fb: FormBuilder) {
     this.loginForm = fb.group({
       'username': [null, Validators.required],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
     });
-    this.loginStatus = accountService.getStatus().subscribe(data => {
+    this.loginStatus = acctSvc.getStatus().subscribe(data => {
       if(data == 150 || data == null) {
         this.errorMessage = null;
       } else if(data == 250) {
@@ -33,17 +39,30 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-
-  ngOnInit() {
-    
-  }
-
+  
   loginRequest(form) {
-    this.resStatus = this.accountService.login(form.username, form.password);
+    this.resStatus = this.acctSvc.login(form.username, form.password);
     return;
   }
 
   forgotPassword() {
-    return;
+    this.acctSvc.setUserInfo(this.userEmail, true);
+    this.acctSvc.emailToken(this.userEmail);
+  }
+  
+  verifyEmail() {
+    this.acctSvc.confirmEmail(this.token, true);
+  }
+  
+  confirmPassReset() {
+    this.acctSvc.updateForgotPass(this.email, this.newPass);
+  }
+  
+  setForgotPass(pass) {
+    this.forgotPass = pass;
+  }
+
+  ngOnInit() {
+    
   }
 }
