@@ -1,8 +1,19 @@
-.moduleBox {
+.moduleBoxComplete {
   color: white;
   background-color: #333;
   border: 3px solid #333;
   border-radius: 9px;
+  min-height: 35vh;
+}
+
+.moduleBox {
+  color: white;
+  background-color: #333;
+  border: 3px solid #2FCF99;
+  border-radius: 9px;
+}
+
+.tableHeight {
   min-height: 35vh;
 }
 

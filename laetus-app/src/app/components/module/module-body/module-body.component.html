@@ -18,88 +18,109 @@
         </tr>
       </table>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 px-0">
       <div *ngIf="currentModule">
-        <img class="arrowIcon float-left" src="../../../../assets/Icons/green-arrow-left.png" *ngIf="!((currentIndex.step == 0) && (currentIndex.sub == -1)) && !(currentIndex.step == -1)"(click)="prevStep()"> 
-        <div *ngIf="(currentStep == null) && (currentSubstep == null)">
-          <table>
-            <tr>
-              <td>Module Intro</td>
-              <td rowspan="2">Picture</td>
-            </tr>
-            <tr>
-              <td>{{currentModule.intro}}</td>
-            </tr>
-          </table>
-          <div (click)="setStep(currentModule.steps[0])">Get started</div>
-        </div>
-        <div *ngIf="(currentStep != null)">
-          Step {{currentStep.number + 1}}: {{currentStep.name}}
-        </div>
-        <div *ngIf="(currentStep != null) && (currentSubstep == null)">
-          <table>
-            <tr>
-              <td>
-                <div>Why This Step:</div>
-                <div>{{currentStep.why}}</div>
-              </td>
-              <td>
-                <div>What You'll Learn:</div>
-                <div>
-                  <ul>
-                    <li *ngFor="let learn of currentStep.whatLearn">{{learn}}</li>
-                  </ul>
+        <table class="contentHeight">
+          <tr>
+            <td class="arrowWidth">
+              <img class="arrowIcon" src="../../../../assets/Icons/green-arrow-left.png" *ngIf="!((currentIndex.step == 0) && (currentIndex.sub == -1)) && !(currentIndex.step == -1)"(click)="prevStep()">
+            </td>
+            <td valign="top" class="pt-3">
+              <div class="contentBackground pb-2 px-1">
+                <div *ngIf="(currentStep == null) && (currentSubstep == null)">
+                  <table>
+                    <tr>
+                      <td class="introTitle"><span class="mt-3">Module Introduction</span></td>
+                      <td rowspan="2"><img src="../../../../assets/module{{currentModule.img}}" class="introImg mt-3 mx-2"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        {{currentModule.intro}}
+                        <div class="introButton mt-4" (click)="setStep(currentModule.steps[0])">Get Started</div>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div *ngIf="currentSubstep != null">
-          <div>{{currentSubstep.title}}</div>
-          <div>{{currentSubstep.introText}}</div>
-          <div *ngIf="currentSubstep.videoLink != null">
-            <iframe [src]="currentSubstep.videoLink | safe"
-     width="800" height="450" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <table *ngIf="currentSubstep.pictures != null">
-            <tr>
-              <td *ngFor="let pic of currentSubstep.pictures">
-                <img [src]="'../../../../assets/module/' + pic">
-              </td>
-            </tr>
-          </table>
-          <div *ngIf="currentSubstep.paragraphs != null">
-            <p *ngFor="let para of currentSubstep.paragraphs">
-              {{para.text}}
-            </p>
-          </div>
-          <div *ngIf="currentSubstep.bullets != null">
-            <div *ngFor="let bullet of currentSubstep.bullets">
-              <div>{{bullet.title}}</div>
-              <table>
-                <tr>
-                  <td>
-                    <ul *ngIf="!bullet.numbered">
-                      <li *ngFor="let list of bullet.list">
-                        {{list}}
-                      </li>
-                    </ul>
-                    <ol *ngIf="bullet.numbered">
-                      <li *ngFor="let list of bullet.list">
-                        {{list}}
-                      </li>
-                    </ol>
-                  </td>
-                  <td>
-                    {{bullet.picture}}
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div>{{currentSubstep.outroText}}</div>
-        </div>
-        <img class="arrowIcon float-right" src="../../../../assets/Icons/green-arrow-right.png" *ngIf="!((currentModule.numOfSteps - 1 == currentIndex.step) && (currentModule.numSSonFinal - 1 == currentIndex.sub)) && !(currentIndex.step == -1)" (click)="nextStep()">
+                <div *ngIf="(currentStep != null)" class="stepTitle mt-3">
+                  Step {{currentStep.number + 1}}: {{currentStep.name}}
+                </div>
+                <div *ngIf="(currentStep != null) && (currentSubstep == null)">
+                  <table>
+                    <tr>
+                      <td>
+                        <div class="h3">Why This Step:</div>
+                        <div>{{currentStep.why}}</div>
+                        <div class="mt-3 h3">What You'll Learn:</div>
+                        <div class="text-left">
+                          <ul>
+                            <li *ngFor="let learn of currentStep.whatLearn">{{learn}}</li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td>
+                        <img src="../../../../assets/module{{currentStep.img}}" class="introImg">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div *ngIf="currentSubstep != null">
+                  <div class="h4">{{currentSubstep.title}}</div>
+                  <div class="mx-3">{{currentSubstep.introText}}</div>
+                  <div *ngIf="currentSubstep.videoLink != null">
+                    <iframe [src]="currentSubstep.videoLink | safe"
+             class="videoSize" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <table *ngIf="currentSubstep.pictures != null">
+                    <tr>
+                      <td *ngFor="let pic of currentSubstep.pictures">
+                        <img src="../../../../assets/module{{pic}}" class="introImg">
+                      </td>
+                    </tr>
+                  </table>
+                  <div *ngIf="currentSubstep.paragraphs != null">
+                    <div *ngFor="let para of currentSubstep.paragraphs">
+                      <p>
+                      {{para.text}}
+                      </p>
+                      <img src="../../../../assets/module{{para.picture}}" class="introImg" *ngIf="para.picture != null">
+                    </div>
+                  </div>
+                  <div *ngIf="currentSubstep.bullets != null">
+                    <div *ngFor="let bullet of currentSubstep.bullets">
+                      <div class="mt-2">{{bullet.title}}</div>
+                      <table class="text-left">
+                        <tr>
+                          <td>
+                            <ul *ngIf="!bullet.numbered">
+                              <li class="mx-1" *ngFor="let list of bullet.list">
+                                {{list}}
+                              </li>
+                            </ul>
+                            <ol *ngIf="bullet.numbered">
+                              <li *ngFor="let list of bullet.list">
+                                {{list}}
+                              </li>
+                            </ol>
+                          </td>
+<!--
+                          <td>
+                            <img *ngIf="bullet.picture" src="../../../../assets/module{{bullet.picture}}" class="introImg">
+                          </td>
+-->
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div>{{currentSubstep.outroText}}</div>
+                </div>
+              </div>
+            </td>
+            <td class="arrowWidth">
+              <img class="arrowIcon" src="../../../../assets/Icons/green-arrow-right.png" *ngIf="!((currentModule.numOfSteps - 1 == currentIndex.step) && (currentModule.numSSonFinal - 1 == currentIndex.sub)) && !(currentIndex.step == -1)" (click)="nextStep()">
+            </td>
+          </tr>
+        </table>
+        <div *ngIf="((currentModule.numOfSteps - 1 == currentIndex.step) && (currentModule.numSSonFinal - 1 == currentIndex.sub))" (click)="completeModule()">Complete Module</div>
       </div>
       <div *ngIf="!currentModule">Select a Module to get started!</div>
       <div class="fixed-bottom progressBar">

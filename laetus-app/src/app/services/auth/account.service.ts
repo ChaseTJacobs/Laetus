@@ -14,6 +14,7 @@ export class AccountService implements OnInit {
 
   private loggedInUserToken = new BehaviorSubject<any>(null);
   private loggedInStatus = new BehaviorSubject<any>(null);
+  private moduleChange = new BehaviorSubject<any>(null);
   private sToken = null;
   private paToken = null;
   private raToken = null;
@@ -151,6 +152,10 @@ export class AccountService implements OnInit {
   getStatus(): Observable<any> {
     return this.loggedInStatus.asObservable();
   }
+  
+  getModuleChange(): Observable<any> {
+    return this.moduleChange.asObservable();
+  }
 
   verifyEmail(email) {
     let param = {
@@ -231,17 +236,17 @@ export class AccountService implements OnInit {
             if (modIndex > -1) {
               data = {
                 mod_id: modList[j].mod_id,
-                completed: 1
+                recommended: 1
               }
             } else {
               data = {
                 mod_id: modList[j].mod_id,
-                completed: 0
+                recommended: 0
               }
             }
             this.httpService.getRequest('updateMyModules', data, this.getToken()).subscribe(
               (response2: Response) => {
-                console.log(response2);
+                this.moduleChange.next(1);
               }
             )
           }
