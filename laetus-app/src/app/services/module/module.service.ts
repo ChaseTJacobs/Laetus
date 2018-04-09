@@ -57,8 +57,9 @@ export class ModuleService {
               }
             }
           }
-          this.modules = tempMods;
         }
+        this.modules = tempMods;
+        console.log(this.modules);
       }
     )
   }
@@ -161,8 +162,7 @@ export class ModuleService {
     return this.currentModule.asObservable();
   }
 
-  constructor(private httpService: HttpService, private accountService: AccountService, private router: Router) { 
-    this.getModuleList();
+  constructor(private httpService: HttpService, private accountService: AccountService, private router: Router) {
     this.accountService.getModuleChange().subscribe(data => {
       if (data == 1) {
         this.getModuleList();
