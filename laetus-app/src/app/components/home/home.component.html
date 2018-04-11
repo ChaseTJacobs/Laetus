@@ -13,11 +13,14 @@
             <tr>
               <td>
                 <div class="teal-background-light p-2">
-                  <div *ngFor="let module of moduleService.modules; let i = index;">
+                  <ng-container  *ngIf="takenQuiz">
+                     <div *ngFor="let module of moduleService.modules; let i = index;">
                     <div *ngIf="(module.recommended || module.interested) && (i < 3)" class="py-1 toolsIcon">
                       <span (click)="goToModule(module.mod_id)"><img class="icon-format-small" src="../../../assets/Icons/circle.png"/>Module {{module.module_number}}</span>
                     </div>
                   </div>
+                  </ng-container>
+                  <div *ngIf="!takenQuiz">Take quiz to access modules!</div>
                 </div>
               </td>
             </tr>
@@ -57,11 +60,14 @@
             <tr>
               <td>
                 <div class="teal-background-light p-2">
-                  <div *ngFor="let activity of nrmService.allActivities; let i = index;">
-                    <div *ngIf="(activity.event_date > todaysMilli) && (i < 3)" class="py-1">
-                      <img class="icon-format-small" src="../../../assets/Icons/circle.png"/>{{activity.activity_name}} at {{activity.event_date | date:'EE LLL dd, yyyy'}}
+                  <ng-container *ngIf="nrmService.allActivities">
+                    <div *ngFor="let activity of nrmService.allActivities; let i = index;">
+                      <div *ngIf="(activity.event_date > todaysMilli) && (i < 3)" class="py-1">
+                        <img class="icon-format-small" src="../../../assets/Icons/circle.png"/>{{activity.activity_name}} at {{activity.event_date | date:'EE LLL dd, yyyy'}}
+                      </div>
                     </div>
-                  </div>
+                  </ng-container>
+                  <div *ngIf="!nrmService.allActivities"> No Future Activities!</div>
                 </div>
               </td>
             </tr>

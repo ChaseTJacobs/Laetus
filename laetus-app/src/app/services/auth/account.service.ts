@@ -99,14 +99,11 @@ export class AccountService implements OnInit {
   login(email: string, pass: string) {
     let param = { email: email, password: pass };
     let resStatus = null;
-    console.log(param);
     this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
-        console.log(response);
         let body = response.json();
         if(body.status == 110){
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-          console.log(this.sToken);
           this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
           this.loggedInUserToken.next(this.sToken);
           if(this.redirectUrl == null || this.redirectUrl == undefined){
@@ -115,7 +112,6 @@ export class AccountService implements OnInit {
           this.router.navigate([this.redirectUrl]);
         }
         this.loggedInStatus.next(resStatus);
-        console.log(resStatus);
       },
       (error) => console.log(error)
     );
@@ -163,23 +159,21 @@ export class AccountService implements OnInit {
       token: token
     };
     this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe((response: Response) => {
-      console.log(response);
       let resp = response.json();
       this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
       if(!isResetPass) {
-        console.log(this.uInfo);
         if (this.uInfo !== null){
           this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
             (response: Response) => {
-              console.log(response);
               let res = response.json();
               if (res.status === 211) {
                 this.errorMessage = "The email you are trying to register with is already in use with another account.";
               } else {
-              this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-              this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
-              this.loggedInUserToken.next(this.sToken);
-              this.router.navigate(['/home']);
+                this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+                this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+                this.loggedInUserToken.next(this.sToken);
+                this.submitQuiz(this.uInfo.user_info.quizResults);
+                this.router.navigate(['/home']);
               }
             },
             (error) => console.log('ERROR')
@@ -263,7 +257,7 @@ export class AccountService implements OnInit {
         this.uInfo = {
           email: user.email,
           password: user.password, 
-          userInfo: {
+          user_info: {
             firstName: user.firstname, 
             lastName: user.lastname,
             quizResults: this.quizResults,
@@ -275,7 +269,7 @@ export class AccountService implements OnInit {
         this.uInfo = {
           email: user.email,
           password: user.password, 
-          userInfo: {
+          user_info: {
             firstName: user.firstname, 
             lastName: user.lastname,
             quizResults: null,
@@ -290,7 +284,6 @@ export class AccountService implements OnInit {
         email: user
       }
     }
-    console.log(this.uInfo);
   }
   
   routeTo(dest) {
@@ -303,13 +296,11 @@ export class AccountService implements OnInit {
   submitQuiz(answers){
     let recommendedModules = this.recommendedModules(answers);
     this.recMods = recommendedModules;
-    console.log(recommendedModules);
     this.quizResults = answers;
     this.httpService.tempGetRequest('getModuleList', null).subscribe(
       (response: Response) => {
         let res = response.json();
         let modList = res.data;
-        console.log(modList);
         for(let j = 0; j < modList.length; j++) {
           // finds index of recommended module from quiz answers
           let modIndex = recommendedModules.indexOf(modList[j].module_number)
@@ -327,7 +318,7 @@ export class AccountService implements OnInit {
               recommended: 0
             }
           }
-          if (!this.sToken == null && !this.sToken == undefined) {
+          if (this.sToken) {
             //update recommended modules based on quiz results
             this.httpService.getRequest('updateMyModules', data, this.getToken()).subscribe(
               (response2: Response) => {
@@ -346,6 +337,7 @@ export class AccountService implements OnInit {
       this.httpService.tempGetRequest('getUserInfo', this.getToken()).subscribe(
         (response: Response) => {
           let res = response.json();
+          
           let data = {
             user_info: {
               quizResults: null,

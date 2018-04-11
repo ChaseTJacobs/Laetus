@@ -3,25 +3,25 @@
     <div class="col"></div>
     <div class="col-sm-8">
       <div class="resultBod my-5 p-3">
-        <span>Quiz Results</span>
+        <div class="h2">Quiz Results</div>
         <span>Based on the answers you've selected on the quiz, we have a list of modules, or lessons that will help you with your specific needs.</span>
-        <div class="boxBackground">
+        <div class="boxBackground mb-3 py-2">
           <table class="tableWidth">
             <tr>
-              <td colspan="2">Your Recommended Modules</td>
+              <td colspan="2"><span class="h3">Your Recommended Modules</span></td>
             </tr>
             <tr>
-              <td>Module Name</td>
               <td>Module Number</td>
+              <td>Module Name</td>
             </tr>
             <tr *ngFor="let module of accountService.savedQuiz">
-              <td>{{module.module_name}}</td>
               <td>{{module.module_number}}</td>
+              <td>{{module.module_name}}</td>
             </tr>
           </table>
         </div>
-        <div *ngIf="accountService.sToken" (click)="routeTo('/module-index')">Go to Modules</div>
-        <div *ngIf="!accountService.sToken"(click)="routeTo('/register')">Register Now!</div>
+        <div class="resultsButton" *ngIf="accountService.sToken" (click)="routeTo('/module-index')">Go to Modules</div>
+        <div class="resultsButton" *ngIf="!accountService.sToken"(click)="routeTo('/register')">Register Now!</div>
       </div>
     </div>
     <div class="col"></div>

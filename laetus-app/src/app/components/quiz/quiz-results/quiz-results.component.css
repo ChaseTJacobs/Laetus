@@ -23,3 +23,14 @@
   border: 3px solid #4d4d4d;
   border-radius: 5px;
 }
+
+.resultsButton {
+  color: white;
+  background-color: #2FCF99;
+  border: 3px solid #2FCF99;
+  border-radius: 10px;
+  line-height: 43px;
+  min-height: 50px;
+  margin-left: 30%;
+  margin-right: 30%;
+}

@@ -6,12 +6,15 @@ import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-module-overview',
   templateUrl: './module-overview.component.html',
   styleUrls: ['./module-overview.component.css']
 })
 export class ModuleOverviewComponent implements OnInit {
+  
+  takenQuiz = false;
   
   setInterested(mod_id, interested) {
     let param = {
@@ -31,7 +34,14 @@ export class ModuleOverviewComponent implements OnInit {
   }
 
   constructor(public moduleService: ModuleService, public httpService: HttpService, public accountService: AccountService, public router: Router) {
-    this.moduleService.getModuleList()
+    this.moduleService.getModuleList();
+    this.httpService.tempGetRequest('getUserInfo', this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        let uInfo = JSON.parse(body.data.user_info);
+        this.takenQuiz = uInfo.takenQuiz;
+      }
+    )
   }
 
   ngOnInit() {

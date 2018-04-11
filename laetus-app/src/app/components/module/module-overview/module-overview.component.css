@@ -71,3 +71,10 @@
 .starIcon:hover {
   cursor: pointer;
 }
+
+.completeQuiz {
+  color: white;
+  background-color: #333;
+  border: 3px solid #333;
+  border-radius: 9px;
+}
