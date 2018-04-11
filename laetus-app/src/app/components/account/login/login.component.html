@@ -8,10 +8,15 @@
           <form [formGroup]="loginForm">
             <div class="form-container px-4 py-2">
               <fieldset class="container" id="userInfo">
-                <input class="form-control mt-2" type="text" autocomplete="on" placeholder="email" formControlName="username">
+                <input class="form-control mt-2" type="text" autocomplete="on" placeholder="email" formControlName="username" autofocus>
                 <input class="form-control mt-2" type="password" placeholder="password" formControlName="password">
                 <input type="submit" class="btn btn-teal mt-2" (click)="loginRequest(loginForm.value)" value="Login">
-                <button type="button" (click)="setForgotPass(true)" class="btn btn-sm btn-secondary mt-2">Forgot password?</button>
+                <div class="btn-group">
+                  <button type="button" (click)="setForgotPass(true)" class="btn btn-sm btn-dark mt-2">Forgot Password</button>
+                </div>
+                <div class="btn-group"> 
+                  <button type="button" (click)="acctSvc.routeTo('register')" class="btn btn-sm btn-dark mt-2">Create Account</button>
+                </div>
                 <div class="mt-2">{{errorMessage}}</div>
               </fieldset>
             </div>

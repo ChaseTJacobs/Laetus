@@ -50,7 +50,7 @@ export class RegisterFormComponent implements OnInit {
         password: user.password
       };
       this.acctSvc.setUserInfo(this.user, false);
-      this.acctSvc.emailToken(user.email);
+      this.acctSvc.emailToken(user.email, false);
     } else {
       return;
     }

@@ -21,13 +21,13 @@
 }
 
 .btn-teal{
-  background-color: #2FCF99;
-  width: 100%;
+  background-color: #42E2AC;
+  width: 80%;
+  border: 2px solid #2FCF99;
 }
 
 .btn-teal:hover{
-  background-color: white;
-  width: 100%;
+  background-color: #2FCF99;
 }
 
 .inline-png{

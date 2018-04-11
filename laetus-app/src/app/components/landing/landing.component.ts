@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalComponent} from '../modal-template/modal/modal.component';
+import { AccountService } from '../../services/auth/account.service';
 
 @Component({
   selector: 'app-landing',
@@ -8,14 +8,14 @@ import {ModalComponent} from '../modal-template/modal/modal.component';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private modalService: ModalComponent) { }
+  constructor(private acctSvc: AccountService) { }
 
   ngOnInit() {
     console.log("Landing Init");
   }
 
   open() {
-    const modalRef = this.modalService.open({edit: false, title: 'contact'});
+    this.acctSvc.routeTo('quiz');
   }
 
 }

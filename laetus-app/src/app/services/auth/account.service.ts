@@ -102,9 +102,9 @@ export class AccountService implements OnInit {
     console.log(param);
     this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
+        console.log(response);
         let body = response.json();
         if(body.status == 110){
-          console.log(body);
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
           console.log(this.sToken);
           this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
@@ -115,6 +115,7 @@ export class AccountService implements OnInit {
           this.router.navigate([this.redirectUrl]);
         }
         this.loggedInStatus.next(resStatus);
+        console.log(resStatus);
       },
       (error) => console.log(error)
     );
@@ -232,7 +233,7 @@ export class AccountService implements OnInit {
   }
 
   /*sends an 8 character token to their email for email verification and forgot password*/
-  emailToken(email) {
+  emailToken(email, isResetPass) {
     let param = {
       email: email
     };
@@ -241,7 +242,11 @@ export class AccountService implements OnInit {
         let emailRes = response.json();
         this.paToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
         this.setVerifyEmail(true);
-        this.rPass = 1;
+        if(isResetPass) {
+          this.rPass = 1;
+        } else {
+          return;
+        }
       }
     )
   }
@@ -288,6 +293,9 @@ export class AccountService implements OnInit {
     console.log(this.uInfo);
   }
   
+  routeTo(dest) {
+    this.router.navigate(['/' + dest]);
+  }
   goToQuiz(){
     this.router.navigate(['/quiz']);
   }

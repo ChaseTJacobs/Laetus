@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
 
   forgotPassword() {
     this.acctSvc.setUserInfo(this.userEmail, true);
-    this.acctSvc.emailToken(this.userEmail);
+    this.acctSvc.emailToken(this.userEmail, true);
   }
   
   verifyEmail() {
