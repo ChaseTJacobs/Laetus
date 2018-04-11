@@ -2,16 +2,13 @@
   <h2>Almost done!</h2>
   <h6 class="font-weight-light">Copy the verification code from the email we sent you and paste it into the space below:</h6>
   <div class="px-3 mb-3 mt-3">
-    <input class="form-control" type="text" name="verCode" placeholder="Verification Code Here" [(ngModel)]="token">
+    <input class="form-control" type="text" name="verCode" placeholder="Verification Code Here" [(ngModel)]="token" autofocus>
   </div>
   <button class="btn btn-teal pr-5 pl-5" (click)="verifyEmail()">Verify</button>
 </div>
 
 <div class="verification-container rounded" *ngIf="acctSvc.errorMessage !== null">
   <h2>Hang on...</h2>
-  <h5 class="font-weight-light">{{acctSvc.errorMessage}}. If you have forgotten your password, you can reset it here.</h5>
-  <div class="btn-group">
-    <button class="btn btn-danger pr-5 pl-5" (click)="resetPass()">Reset</button>
-    <button class="btn btn-teal pr-5 pl-5" (click)="cancel()">Cancel</button>
-  </div>
+  <h5 class="font-weight-light">{{acctSvc.errorMessage}}. If you have forgotten your password, you can reset it from the Login Page.</h5>
+    <button class="btn btn-teal pr-5 pl-5" (click)="acctSvc.routeTo('login')">Go To the Login Page</button>
 </div>

@@ -100,9 +100,9 @@ export class AccountService implements OnInit {
     console.log(param);
     this.httpService.getRequest('login', param, null).subscribe(
       (response: Response) => {
+        console.log(response);
         let body = response.json();
         if(body.status == 110){
-          console.log(body);
           this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
           console.log(this.sToken);
           this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
@@ -113,6 +113,7 @@ export class AccountService implements OnInit {
           this.router.navigate([this.redirectUrl]);
         }
         this.loggedInStatus.next(resStatus);
+        console.log(resStatus);
       },
       (error) => console.log(error)
     );
@@ -266,6 +267,9 @@ export class AccountService implements OnInit {
     }
   }
   
+  routeTo(dest) {
+    this.router.navigate(['/' + dest]);
+  }
   goToQuiz(){
     this.router.navigate(['/quiz']);
   }
