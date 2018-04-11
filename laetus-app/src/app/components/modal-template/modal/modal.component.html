@@ -94,6 +94,7 @@
           <option *ngFor="let option of nrm.activityTypes" [ngValue]="option">{{option.activity_type}}</option>
         </select>
         <input *ngIf="activityInfo.value.type.atype_id == 6" class="form-control" type="text" placeholder="Other Type" formControlName="other" [(ngModel)]="activity.other">
+        <input class="form-control" type="text" [(ngModel)]="activity.location" placeholder="Location (if any)" formControlName="location">
         <textarea class="form-control col-lg-12" type="text" placeholder="Activity Notes" formControlName="notes" [(ngModel)]="activity.notes"></textarea>
 
         <button type="button" class="btn btn-primary" (click)="editActivity(activityInfo.value)" *ngIf="edit">Save</button>
@@ -103,7 +104,8 @@
   </div>
 
   <div class="modal-footer dark-header">
-    <button type="button" class="btn btn-danger" (click)="deleteActivity(activityInfo.value)">Delete</button>
+    <button type="button" class="btn btn-danger" (click)="deleteActivity(activityInfo.value)" *ngIf="title === 'activity'">Delete Activity</button>
+    <button type="button" class="btn btn-danger" (click)="deleteContact(contactInfo.value)" *ngIf="title === 'contact'">Delete Contact</button>
     <button type="button" class="btn btn-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </div>

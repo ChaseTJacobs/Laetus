@@ -19,6 +19,7 @@ export class NgbdModalContent {
     month: this.todaysDate.getMonth(),
     day: this.todaysDate.getDate()
   };
+  
   @Input() edit;
   @Input() title;
   @Input() message;
@@ -42,6 +43,7 @@ export class NgbdModalContent {
     selectedHour: this.nrm.hours[0],
     selectedMinute: this.nrm.minutes[0],
     selectedAmPm: this.nrm.amPm[0],
+    location: '',
     completed: false,
     notes: '',
     model: null
@@ -54,11 +56,8 @@ export class NgbdModalContent {
     epoc: -1
   };
 
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private nrm: NrmService) {
+  constructor(public activeModal: NgbActiveModal, public fb: FormBuilder, public nrm: NrmService) {
     this.typeOptions = this.nrm.activityTypes;
-    console.log(this.typeOptions);
-    console.log(new Date());
-    console.log(this.title);
     this.contactInfo = fb.group({
       'firstname': [null, Validators.required],
       'lastname': [null, Validators.required],
@@ -75,6 +74,7 @@ export class NgbdModalContent {
       'selectedHour': [null],
       'selectedMinute': [null],
       'selectedAmPm': [null],
+      'location': [null],
       'type': [null],
       'notes': [null],
       'other': [null]
@@ -87,7 +87,6 @@ export class NgbdModalContent {
       this.model.jsdate = this.activity.model;
     } else {
       this.model.jsdate = new Date(this.dateFormat.year, this.dateFormat.month, this.dateFormat.day); 
-      console.log(this.model.jsdate);
     }
   }
   
@@ -98,10 +97,10 @@ export class NgbdModalContent {
   // calculate milliseconds given current minute/hour/ampm
   calcMilli() {
     let tempMilli = 0;
-    if (this.activityInfo.value.selectedAmPm === 'pm') {
+    if (this.activityInfo.value.selectedAmPm == 'pm') {
       tempMilli += 43200000;
     }
-    if (this.activityInfo.value.selectedHour.value != 12) {
+    if (this.activityInfo.value.selectedHour !== 12) {
       tempMilli += (this.activityInfo.value.selectedHour * 3600000); 
     }
     tempMilli += (this.activityInfo.value.selectedMinute.value * 60000);
@@ -155,7 +154,12 @@ export class NgbdModalContent {
   deleteActivity(activity) {
     console.log('Delete Activity');
     this.nrm.deleteActivity(this.activity.a_id);
-    this.activeModal.close('Deleted Contact');
+    this.activeModal.close('Deleted Activity');
+  }
+  
+  deleteContact(contact) {
+    this.nrm.deleteContact(this.contact.c_id);
+    this.activeModal.close('Deleted Contact')
   }
 }
 
@@ -167,8 +171,12 @@ export class NgbdModalContent {
 
 @Injectable()
 export class ModalComponent implements OnInit {
+  
+  message;
+  title;
+  activeModal;
 
-  constructor(private modalService: NgbModal, private nrm: NrmService) {
+  constructor(public modalService: NgbModal, public nrm: NrmService) {
 
   }
 

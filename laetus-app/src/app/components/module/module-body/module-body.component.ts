@@ -81,7 +81,7 @@ export class ModuleBodyComponent implements OnInit {
     this.moduleService.completeModule(this.currentModule.mod_id);
   }
 
-  constructor(private moduleService: ModuleService) {
+  constructor(public moduleService: ModuleService) {
     this.moduleService.getModuleList();
     this.moduleGetter = moduleService.getCurrModule().subscribe(data => {
       this.currentModule = data;

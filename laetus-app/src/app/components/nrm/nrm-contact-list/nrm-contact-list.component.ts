@@ -18,8 +18,8 @@ export class NrmContactListComponent implements OnInit {
     'organization'
   ];
 
-  private options;
-  private optionSelected;
+  options;
+  optionSelected;
 
   createContact() {
     console.log("Contact Created");
@@ -56,8 +56,8 @@ export class NrmContactListComponent implements OnInit {
     this.nrmService.getContactList();
   }
 
-  private contactList: any[];
-  constructor(private nrmService: NrmService, private modalService: ModalComponent) {
+  contactList: any[];
+  constructor(public nrmService: NrmService, public modalService: ModalComponent) {
     this.getContactList();
     this.options = [
       {

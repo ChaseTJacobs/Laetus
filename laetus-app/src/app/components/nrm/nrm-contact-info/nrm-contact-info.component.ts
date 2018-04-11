@@ -9,13 +9,13 @@ import { ModalComponent } from '../../modal-template/modal/modal.component';
 })
 export class NrmContactInfoComponent implements OnInit {
 
-  private showInfo: boolean = true;
+  showInfo: boolean = true;
 
   toggleInfo() {
     this.showInfo = !this.showInfo;
   }
 
-  constructor(private nrmService: NrmService, private modalService: ModalComponent) { }
+  constructor(public nrmService: NrmService, public modalService: ModalComponent) { }
 
   ngOnInit() {
   }

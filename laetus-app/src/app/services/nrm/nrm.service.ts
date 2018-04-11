@@ -12,10 +12,21 @@ export class NrmService {
   savedContacts: any[];
   activityTypes: any[];
   d = new Date();
+  allActivities: any[];
 
   contactInfo = {
     c_id: null,
-    c_info: {},
+    c_info: {
+      firstname: null,
+      lastname: null,
+      notes: null,
+      position: null,
+      organization: null,
+      email: null,
+      phone: null,
+      mail_address: null,
+      url_linkedin: null
+    },
     allActivities: [],
     pastActivities: [],
     currentActivities: []
@@ -63,7 +74,7 @@ export class NrmService {
         (response: Response) => {
           let body = response.json();
           // set ID first
-          this.contactInfo.c_id = body.data.contact_info.c_id;
+          this.contactInfo.c_id = body.data.c_id;
           // reset the rest of the info
           this.contactInfo.c_info = null;
           this.contactInfo.allActivities = null;
@@ -71,18 +82,23 @@ export class NrmService {
           this.contactInfo.currentActivities = null;
           
           // set contact info
-          this.contactInfo.c_info = body.data.contact_info;
-          this.getContactActivities(data);
+          this.contactInfo.c_info = body.data;
+          this.getContactActivities(body.data.c_id);
         }
       );
     }
   }
   
-  getContactActivities(data) {
+  getContactActivities(contactId) {
+    let data = {
+      c_id: contactId
+    }
+    console.log(data);
     // get activities from server
     this.httpService.getRequest('getContactActivities', data, this.accountService.getToken()).subscribe(
       (aResponse: Response) => {
         let aBody = aResponse.json();
+        console.log(aBody);
         if(aBody.status == 123) {
           // set all activities
           this.contactInfo.allActivities = aBody.data.activities;
@@ -178,7 +194,6 @@ export class NrmService {
   // create and edit contact
   createContact(contact, edit) {
     let endpoint;
-    console.log(contact);
     let newContact = {
       c_id: contact.c_id,
       created_milli: this.d.getTime(),
@@ -204,7 +219,6 @@ export class NrmService {
     this.httpService.getRequest(endpoint, newContact, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
-        console.log(body);
         if (body.status === 113) {
           this.getContactList();
         } else if (body.status === 115) {
@@ -225,9 +239,9 @@ export class NrmService {
   
   // create and edit activity
   createActivity(activity, edit) {
-    console.log(activity);
     let endpoint;
     let curDate = new Date();
+    console.log(activity);
     let newActivity = {
       c_id: this.contactInfo.c_id,
       atype_id: activity.atype_id,
@@ -235,6 +249,7 @@ export class NrmService {
       activity_name: activity.activity_name,
       event_date: activity.event_date,
       notes: activity.notes,
+      location: activity.location,
       completed: activity.completed
     }
     
@@ -248,10 +263,9 @@ export class NrmService {
     this.httpService.getRequest(endpoint, newActivity, this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
-        console.log(body);
         // todo: update activity info
         if (body.status == 120 || body.status == 126) {
-          this.getContactActivities({c_id: this.contactInfo.c_id});
+          this.getContactActivities(this.contactInfo.c_id);
         } else if (body.status === 295) {
           this.accountService.redirectUrl = '/nrm';
           this.accountService.logout(true);
@@ -274,7 +288,7 @@ export class NrmService {
       (response: Response) => {
         let body = response.json();
         if (body.status == 125) {
-          this.getContactActivities({c_id: this.contactInfo.c_id});
+          this.getContactActivities(this.contactInfo.c_id);
         } else if (body.status === 295) {
           this.accountService.redirectUrl = '/nrm';
           this.accountService.logout(true);
@@ -285,8 +299,29 @@ export class NrmService {
           this.accountService.redirectUrl = '/nrm';
           this.accountService.logout(true);
         }
-        console.log(body);
-        
+      }
+    )
+  }
+  
+  deleteContact(c_id) {
+    let param = {
+      c_id: c_id
+    }
+    this.httpService.getRequest('deleteContact', param, this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        if (body.status == 119) {
+          this.getContactList();
+        } else if (body.status === 295) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else if (body.status === 299) {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        } else {
+          this.accountService.redirectUrl = '/nrm';
+          this.accountService.logout(true);
+        }
       }
     )
   }
@@ -295,11 +330,9 @@ export class NrmService {
     this.httpService.tempGetRequest('getActivityTypes', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let body = response.json();
-        console.log(body.status);
         if(body.status == 137) {
           this.activityTypes = body.data.activity_types;
           this.activityTypes.sort((a, b) => a.atype_id < b.atype_id ? -1 : a.atype_id > b.atype_id ? 1 : 0);
-          console.log(this.activityTypes);
         } else if (body.status === 295) {
           this.accountService.redirectUrl = '/nrm';
           this.accountService.logout(true);
@@ -313,9 +346,17 @@ export class NrmService {
       }
     )
   }
+  
+  getAllActivities() {
+    this.httpService.tempGetRequest('getActivityList', this.accountService.getToken()).subscribe(
+      (response: Response) => {
+        let body = response.json();
+        this.allActivities = this.sortByDate(body.data.activities);
+      }
+    )
+  }
 
   constructor(private httpService: HttpService, private accountService: AccountService) {
     this.savedContacts = [];
-    
   }
 }

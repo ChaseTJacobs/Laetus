@@ -17,6 +17,7 @@ export class ModuleService {
     this.httpService.tempGetRequest('getModuleList', this.accountService.getToken()).subscribe(
       (response: Response) => {
         let res = response.json();
+        console.log(res);
         if (res.status == 142) {
           res.data.sort(function(a,b) {
             return (a.module_number > b.module_number) ? 1 : ((b.module_number > a.module_number) ? -1 : 0);

@@ -3,19 +3,19 @@
     <div class="row width-90">
       <div class="col-sm-4 mt-3">
         <div class="teal-background-dark">
-          <table class="w-100 h-100">
+          <table class="w-100">
             <tr>
-              <td><img class="icon-format-large" src="../../../assets/user-icon.png"/></td>
+              <td><img class="icon-format-large my-2" src="../../../assets/Icons/road_icon.png"/></td>
             </tr>
-            <tr>
+            <tr class="mx-2">
               <td><span class="header-text">Next Steps</span></td>
             </tr>
             <tr>
               <td>
-                <div class="teal-background-light">
+                <div class="teal-background-light p-2">
                   <div *ngFor="let module of moduleService.modules; let i = index;">
-                    <div *ngIf="(module.recommended || module.interested) && (i < 3)">
-                      <img class="icon-format-small" src="../../../assets/user-icon.png"/>Module {{module.module_number}} Certain Topic
+                    <div *ngIf="(module.recommended || module.interested) && (i < 3)" class="py-1 toolsIcon">
+                      <span (click)="goToModule(module.mod_id)"><img class="icon-format-small" src="../../../assets/Icons/circle.png"/>Module {{module.module_number}}</span>
                     </div>
                   </div>
                 </div>
@@ -25,69 +25,82 @@
         </div>
       </div>
       <div class="col-sm-4 mt-3">
+<!--        Networking Metrics       -->
         <div class="teal-background-dark">
-          <div><img class="icon-format-large" src="../../../assets/user-icon.png"/></div>
-          <span class="header-text">Networking Metrics</span>
-          <div class="teal-background-light">
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>23 New Connections
-            </div>
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>6 Interviews
-            </div>
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>3 Job Offers
-            </div>
-          </div>
+          <table class="w-100">
+            <tr>
+              <td><img class="icon-format-large my-2" src="../../../assets/Icons/stats_icon.png"/></td>
+            </tr>
+            <tr class="mx-2">
+              <td><span class="header-text">Networking Metrics</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="teal-background-light p-2">
+                  <div class="py-1">Coming soon!</div>
+                </div>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
+<!--      Calander stuff       -->
       <div class="col-sm-4 mt-3">
         <div class="teal-background-dark">
-          <div><img class="icon-format-large" src="../../../assets/user-icon.png"/></div>
-          <span class="header-text">Calander Reminders</span>
-          <div class="teal-background-light">
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 9 Interview
-            </div>
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 23 Career Fair
-            </div>
-            <div>
-              <img class="icon-format-small" src="../../../assets/user-icon.png"/>Feb 30 A Third Thing
-            </div>
-          </div>
+          <table class="w-100">
+            <tr>
+              <td><img class="icon-format-large my-2" src="../../../assets/Icons/calendar_icon.png"/></td>
+            </tr>
+            <tr class="mx-2">
+              <td><span class="header-text">Calander Reminders</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="teal-background-light p-2">
+                  <div *ngFor="let activity of nrmService.allActivities; let i = index;">
+                    <div *ngIf="(activity.event_date > todaysMilli) && (i < 3)" class="py-1">
+                      <img class="icon-format-small" src="../../../assets/Icons/circle.png"/>{{activity.activity_name}} at {{activity.event_date | date:'EE LLL dd, yyyy'}}
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col-sm-12 col-md-6 dark-background p-3">
+    <div class="row fixed-bottom">
+      <div class="col-sm-12 col-md-6 dark-background px-0 py-3">
         <div><h2>Modules</h2></div>
         <div *ngIf="!takenQuiz">
           Please take the quiz to access your modules!
           <div class="intro-button mt-3 mb-4" (click)="takeQuiz()">TAKE QUIZ</div>
         </div>
         <div *ngIf="takenQuiz">
-          <span class="module-button" *ngFor="let module of moduleList">{{module.number}}</span>
+          <span class="module-button" *ngFor="let module of moduleService.modules;">{{module.module_number}}</span>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 dark-background p-3">
-          <div><h2>My Tools</h2></div>
+      <div class="col-sm-12 col-md-6 dark-background px-0 py-3">
+        <div><h2>My Tools</h2></div>
+        <div>
+          <table class="w-100">
+            <tr>
+              <td width="30%" class="toolsIcon" (click)="goToPage('/calendar')">
+                <div>Calendar</div>
+                <div><img src="../../../assets/Icons/calendar_icon.png" class="icon-format-large"></div>
+              </td>
+              <td width="30%" class="toolsIcon" (click)="goToPage('/statistics')">
+                <div>Stat Tracker</div>
+                <div><img src="../../../assets/Icons/stats_icon.png" class="icon-format-large"></div>
+              </td>
+              <td width="30%" class="toolsIcon" (click)="goToPage('/nrm')">
+                <div>Contact Manager</div>
+                <div><img src="../../../assets/Icons/phone_icon.png" class="icon-format-large"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div>
-    
-    <div class="fixed-bottom progressBar">
-      <table *ngIf="currentModule" class="tableWidth mt-2 mx-5">
-        <tr>
-          <ng-container *ngFor="let step of currentModule.steps; let stepi = index;">
-            <td align="center">
-              <div [ngClass]="stepi <= currentIndex.step ? 'stepCircle' : 'stepCircleA'" (click)="setStep(step)">{{step.number + 1}}</div>
-            </td>
-            <td *ngFor="let substep of step.substeps; let substepi = index">
-              <div [ngClass]="(currentIndex.step > stepi) || ((currentIndex.sub >= substepi) && (currentIndex.step == stepi)) ? 'stepCircle' : 'stepCircleA'"(click)="setSubStep(step, substep)"></div>
-            </td>
-          </ng-container>
-        </tr>
-      </table>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid overviewBg">
   <span class="textHead">My Plan</span>
   <div class="row">
     <ng-container *ngFor="let module of moduleService.modules">
@@ -10,8 +10,8 @@
                 <span class="modNum mx-2">{{module.module_number}}</span>
               </td>
               <td>
-                <div *ngIf="(module.interested && !module.recommended)" class="float-right" (click)="setInterested(module.mod_id, 0)">Star</div>
-                <div *ngIf="(!module.interested && module.recommended)"class="float-right" (click)="setInterested(module.mod_id, 1)">noStar</div>
+                <div *ngIf="(module.interested && !module.recommended)" class="float-right" (click)="setInterested(module.mod_id, 0)"><img src="../../../../assets/Icons/filled_star.png" class="starIcon"> </div>
+                <div *ngIf="(!module.interested && !module.recommended)"class="float-right" (click)="setInterested(module.mod_id, 1)"><img src="../../../../assets/Icons/outline_star.png" class="starIcon"></div>
                 <div class="modName">
                   {{module.module_name}}
                 </div>
@@ -39,13 +39,13 @@
     <ng-container *ngFor="let module of moduleService.modules">
       <div *ngIf="!module.recommended && !module.interested" class="col-sm-6 col-md-4 py-4">
         <div [ngClass]="module.completed ? 'moduleBoxComplete' : 'moduleBox'" class="p-2">
-          <table class="w-100 h-100">
+          <table class="w-100 tableHeight">
             <tr valign="top">
               <td rowspan="2">
                 <span class="modNum mx-2">{{module.module_number}}</span>
               </td>
               <td>
-                <div *ngIf="!module.interested" class="float-right" (click)="setInterested(module.mod_id, 1)">noStar</div>
+                <div *ngIf="!module.interested" class="float-right" (click)="setInterested(module.mod_id, 1)"><img src="../../../../assets/Icons/outline_star.png" class="starIcon"></div>
                 <div class="modName">
                   {{module.module_name}}
                 </div>

@@ -1,10 +1,10 @@
 .background-pic {
-  /* background-image: url("../../../assets/blacknwhite_stock3_optimized.jpg"); */
+  background-image: url("../../../assets/website_bg.jpg"); 
   width: 100%;
   height: calc(100vh - 80px);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-position: center center;
-  background-size: 100% 100%;
+  background-size: 500px 500px;
 }
 
 .width-90 {
@@ -22,7 +22,7 @@
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
-  height: 45vh;
+  height: 40vh;
 }
 
 .teal-background-light {
@@ -38,13 +38,11 @@
 .icon-format-large {
   width: 80px;
   height: 80px;
-  filter: invert(100%);
 }
 
 .icon-format-small {
   width: 30px;
   height: 30px;
-  filter: invert(100%);
 }
 
 .header-text {
@@ -79,4 +77,12 @@
   min-height: 50px;
   margin-left: 20%;
   margin-right: 20%;
+}
+
+.intro-button:hover {
+  cursor: pointer;
+}
+
+.toolsIcon:hover {
+  cursor: pointer;
 }

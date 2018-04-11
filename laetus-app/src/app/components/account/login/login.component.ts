@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   newPass = null;
   showPass = false;
 
-  constructor(private acctSvc: AccountService, private fb: FormBuilder) {
+  constructor(public acctSvc: AccountService, public fb: FormBuilder) {
     this.loginForm = fb.group({
       'username': [null, Validators.required],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],

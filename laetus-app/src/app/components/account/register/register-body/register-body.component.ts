@@ -10,7 +10,7 @@ export class RegisterBodyComponent implements OnInit {
 
 
 
-  constructor(private acctSvc: AccountService) {
+  constructor(public acctSvc: AccountService) {
   }
 
   ngOnInit() {

@@ -278,6 +278,7 @@ export class AccountService implements OnInit {
     let recommendedModules = this.recommendedModules(answers);
     console.log(recommendedModules);
     this.quizResults = answers;
+    console.log(recommendedModules);
     if (this.sToken == null || this.sToken == undefined) {
       
     } else {
@@ -307,24 +308,30 @@ export class AccountService implements OnInit {
           }
         }
       )
-      
-//      this.httpService.tempGetRequest('getUserInfo', this.getToken()).subscribe(
-//      (response: Response) => {
-//        let res = response.json();
+      this.httpService.tempGetRequest('getUserInfo', this.getToken()).subscribe(
+      (response: Response) => {
+        let res = response.json();
 //        let data = {
 //          user_info: JSON.parse(res.data.user_info)
 //        }
-//        data.user_info.quizResults = answers;
-//        data.user_info.recommendedModules = recommendedModules;
-//        this.httpService.getRequest('updateUserInfo', data, this.getToken()).subscribe(
-//          (quizRez: Response) => {
-//            let res2 = quizRez.json();
-//            console.log(res2);
-//          }
-//        )
-//        console.log(res);
-//      }
-//    )
+        
+        let data = {
+          user_info: {
+            quizResults: null,
+            recommendedModules: null,
+            takenQuiz: false
+          }
+        }
+        data.user_info.quizResults = answers;
+        data.user_info.recommendedModules = recommendedModules;
+        data.user_info.takenQuiz = true;
+        this.httpService.getRequest('updateUserInfo', data, this.getToken()).subscribe(
+          (quizRez: Response) => {
+            let res2 = quizRez.json();
+          }
+        )
+      }
+    )
     }
     console.log(answers);
   }
