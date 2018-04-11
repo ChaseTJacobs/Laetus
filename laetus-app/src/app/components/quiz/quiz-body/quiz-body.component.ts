@@ -8,7 +8,7 @@ import { AccountService } from '../../../services/auth/account.service'
 })
 export class QuizBodyComponent implements OnInit {
 
-  constructor(private accountService: AccountService) { }
+  constructor(public accountService: AccountService) { }
 
   ngOnInit() {
   }

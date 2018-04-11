@@ -19,7 +19,7 @@ export class NrmContactActivitiesComponent implements OnInit {
     'description'
   ];
   
-  private showActivity:boolean = true;
+  showActivity:boolean = true;
 
   toggleActivity() {
     this.showActivity = !this.showActivity;
@@ -33,7 +33,7 @@ export class NrmContactActivitiesComponent implements OnInit {
     const modalRef = this.modalService.open({edit: false, title: 'activity', info: null})
   }
 
-  constructor(private nrmService: NrmService, private datePipe: DatePipe, private modalService: ModalComponent) {
+  constructor(public nrmService: NrmService, public datePipe: DatePipe, public modalService: ModalComponent) {
     
   }
 

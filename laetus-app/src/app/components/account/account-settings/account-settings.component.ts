@@ -9,8 +9,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./account-settings.component.css']
 })
 export class AccountSettingsComponent implements OnInit {  
-  private user_info = {};
-  private u_info_keys = [];
+  user_info = {};
+  u_info_keys = [];
   updatePassForm: FormGroup;
   old_pass: string;
   new_pass: string;
@@ -46,7 +46,7 @@ export class AccountSettingsComponent implements OnInit {
   }
   
 
-  constructor(private accountService: AccountService, private fb: FormBuilder) {
+  constructor(public accountService: AccountService, public fb: FormBuilder) {
     this.accountService.getUserInfo().subscribe(
       (response: Response) => {
         let body = response.json();

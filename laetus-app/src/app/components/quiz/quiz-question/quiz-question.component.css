@@ -72,32 +72,60 @@
 
 .backgroundQ {
   height: calc(100vh - 80px);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
 }
 
 .q1 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q2 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q2.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q3 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q3.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q4 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q4.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q5 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q5.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q6 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q6.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q7 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q7.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
 }
 .q8 {
-  background-image: url("../../../../assets/blacknwhite_stock3_optimized.jpg");
+  background-image: url("../../../../assets/quizImages/q8.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50% 100%;
+}
+
+.submitQuiz {
+  color: white;
+}
+.submitQuiz:hover {
+  color: black;
 }

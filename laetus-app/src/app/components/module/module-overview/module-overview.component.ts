@@ -30,7 +30,7 @@ export class ModuleOverviewComponent implements OnInit {
     this.router.navigate(['/module']);
   }
 
-  constructor(private moduleService: ModuleService, private httpService: HttpService, private accountService: AccountService, private router: Router) {
+  constructor(public moduleService: ModuleService, public httpService: HttpService, public accountService: AccountService, public router: Router) {
     this.moduleService.getModuleList()
   }
 

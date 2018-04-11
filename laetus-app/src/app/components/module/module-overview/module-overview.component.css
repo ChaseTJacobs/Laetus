@@ -1,3 +1,14 @@
+.overviewBg {
+  background-image: url("../../../../assets/website_bg.jpg"); 
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: 300px 300px;
+  overflow-y: auto;
+}
+
 .moduleBoxComplete {
   color: white;
   background-color: #333;
@@ -18,7 +29,7 @@
 }
 
 .textHead {
-  font-size: 28px;
+  font-size: 48px;
 }
 
 .modButton {
@@ -50,4 +61,13 @@
 .modDes {
   font-size: 14px;
   text-align: left;
+}
+
+.starIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.starIcon:hover {
+  cursor: pointer;
 }

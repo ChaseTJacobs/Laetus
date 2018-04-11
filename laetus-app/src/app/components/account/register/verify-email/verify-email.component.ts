@@ -10,7 +10,7 @@ export class VerifyEmailComponent implements OnInit {
 
   token = null;
 
-  constructor(private acctSvc: AccountService) {
+  constructor(public acctSvc: AccountService) {
 
   }
 

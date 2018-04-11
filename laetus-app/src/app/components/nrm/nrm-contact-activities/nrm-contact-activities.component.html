@@ -23,7 +23,7 @@
             <tr>
               <td>
                 <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-                <span>{{activity.activity_name}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{nrmService.contactInfo.c_info.fullname}}</span></span>
+                <span>{{activity.activity_name}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{nrmService.contactInfo.c_info.firstname}} {{nrmService.contactInfo.c_info.lastname}}</span></span>
               </td>
               <td align="right">
                 <span class="mr-2">{{activity.event_date | date:'EE LLL dd, yyyy'}}</span>
@@ -60,7 +60,7 @@
             <tr>
               <td>
                 <img src="../../../../assets/Icons/calendar_icon.png" class="activity-icon mx-2">
-                <span>{{activity.activity_name}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{nrmService.contactInfo.c_info.fullname}}</span></span>
+                <span>{{activity.activity_name}} <span *ngIf="nrmService.contactInfo.c_id != null">with {{nrmService.contactInfo.c_info.firstname}} {{nrmService.contactInfo.c_info.lastname}}</span></span>
               </td>
               <td align="right">
                 <span class="mr-2">{{activity.event_date | date:'EE LLL dd, yyyy'}}</span>

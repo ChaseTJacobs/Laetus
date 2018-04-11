@@ -23,7 +23,7 @@ export class RegisterFormComponent implements OnInit {
   user: any;
   namePattern = new RegExp('\w+\s+\w+', 'ig');
 
-  constructor(private fb: FormBuilder, private acctSvc: AccountService, public paySvc: PaymentService) {
+  constructor(public fb: FormBuilder, public acctSvc: AccountService, public paySvc: PaymentService) {
     this.rForm = fb.group({
       'firstname': [null, Validators.compose([Validators.required, Validators.pattern('\\w+\\s+\\w+')])],
       'password': [null, Validators.compose([Validators.required, Validators.minLength(5)])],

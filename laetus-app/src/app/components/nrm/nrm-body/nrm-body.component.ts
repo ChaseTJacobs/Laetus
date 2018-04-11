@@ -8,7 +8,7 @@ import { NrmService } from '../../../services/nrm/nrm.service';
 })
 export class NrmBodyComponent implements OnInit {
 
-  constructor(private nrmService: NrmService) { 
+  constructor(public nrmService: NrmService) { 
     this.nrmService.getActivityTypes();
   }
 
