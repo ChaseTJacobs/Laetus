@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../../../services/auth/account.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-quiz-results',
@@ -6,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quiz-results.component.css']
 })
 export class QuizResultsComponent implements OnInit {
+  
+  routeTo(route) {
+    this.router.navigate([route]);
+  }
 
-  constructor() { }
+  constructor(public accountService: AccountService, public router: Router) { }
 
   ngOnInit() {
   }

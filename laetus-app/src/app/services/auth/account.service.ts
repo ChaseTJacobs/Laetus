@@ -20,11 +20,13 @@ export class AccountService implements OnInit {
   private moduleChange = new BehaviorSubject<any>(null);
   public confirmForm = false;
   public errorMessage = null;
+  public savedQuiz = [];
   /* rPass is to keep track of where we are at in the reset password process: 0 = beginning; 1 = confirmation token sent to email; 2 = email confirmed; 3 = new password saved to database */
   public rPass = 0;
   public redirectUrl = null;
   public uInfo = null;
   public quizResults = null;
+  public recMods = null;
   public quizQuestions = [
     {
       id: 0,
@@ -164,22 +166,23 @@ export class AccountService implements OnInit {
       let resp = response.json();
       this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
       if(!isResetPass) {
+        console.log(this.uInfo);
         if (this.uInfo !== null){
-        this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
-          (response: Response) => {
-            console.log(response);
-            let res = response.json();
-            if (res.status === 211) {
-              this.errorMessage = "The email you are trying to register with is already in use with another account.";
-            } else {
-            this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-            this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
-            this.loggedInUserToken.next(this.sToken);
-            this.router.navigate(['/home']);
-            }
-          },
-          (error) => console.log('ERROR')
-      );
+          this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
+            (response: Response) => {
+              console.log(response);
+              let res = response.json();
+              if (res.status === 211) {
+                this.errorMessage = "The email you are trying to register with is already in use with another account.";
+              } else {
+              this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+              this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+              this.loggedInUserToken.next(this.sToken);
+              this.router.navigate(['/home']);
+              }
+            },
+            (error) => console.log('ERROR')
+        );
       } else { 
         console.log("Could not find users information.");
       };
@@ -251,19 +254,38 @@ export class AccountService implements OnInit {
   /* Takes the users information from the register page and holds onto it until they have verified their email and their account can be created. If isResetPass is true, we only worry about the email. */
   setUserInfo(user, isResetPass) {
     if(!isResetPass) {
-    this.uInfo = {
-      email: user.email,
-      password: user.password, 
-      userInfo: {
-        firstName: user.firstname, 
-        lastName: user.lastname
+      if(this.quizResults) {
+        this.uInfo = {
+          email: user.email,
+          password: user.password, 
+          userInfo: {
+            firstName: user.firstname, 
+            lastName: user.lastname,
+            quizResults: this.quizResults,
+            recommendedModules: this.recMods,
+            takenQuiz: true
+          }
+        }
+      } else {
+        this.uInfo = {
+          email: user.email,
+          password: user.password, 
+          userInfo: {
+            firstName: user.firstname, 
+            lastName: user.lastname,
+            quizResults: null,
+            recommendedModules: null,
+            takenQuiz: false
+          }
+        }
       }
-    }
+      
     } else {
       this.uInfo = {
         email: user
       }
     }
+    console.log(this.uInfo);
   }
   
   goToQuiz(){
@@ -272,30 +294,33 @@ export class AccountService implements OnInit {
   
   submitQuiz(answers){
     let recommendedModules = this.recommendedModules(answers);
+    this.recMods = recommendedModules;
     console.log(recommendedModules);
     this.quizResults = answers;
-    console.log(recommendedModules);
-    if (this.sToken == null || this.sToken == undefined) {
-      
-    } else {
-      this.httpService.tempGetRequest('getModuleList', this.getToken()).subscribe(
-        (response: Response) => {
-          let res = response.json()
-          let modList = res.data;
-          for(let j = 0; j < modList.length; j++) {
-            let modIndex = recommendedModules.indexOf(modList[j].module_number)
-            let data = {};
-            if (modIndex > -1) {
-              data = {
-                mod_id: modList[j].mod_id,
-                recommended: 1
-              }
-            } else {
-              data = {
-                mod_id: modList[j].mod_id,
-                recommended: 0
-              }
+    this.httpService.tempGetRequest('getModuleList', null).subscribe(
+      (response: Response) => {
+        let res = response.json();
+        let modList = res.data;
+        console.log(modList);
+        for(let j = 0; j < modList.length; j++) {
+          // finds index of recommended module from quiz answers
+          let modIndex = recommendedModules.indexOf(modList[j].module_number)
+          let data = {};
+          // if recommended module doesn't exist, don't add to recommended
+          if (modIndex > -1) {
+            data = {
+              mod_id: modList[j].mod_id,
+              recommended: 1
             }
+            this.savedQuiz.push(modList[j]);
+          } else {
+            data = {
+              mod_id: modList[j].mod_id,
+              recommended: 0
+            }
+          }
+          if (!this.sToken == null && !this.sToken == undefined) {
+            //update recommended modules based on quiz results
             this.httpService.getRequest('updateMyModules', data, this.getToken()).subscribe(
               (response2: Response) => {
                 this.moduleChange.next(1);
@@ -303,41 +328,37 @@ export class AccountService implements OnInit {
             )
           }
         }
-      )
-      this.httpService.tempGetRequest('getUserInfo', this.getToken()).subscribe(
-      (response: Response) => {
-        let res = response.json();
-//        let data = {
-//          user_info: JSON.parse(res.data.user_info)
-//        }
-        
-        let data = {
-          user_info: {
-            quizResults: null,
-            recommendedModules: null,
-            takenQuiz: false
-          }
-        }
-        data.user_info.quizResults = answers;
-        data.user_info.recommendedModules = recommendedModules;
-        data.user_info.takenQuiz = true;
-        this.httpService.getRequest('updateUserInfo', data, this.getToken()).subscribe(
-          (quizRez: Response) => {
-            let res2 = quizRez.json();
-          }
-        )
+        this.saveAnswers(answers, recommendedModules)
       }
     )
-    }
-    console.log(answers);
   }
   
-  saveAnswers() {
-    
+  saveAnswers(answers, recommendedModules) {
+    if (!this.sToken == null && !this.sToken == undefined) {
+      this.httpService.tempGetRequest('getUserInfo', this.getToken()).subscribe(
+        (response: Response) => {
+          let res = response.json();
+          let data = {
+            user_info: {
+              quizResults: null,
+              recommendedModules: null,
+              takenQuiz: false
+            }
+          }
+          data.user_info.quizResults = answers;
+          data.user_info.recommendedModules = recommendedModules;
+          data.user_info.takenQuiz = true;
+          this.httpService.getRequest('updateUserInfo', data, this.getToken()).subscribe(
+            (quizRez: Response) => {
+              let res2 = quizRez.json();
+            }
+          )
+        }
+      )
+    }
   }
   
   recommendedModules(quizResults) {
-    console.log(quizResults);
     let recommendedMods = []
     if(quizResults[1] == 0) {
       recommendedMods.push(1);

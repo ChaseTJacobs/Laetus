@@ -1,3 +1,12 @@
+.resultBg {
+  background-image: url("../../../../assets/website_bg.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  height: calc(100vh - 80px);
+  width: 100%;
+  background-size: 300px 300px;
+}
+
 .resultBod {
   color: white;
   background-color: #1a1a1a;
@@ -5,11 +14,11 @@
   border-radius: 8px;
 }
 
-.table1 {
+.tableWidth {
   width: 100%;
 }
 
-.test {
+.boxBackground {
   background-color: #4d4d4d;
   border: 3px solid #4d4d4d;
   border-radius: 5px;

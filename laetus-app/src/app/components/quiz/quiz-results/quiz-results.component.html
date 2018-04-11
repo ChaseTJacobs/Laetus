@@ -1,17 +1,27 @@
-<div class="container-fluid">
+<div class="container-fluid resultBg">
   <div class="row">
     <div class="col"></div>
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div class="resultBod my-5 p-3">
         <span>Quiz Results</span>
-        <div class="test">
-          <table class="table1">
+        <span>Based on the answers you've selected on the quiz, we have a list of modules, or lessons that will help you with your specific needs.</span>
+        <div class="boxBackground">
+          <table class="tableWidth">
             <tr>
-              <td>Recommended Modules</td>
-              <td>Or Something</td>
+              <td colspan="2">Your Recommended Modules</td>
+            </tr>
+            <tr>
+              <td>Module Name</td>
+              <td>Module Number</td>
+            </tr>
+            <tr *ngFor="let module of accountService.savedQuiz">
+              <td>{{module.module_name}}</td>
+              <td>{{module.module_number}}</td>
             </tr>
           </table>
         </div>
+        <div *ngIf="accountService.sToken" (click)="routeTo('/module-index')">Go to Modules</div>
+        <div *ngIf="!accountService.sToken"(click)="routeTo('/register')">Register Now!</div>
       </div>
     </div>
     <div class="col"></div>
