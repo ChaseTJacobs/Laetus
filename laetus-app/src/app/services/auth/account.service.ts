@@ -230,7 +230,7 @@ export class AccountService implements OnInit {
   }
 
   /*sends an 8 character token to their email for email verification and forgot password*/
-  emailToken(email) {
+  emailToken(email, isResetPass) {
     let param = {
       email: email
     };
@@ -239,7 +239,11 @@ export class AccountService implements OnInit {
         let emailRes = response.json();
         this.paToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
         this.setVerifyEmail(true);
-        this.rPass = 1;
+        if(isResetPass) {
+          this.rPass = 1;
+        } else {
+          return;
+        }
       }
     )
   }

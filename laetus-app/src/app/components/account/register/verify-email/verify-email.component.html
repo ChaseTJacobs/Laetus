@@ -1,4 +1,4 @@
-<div class="verification-container rounded" *ngIf="acctSvc.errorMessage === null">
+<div class="verification-container rounded mt-5" *ngIf="acctSvc.errorMessage === null">
   <h2>Almost done!</h2>
   <h6 class="font-weight-light">Copy the verification code from the email we sent you and paste it into the space below:</h6>
   <div class="px-3 mb-3 mt-3">
@@ -7,8 +7,8 @@
   <button class="btn btn-teal pr-5 pl-5" (click)="verifyEmail()">Verify</button>
 </div>
 
-<div class="verification-container rounded" *ngIf="acctSvc.errorMessage !== null">
+<div class="verification-container rounded mt-5 py-4" *ngIf="acctSvc.errorMessage !== null">
   <h2>Hang on...</h2>
   <h5 class="font-weight-light">{{acctSvc.errorMessage}}. If you have forgotten your password, you can reset it from the Login Page.</h5>
-    <button class="btn btn-teal pr-5 pl-5" (click)="acctSvc.routeTo('login')">Go To the Login Page</button>
+    <button class="btn btn-teal px-5 my-3" (click)="acctSvc.routeTo('login')">Go To the Login Page</button>
 </div>
