@@ -10,5 +10,6 @@
 <div class="verification-container rounded mt-5 py-4" *ngIf="acctSvc.errorMessage !== null">
   <h2>Hang on...</h2>
   <h5 class="font-weight-light">{{acctSvc.errorMessage}}. If you have forgotten your password, you can reset it from the Login Page.</h5>
-    <button class="btn btn-teal px-5 my-3" (click)="acctSvc.routeTo('login')">Go To the Login Page</button>
+    <button class="btn btn-teal px-5 my-3" (click)="acctSvc.routeTo('login')">Go To Login</button>
 </div>
+

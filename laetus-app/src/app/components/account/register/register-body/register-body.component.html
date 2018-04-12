@@ -5,10 +5,13 @@
       <div class="col-sm-8 col-md-6 col-lg-5 mt-5" *ngIf="!acctSvc.confirmForm">
         <app-register-form></app-register-form>
       </div>
-      <div class="col-sm-8 col-md-6 col-lg-5" *ngIf="acctSvc.confirmForm">
+      <div class="col-sm-8 col-md-6 col-lg-5" *ngIf="acctSvc.confirmForm && !acctSvc.paymentForm">
         <app-verify-email></app-verify-email>
       </div>
+      <div class="col-sm-8 col-md-6 col-lg-8" *ngIf="acctSvc.paymentForm">
+        <app-register-payment></app-register-payment>
+      </div>
       <div class="col"></div>
-    </div>
+    </div> 
   </div>
 </div> 

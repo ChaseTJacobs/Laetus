@@ -20,6 +20,7 @@ export class AccountService implements OnInit {
   private moduleChange = new BehaviorSubject<any>(null);
   public confirmForm = false;
   public errorMessage = null;
+  public paymentForm = false;
   /* rPass is to keep track of where we are at in the reset password process: 0 = beginning; 1 = confirmation token sent to email; 2 = email confirmed; 3 = new password saved to database */
   public rPass = 0;
   public redirectUrl = null;
@@ -163,10 +164,35 @@ export class AccountService implements OnInit {
     this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe((response: Response) => {
       console.log(response);
       let resp = response.json();
-      this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
-      if(!isResetPass) {
-        if (this.uInfo !== null){
-        this.httpService.getRequest('createAccount', this.uInfo, this.raToken).subscribe(
+      if (resp.status === 225) {
+         this.errorMessage = "The email you are trying to register with is already in use with another account.";
+      } else {
+        this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+        if(!isResetPass) {
+          if (this.uInfo !== null){
+            this.paymentForm = true;
+          } else { 
+            console.log("Could not find users information.");
+        };
+      } else {
+        this.rPass = 2;
+      }
+      
+    }
+    )
+  }
+  
+  createAccount(stripe_token) {
+    let param = {
+      email: this.uInfo.email,
+      password: this.uInfo.password,
+      user_info: {
+        firstname: this.uInfo.firstname,
+        lastname: this.uInfo.lastname
+      },
+      stripe_token: stripe_token
+    };
+    this.httpService.getRequest('createAccount', param, this.raToken).subscribe(
           (response: Response) => {
             console.log(response);
             let res = response.json();
@@ -176,22 +202,12 @@ export class AccountService implements OnInit {
             this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
             this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
             this.loggedInUserToken.next(this.sToken);
-            this.router.navigate(['/home']);
+            this.routeTo('home')
             }
           },
           (error) => console.log('ERROR')
       );
-      } else { 
-        console.log("Could not find users information.");
-      };
-      } else {
-        this.rPass = 2;
-      }
-      
-    }
-    )
   }
-  
   /* updateForgotPass() allows the user to set a new password after verifying their email.*/
   updateForgotPass(email, password) {
     console.log(this.raToken);
@@ -260,8 +276,8 @@ export class AccountService implements OnInit {
       email: user.email,
       password: user.password, 
       userInfo: {
-        firstName: user.firstname, 
-        lastName: user.lastname
+        firstname: user.firstname, 
+        lastname: user.lastname
       }
     }
     } else {
