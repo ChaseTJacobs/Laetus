@@ -1,70 +1,13 @@
-<div class="register-container rounded">
-  <div class="py-3">
-    <legend class="font-weight-bold">Payment Information</legend>
-    
-    <form action="submitInformation()" method="POST">
-    <input type="hidden" name="token" />
-    <div class="group">
-      <label>
-        <span>Card number</span>
-        <div id="card-number-element" class="field"></div>
-      </label>
-      <label>
-        <span>Expiry date</span>
-        <div id="card-expiry-element" class="field"></div>
-      </label>
-      <label>
-        <span>CVC</span>
-        <div id="card-cvc-element" class="field"></div>
-      </label>
-      <label>
-        <span>Postal code</span>
-        <input id="postal-code" name="postal_code" class="field" placeholder="90210" />
-      </label>
+<div class="register-container">
+<form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+  <div class="form-row">
+    <label for="card-info">Card Info</label>
+    <div id="card-info" #cardInfo>
     </div>
-    <button type="submit" class="btn-teal">Pay $25</button>
-    <div class="outcome">
-      <div class="error"></div>
-      <div class="success">
-        Success! Your Stripe token is <span class="token"></span>
-      </div>
-    </div>
-  </form>
 
-<!--
-    <form [formGroup]="payForm" (ngSubmit)="getToken()">
-      <div class="px-3 mb-3">
-        <span class="payment-message">{{message}}</span>
-        <div class="form-group text-left font-weight-bold">
-          <div class="form-row">
-            <label>
-      <span>Card Number</span></label>
-            <input class="form-control text-left" formControlName="cardNumber" placeholder="Card Number" name="card-number" type="text" data-stripe="number">
-          </div>
-        </div>
-        
-
-        <div class="form-group text-left font-weight-bold">
-          <label>Expiration (MM/YY)</label>
-          <div class="row align-items-center px-2">
-            <div class="col-1"></div>
-            <input class="form-control col-sm-4" formControlName="expiryMonth" name="expiry-month" type="text" data-stripe="exp_month">
-            <span class="col-sm-2 text-center"> / </span>
-            <input class="form-control col-sm-4" formControlName="expiryYear" name="expiry-year" type="text" data-stripe="exp_year">
-            <div class="col-1"></div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label>
-      <span>CVC</span>
-      <input class="form-control" formControlName="cvc" name="cvc" type="text" data-stripe="cvc">
-    </label>
-        </div>
-
-        <input class="btn btn-teal" type="submit" value="Submit Payment">
-      </div>
-    </form>
--->
+    <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
   </div>
-</div>
+
+  <button type="submit">Pay $3.00</button>
+</form>
+  </div>

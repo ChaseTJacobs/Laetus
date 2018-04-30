@@ -21,6 +21,7 @@ export class AccountService implements OnInit {
   public confirmForm = false;
   public errorMessage = null;
   public savedQuiz = [];
+  public paymentForm = false;
   /* rPass is to keep track of where we are at in the reset password process: 0 = beginning; 1 = confirmation token sent to email; 2 = email confirmed; 3 = new password saved to database */
   public rPass = 0;
   public redirectUrl = null;
@@ -160,6 +161,7 @@ export class AccountService implements OnInit {
     };
     this.httpService.getRequest('confirmEmail', param, this.paToken).subscribe((response: Response) => {
       let resp = response.json();
+<<<<<<< HEAD
       this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
       if(!isResetPass) {
         if (this.uInfo !== null){
@@ -181,14 +183,55 @@ export class AccountService implements OnInit {
       } else { 
         console.log("Could not find users information.");
       };
+=======
+      if (resp.status === 225) {
+         this.errorMessage = "The email you are trying to register with is already in use with another account.";
+      } else {
+        this.raToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+        if(!isResetPass) {
+          if (this.uInfo !== null){
+            this.paymentForm = true;
+          } else { 
+            console.log("Could not find users information.");
+        };
+>>>>>>> a396c2718373a331eab2492be6ed8fe644d41706
       } else {
         this.rPass = 2;
       }
       
     }
     )
+<<<<<<< HEAD
+=======
   }
   
+  createAccount(stripe_token) {
+    let param = {
+      email: this.uInfo.email,
+      password: this.uInfo.password,
+      user_info: {
+        firstname: this.uInfo.firstname,
+        lastname: this.uInfo.lastname
+      },
+      stripe_token: stripe_token
+    };
+    this.httpService.getRequest('createAccount', param, this.raToken).subscribe(
+          (response: Response) => {
+            console.log(response);
+            let res = response.json();
+            if (res.status === 211) {
+              this.errorMessage = "The email you are trying to register with is already in use with another account.";
+            } else {
+            this.sToken = JSON.parse(JSON.stringify(response.headers)).authorization[0];
+            this.storage.set(STORAGE_KEY, JSON.stringify(this.sToken));
+            this.loggedInUserToken.next(this.sToken);
+            this.routeTo('home')
+            }
+          },
+          (error) => console.log('ERROR')
+      );
+>>>>>>> a396c2718373a331eab2492be6ed8fe644d41706
+  }
   /* updateForgotPass() allows the user to set a new password after verifying their email.*/
   updateForgotPass(email, password) {
     console.log(this.raToken);
@@ -253,6 +296,7 @@ export class AccountService implements OnInit {
   /* Takes the users information from the register page and holds onto it until they have verified their email and their account can be created. If isResetPass is true, we only worry about the email. */
   setUserInfo(user, isResetPass) {
     if(!isResetPass) {
+<<<<<<< HEAD
       if(this.quizResults) {
         this.uInfo = {
           email: user.email,
@@ -277,6 +321,14 @@ export class AccountService implements OnInit {
             takenQuiz: false
           }
         }
+=======
+    this.uInfo = {
+      email: user.email,
+      password: user.password, 
+      userInfo: {
+        firstname: user.firstname, 
+        lastname: user.lastname
+>>>>>>> a396c2718373a331eab2492be6ed8fe644d41706
       }
       
     } else {
